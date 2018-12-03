@@ -5,24 +5,43 @@
     <title>Courses</title>
 </head>
 <body>
-<form action="Controller" method="post">
+<form action="controller" method="post">
     <input type="hidden" name="command" value="login">
-    <label>E-mail</label>
-    <input type="text" name="email" placeholder="E-mail">
-    <label>Password</label>
-    <input type="password" name="password" placeholder="Password"/>
-    <input type="submit" value="Sign in"/>
+    <div>
+        <label>E-mail</label>
+        <div>
+            <input type="text" name="email" placeholder="e-mail">
+        </div>
+    </div>
+    <div>
+        <label>Password</label>
+        <div>
+            <input type="password" name="password" placeholder="password"/>
+        </div>
+    </div>
+    <input type="submit" value="sign in"/>
 </form>
-<br/>
-<form action="Controller" method="post">
+<form action="controller" method="post">
     <input type="hidden" name="command" value="registration">
-    <label>Name</label>
-    <input type="text" name="name" placeholder="Name">
-    <label>E-mail</label>
-    <input type="text" name="email" placeholder="E-mail">
-    <label>Password</label>
-    <input type="password" name="password" placeholder="Password"/>
-    <input type="submit" value="Sign up"/>
+    <div>
+        <label>Name</label>
+        <div>
+            <input type="text" name="name" placeholder="name">
+        </div>
+    </div>
+    <div>
+        <label>E-mail</label>
+        <div>
+            <input type="text" name="email" placeholder="e-mail"><br/>
+        </div>
+    </div>
+    <div>
+        <label>Password</label>
+        <div>
+            <input type="password" name="password" placeholder="password"/>
+        </div>
+    </div>
+    <input type="submit" value="sign up"/>
 </form>
 </body>
 </html>

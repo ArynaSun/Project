@@ -13,13 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 
 public class LoginAction implements Action {
 
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
     private static Logger logger = LogManager.getLogger(LoginAction.class);
 
     @Override
     public JspPage carryOut(HttpServletRequest request, HttpServletResponse response) {
 
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String email = request.getParameter(EMAIL);
+        String password = request.getParameter(PASSWORD);
 
         User user = null;
 

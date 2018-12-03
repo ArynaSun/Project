@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class RegistrationAction implements Action {
 
+    private static final String NAME = "name";
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
     private static Logger logger = LogManager.getLogger(RegistrationAction.class);
 
     @Override
@@ -22,9 +25,9 @@ public class RegistrationAction implements Action {
         UserDao userDao = DaoManager.getUserDao();
 
         User user = new User();
-        user.setName(request.getParameter("name"));
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("password"));
+        user.setName(request.getParameter(NAME));
+        user.setEmail(request.getParameter(EMAIL));
+        user.setPassword(request.getParameter(PASSWORD));
         user.setRoleId(3);
 
         try {

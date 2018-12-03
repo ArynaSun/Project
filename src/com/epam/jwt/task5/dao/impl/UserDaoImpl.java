@@ -22,11 +22,11 @@ public class UserDaoImpl implements UserDao {
         try {
             connection = ConnectionManager.getConnection();
             statement = connection.prepareStatement(
-                    SqlQuery.INSERT_INTO_USER_EMAIL_PASSORD_NAME_ROLE_ID_VALUES);
-            statement.setString(1, user.getEmail());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getName());
-            statement.setInt(4, user.getRoleId());
+                    SqlQuery.INSERT_INTO_USER_EMAIL_PASSWORD_NAME_ROLE_ID_VALUES);
+            statement.setString(SqlColumnInfo.INSERT_EMAIL_INDEX, user.getEmail());
+            statement.setString(SqlColumnInfo.INSERT_PASSWORD_INDEX, user.getPassword());
+            statement.setString(SqlColumnInfo.INSERT_NAME_INDEX, user.getName());
+            statement.setInt(SqlColumnInfo.INSERT_ROLE_ID_INDEX, user.getRoleId());
             statement.executeUpdate();
         } catch (ConnectionException | SQLException e) {
             e.printStackTrace();
@@ -63,9 +63,9 @@ public class UserDaoImpl implements UserDao {
         try {
             connection = ConnectionManager.getConnection();
             statement = connection.prepareStatement(
-                    SqlQuery.SELECT_FROM_USER_WHERE_PASSORD_AND_EMAIL);
-            statement.setString(1,password);
-            statement.setString(2,email);
+                    SqlQuery.SELECT_FROM_USER_WHERE_EMAIL_AND_PASSWORD);
+            statement.setString(1,email);
+            statement.setString(2,password);
             set = statement.executeQuery();
             if(set.next()){
                 user = new User();
