@@ -1,8 +1,11 @@
 package com.epam.jwt.task5.dao.impl;
 
 import com.epam.jwt.task5.bean.User;
-import com.epam.jwt.task5.dao.DaoException;
+import com.epam.jwt.task5.dao.exception.ConnectionPoolException;
+import com.epam.jwt.task5.dao.exception.DaoException;
 import com.epam.jwt.task5.dao.UserDao;
+import com.epam.jwt.task5.dao.exception.ConnectionException;
+import com.epam.jwt.task5.dao.pool.ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +23,7 @@ public class UserDaoImpl implements UserDao {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getPool().takeConnection();
             statement = connection.prepareStatement(
                     SqlQuery.INSERT_INTO_USER_EMAIL_PASSWORD_NAME_ROLE_ID_VALUES);
             statement.setString(SqlColumnInfo.INSERT_EMAIL_INDEX, user.getEmail());
@@ -28,7 +31,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(SqlColumnInfo.INSERT_NAME_INDEX, user.getName());
             statement.setInt(SqlColumnInfo.INSERT_ROLE_ID_INDEX, user.getRoleId());
             statement.executeUpdate();
-        } catch (ConnectionException | SQLException e) {
+        } catch (SQLException | ConnectionPoolException e) {
             e.printStackTrace();
             throw new DaoException(e);
         }finally {
@@ -41,8 +44,8 @@ public class UserDaoImpl implements UserDao {
             }
             if (connection != null){
                 try {
-                    connection.close();
-                } catch (SQLException e) {
+                    ConnectionManager.getPool().releaseConnection(connection);
+                } catch (ConnectionPoolException e) {
                     logger.info("Unable to close connection");
                 }
             }
@@ -61,7 +64,7 @@ public class UserDaoImpl implements UserDao {
         User user = null;
         ResultSet set = null;
         try {
-            connection = ConnectionManager.getConnection();
+            connection = ConnectionManager.getPool().takeConnection();
             statement = connection.prepareStatement(
                     SqlQuery.SELECT_FROM_USER_WHERE_EMAIL_AND_PASSWORD);
             statement.setString(1,email);
@@ -76,7 +79,7 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(set.getString(5));
             }
 
-        } catch (ConnectionException | SQLException e) {
+        } catch (SQLException |ConnectionPoolException e) {
             e.printStackTrace();
             throw new DaoException(e);
         }finally {
@@ -98,8 +101,8 @@ public class UserDaoImpl implements UserDao {
             }
             if (connection != null){
                 try {
-                    connection.close();
-                } catch (SQLException e) {
+                    ConnectionManager.getPool().releaseConnection(connection);
+                } catch (ConnectionPoolException e) {
                     logger.info("Unable to close connection");
                 }
             }

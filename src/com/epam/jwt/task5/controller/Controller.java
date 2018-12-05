@@ -15,16 +15,6 @@ public class Controller extends HttpServlet {
     private static final String LOGIN = "login";
     private static final String REGISTRATION = "registration";
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter(COMMAND);
         String jspPath = "";//TODO ERROR_PAGE

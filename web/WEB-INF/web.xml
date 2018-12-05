@@ -6,11 +6,11 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
     <servlet>
-        <servlet-name>Controller</servlet-name>
-        <servlet-class>com.epam.jwt.task5.controller.Controller</servlet-class>
-    </servlet>
+    <servlet-name>Controller</servlet-name>
+    <servlet-class>com.epam.jwt.task5.controller.Controller</servlet-class>
+</servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern>/Controller</url-pattern>
+        <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 </web-app>

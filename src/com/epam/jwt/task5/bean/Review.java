@@ -2,7 +2,7 @@ package com.epam.jwt.task5.bean;
 
 import java.io.Serializable;
 
-public class Review implements Serializable{
+public class Review implements Serializable{ //TODO override equals, hashCode, toString
     private int id;
     private int studentId;
     private int courseId;

@@ -1,4 +1,4 @@
-package com.epam.jwt.task5.dao.impl;
+package com.epam.jwt.task5.dao.exception;
 
 public class ConnectionException extends Exception {
     public ConnectionException() {
