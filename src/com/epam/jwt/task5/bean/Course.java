@@ -3,7 +3,7 @@ package com.epam.jwt.task5.bean;
 import java.io.Serializable;
 import java.util.List;
 
-public class Course implements Serializable {//TODO override equals, hashCode, toString
+public class Course implements Serializable {
     private String name;
     private int id;
     private int teacherId;
@@ -49,5 +49,49 @@ public class Course implements Serializable {//TODO override equals, hashCode, t
 
     public void setSubjectId(int subjectId) {
         this.subjectId = subjectId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (this == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Course course = (Course) obj;
+
+        if (null == name) {
+            return (name == course.name);
+        } else {
+            if (!name.equals(course.name)) {
+                return false;
+            }
+        }
+        if (id != course.id) {
+            return false;
+        }
+        if (teacherId != course.teacherId) {
+            return false;
+        }
+        if (subjectId != course.subjectId) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return ((name == null) ? 0 : (name.hashCode() * 11)) + (id * 31) + (teacherId * 13) + (subjectId * 17);
+    }
+
+    @Override
+    public String toString(){
+        return getClass().getName() + "name: " + name + ", id: " + id + ", teacherId: "
+                + teacherId + ", subjectId: "  + subjectId;
     }
 }

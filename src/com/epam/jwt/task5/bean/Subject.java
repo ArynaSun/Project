@@ -2,7 +2,7 @@ package com.epam.jwt.task5.bean;
 
 import java.io.Serializable;
 
-public class Subject implements Serializable {//TODO override equals, hashCode, toString
+public class Subject implements Serializable {
     private String name;
     private int id;
 
@@ -28,5 +28,42 @@ public class Subject implements Serializable {//TODO override equals, hashCode, 
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (this == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Subject subject = (Subject)obj;
+
+        if(null == name){
+            return (name == subject.name);
+        }else {
+            if(!name.equals(subject.name)){
+                return false;
+            }
+        }
+        if (id!=subject.id){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return ((name == null) ? 0 : (name.hashCode()) * 11) + (id * 31);
+    }
+
+    @Override
+    public String toString(){
+        return getClass().getName() + "name: " + name + ", id: " + id;
     }
 }

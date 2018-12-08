@@ -2,7 +2,7 @@ package com.epam.jwt.task5.bean;
 
 import java.io.Serializable;
 
-public class Task implements Serializable{ //TODO override equals, hashCode, toString
+public class Task implements Serializable {
     private int id;
     private int courseId;
     private String name;
@@ -68,5 +68,49 @@ public class Task implements Serializable{ //TODO override equals, hashCode, toS
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (this == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Task task = (Task) obj;
+        if (id != task.id) {
+            return false;
+        }
+        if (courseId != task.courseId) {
+            return false;
+        }
+        if (null == name) {
+            return (name == task.name);
+        } else {
+            if (!name.equals(task.name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return ((id * 31) + (courseId * 11) + ((name == null) ? 0 : name.hashCode()) * 11) +
+                +((attachments == null) ? 0 : (attachments.hashCode()) * 13) +
+                ((assignmentDate == null) ? 0 : (assignmentDate.hashCode()) * 17)
+                + ((deadline == null) ? 0 : (deadline.hashCode()) * 31);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + "id: " + id + ", courseId: " + courseId + ", name: "
+                + name +  ", attachments: " + attachments + ", assignmentDate: "
+                + assignmentDate + ", deadline: " + deadline;
     }
 }

@@ -21,7 +21,7 @@ public class ConnectionPool {
     private BlockingQueue<Connection> freeConnections;
     private BlockingQueue<Connection> workingConnections;
 
-    public ConnectionPool(int poolSize, String url, String user, String password) throws ConnectionException, ConnectionPoolException {
+    ConnectionPool(int poolSize, String url, String user, String password) throws ConnectionException, ConnectionPoolException {
         this.url = url;
         this.user = user;
         this.password = password;

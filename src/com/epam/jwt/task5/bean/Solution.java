@@ -2,7 +2,7 @@ package com.epam.jwt.task5.bean;
 
 import java.io.Serializable;
 
-public class Solution implements Serializable{//TODO override equals, hashCode, toString
+public class Solution implements Serializable {
     private int id;
     private int studentId;
     private int taskId;
@@ -78,5 +78,57 @@ public class Solution implements Serializable{//TODO override equals, hashCode, 
 
     public void setAttachments(String attachments) {
         this.attachments = attachments;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (this == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Solution solution = (Solution) obj;
+
+        if (id != solution.id) {
+            return false;
+        }
+        if (studentId != solution.studentId) {
+            return false;
+        }
+        if (taskId != solution.taskId) {
+            return false;
+        }
+        if (mark != solution.mark) {
+            return false;
+        }
+        if (statusId != solution.statusId) {
+            return false;
+        }
+        if (null == answer) {
+            return (answer == solution.answer);
+        } else {
+            if (!answer.equals(solution.answer)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return ((id * 11) + (studentId * 31) + (taskId * 17) + (mark * 13) + (statusId * 29) +
+                ((null == answer) ? 0 : (answer.hashCode() * 11) +
+                        ((null == attachments) ? 0 : (attachments.hashCode() * 31))));
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + "id: " + id + ", studentId: " + studentId + ", taskId: " + taskId +
+                ", mark: " + mark + ", statusId: " + statusId + ", answer: " + answer + ", attachments: " + attachments;
     }
 }
