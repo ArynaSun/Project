@@ -4,7 +4,6 @@ import com.epam.jwt.task5.bean.User;
 import com.epam.jwt.task5.dao.exception.ConnectionPoolException;
 import com.epam.jwt.task5.dao.exception.DaoException;
 import com.epam.jwt.task5.dao.UserDao;
-import com.epam.jwt.task5.dao.exception.ConnectionException;
 import com.epam.jwt.task5.dao.pool.ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,36 +12,36 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-
     private static Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
     @Override
     public void create(User user) throws DaoException {
         Connection connection = null;
-        PreparedStatement statement = null;
+        PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionManager.getPool().takeConnection();
-            statement = connection.prepareStatement(
+            preparedStatement = connection.prepareStatement(
                     SqlQuery.INSERT_INTO_USER_EMAIL_PASSWORD_NAME_ROLE_ID_VALUES);
-            statement.setString(SqlColumnInfo.INSERT_EMAIL_INDEX, user.getEmail());
-            statement.setString(SqlColumnInfo.INSERT_PASSWORD_INDEX, user.getPassword());
-            statement.setString(SqlColumnInfo.INSERT_NAME_INDEX, user.getName());
-            statement.setInt(SqlColumnInfo.INSERT_ROLE_ID_INDEX, user.getRoleId());
-            statement.executeUpdate();
+            preparedStatement.setString(PreparedStatementIndexes.INSERT_USER_EMAIL_INDEX, user.getEmail());
+            preparedStatement.setString(PreparedStatementIndexes.INSERT_USER_PASSWORD_INDEX, user.getPassword());
+            preparedStatement.setString(PreparedStatementIndexes.INSERT_USER_NAME_INDEX, user.getName());
+            preparedStatement.setInt(PreparedStatementIndexes.INSERT_USER_ROLE_ID_INDEX, user.getRoleId());
+            preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
             e.printStackTrace();
             throw new DaoException(e);
-        }finally {
-            if (statement != null){
+        } finally {
+            if (preparedStatement != null) {
                 try {
-                    statement.close();
+                    preparedStatement.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close statement");
+                    logger.info("Unable to close preparedStatement");
                 }
             }
-            if (connection != null){
+            if (connection != null) {
                 try {
                     ConnectionManager.getPool().releaseConnection(connection);
                 } catch (ConnectionPoolException e) {
@@ -58,48 +57,53 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<User> readAll() throws DaoException {
+        return null;
+    }
+
+    @Override
     public User readBy(String email, String password) throws DaoException {
         Connection connection = null;
-        PreparedStatement statement = null;
+        PreparedStatement preparedStatement = null;
         User user = null;
-        ResultSet set = null;
+        ResultSet resultSet = null;
         try {
             connection = ConnectionManager.getPool().takeConnection();
-            statement = connection.prepareStatement(
+            preparedStatement = connection.prepareStatement(
                     SqlQuery.SELECT_FROM_USER_WHERE_EMAIL_AND_PASSWORD);
-            statement.setString(1,email);
-            statement.setString(2,password);
-            set = statement.executeQuery();
-            if(set.next()){
+
+            preparedStatement.setString(PreparedStatementIndexes.SELECT_USER_EMAIL_INDEX, email);
+            preparedStatement.setString(PreparedStatementIndexes.SELECT_USER_PASSWORD_INDEX, password);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
                 user = new User();
-                user.setId(set.getInt(1));
-                user.setRoleId(set.getInt(2));
-                user.setName(set.getString(3));
-                user.setEmail(set.getString(4));
-                user.setPassword(set.getString(5));
+                user.setId(resultSet.getInt(ColumnInfo.USER_ID));
+                user.setRoleId(resultSet.getInt(ColumnInfo.USER_ROLE_ID));
+                user.setName(resultSet.getString(ColumnInfo.USER_NAME));
+                user.setEmail(email);
+                user.setPassword(password);
             }
 
-        } catch (SQLException |ConnectionPoolException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
-        }finally {
+        } finally {
 
-            if(set != null){
+            if (resultSet != null) {
                 try {
-                    set.close();
+                    resultSet.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close set");
+                    logger.info("Unable to close resultSet");//TODO ??
                 }
             }
 
-            if (statement != null){
+            if (preparedStatement != null) {
                 try {
-                    statement.close();
+                    preparedStatement.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close statement");
+                    logger.info("Unable to close preparedStatement");
                 }
             }
-            if (connection != null){
+            if (connection != null) {
                 try {
                     ConnectionManager.getPool().releaseConnection(connection);
                 } catch (ConnectionPoolException e) {
@@ -107,6 +111,57 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         }
+        return user;
+    }
+
+    @Override
+    public User readBy(String email) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        User user = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = ConnectionManager.getPool().takeConnection();
+            preparedStatement = connection.prepareStatement(SqlQuery.SELECT_FROM_USER_WHERE_EMAIL);
+            preparedStatement.setString(PreparedStatementIndexes.SELECT_USER_EMAIL_INDEX,email);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                user = new User();
+                user.setName(resultSet.getString(ColumnInfo.USER_NAME));
+                user.setId(resultSet.getInt(ColumnInfo.USER_ID));
+                user.setRoleId(resultSet.getInt(ColumnInfo.USER_ROLE_ID));
+                user.setEmail(email);
+                user.setPassword(resultSet.getString(ColumnInfo.USER_PASSWORD));
+            }
+        } catch (ConnectionPoolException | SQLException e) {
+            throw new DaoException(e);
+        }finally {
+
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    logger.info("Unable to close resultSet");//TODO ??
+                }
+            }
+
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.info("Unable to close preparedStatement");
+                }
+            }
+            if (connection != null) {
+                try {
+                    ConnectionManager.getPool().releaseConnection(connection);
+                } catch (ConnectionPoolException e) {
+                    logger.info("Unable to close connection");
+                }
+            }
+        }
+
         return user;
     }
 

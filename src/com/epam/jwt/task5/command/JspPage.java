@@ -1,4 +1,4 @@
-package com.epam.jwt.task5.service;
+package com.epam.jwt.task5.command;
 
 public enum JspPage {
     MAIN_PAGE("/jsp/mainPage.jsp"), INDEX_PAGE("/index.jsp");

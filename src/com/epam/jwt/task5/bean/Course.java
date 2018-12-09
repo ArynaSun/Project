@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Course implements Serializable {
     private String name;
+    private String description;//TODO
     private int id;
     private int teacherId;
     private int subjectId;
@@ -12,8 +13,9 @@ public class Course implements Serializable {
     public Course() {
     }
 
-    public Course(String name, int id, int teacherId, int subjectId) {
+    public Course(String name, String description, int id, int teacherId, int subjectId) {
         this.name = name;
+        this.description = description;
         this.id = id;
         this.teacherId = teacherId;
         this.subjectId = subjectId;
@@ -25,6 +27,14 @@ public class Course implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {

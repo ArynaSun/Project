@@ -1,32 +1,31 @@
-package com.epam.jwt.task5.service.impl;
+package com.epam.jwt.task5.command.impl;
 
 import com.epam.jwt.task5.bean.User;
+import com.epam.jwt.task5.command.RequestParameter;
 import com.epam.jwt.task5.dao.exception.DaoException;
-import com.epam.jwt.task5.dao.DaoManager;
-import com.epam.jwt.task5.service.CourseAction;
-import com.epam.jwt.task5.service.JspPage;
+import com.epam.jwt.task5.dao.DaoHelper;
+import com.epam.jwt.task5.command.CourseCommand;
+import com.epam.jwt.task5.command.JspPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LoginAction implements CourseAction {
+public class LoginCommand implements CourseCommand {
 
-    private static final String EMAIL = "email";
-    private static final String PASSWORD = "password";
-    private static Logger logger = LogManager.getLogger(LoginAction.class);
+    private static Logger logger = LogManager.getLogger(LoginCommand.class);
 
     @Override
     public JspPage carryOut(HttpServletRequest request, HttpServletResponse response) {
 
-        String email = request.getParameter(EMAIL);
-        String password = request.getParameter(PASSWORD);
+        String email = request.getParameter(RequestParameter.EMAIL);
+        String password = request.getParameter(RequestParameter.PASSWORD);
 
         User user = null;
 
         try {
-            user = DaoManager.getUserDao().readBy(email, password);
+            user = DaoHelper.getUserDao().readBy(email, password);
         } catch (DaoException e) {
             logger.info(e.getMessage());
             return JspPage.INDEX_PAGE;//TODO ERROR_PAGE

@@ -1,7 +1,7 @@
 package com.epam.jwt.task5.controller;
 
-import com.epam.jwt.task5.service.impl.LoginAction;
-import com.epam.jwt.task5.service.impl.RegistrationAction;
+import com.epam.jwt.task5.command.impl.LoginCommand;
+import com.epam.jwt.task5.command.impl.StudentRegistrationCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +19,9 @@ public class Controller extends HttpServlet {
         String command = request.getParameter(COMMAND);
         String jspPath = "";//TODO ERROR_PAGE
         if (command.equals(LOGIN)) {
-            jspPath = new LoginAction().carryOut(request, response).getPath();
+            jspPath = new LoginCommand().carryOut(request, response).getPath();
         }else if (command.equals(REGISTRATION)){
-            jspPath = new RegistrationAction().carryOut(request, response).getPath();
+            jspPath = new StudentRegistrationCommand().carryOut(request, response).getPath();
         }
        request.getServletContext().getRequestDispatcher(jspPath).forward(request, response);
     }
