@@ -31,7 +31,6 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setInt(PreparedStatementIndexes.INSERT_USER_ROLE_ID_INDEX, user.getRoleId());
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
-            e.printStackTrace();
             throw new DaoException(e);
         } finally {
             if (preparedStatement != null) {

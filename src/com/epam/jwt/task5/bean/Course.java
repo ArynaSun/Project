@@ -9,6 +9,7 @@ public class Course implements Serializable {
     private int id;
     private int teacherId;
     private int subjectId;
+    private int statusId;//TODO
 
     public Course() {
     }
@@ -59,6 +60,14 @@ public class Course implements Serializable {
 
     public void setSubjectId(int subjectId) {
         this.subjectId = subjectId;
+    }
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 
     @Override

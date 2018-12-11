@@ -8,5 +8,4 @@ public interface RequestParameter {
     String SUBJECT_ID = "subjectId";
     String EMAIL = "email";
     String PASSWORD = "password";
-
 }

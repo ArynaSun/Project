@@ -68,4 +68,46 @@ public class AdminServiceImpl implements AdminService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public void addSubject(String name) throws ServiceException, ValidationException {
+
+    }
+
+    @Override
+    public void changeCourseTeacher(String courseId, String teacherId) throws ServiceException, ValidationException {
+
+    }
+
+    @Override
+    public void changeCourseStatus(String courseId, String statusId) throws ServiceException, ValidationException {
+        ValidationResult result = adminServiceValidator.validateTwoNumbers(courseId, statusId);
+
+        if (!result.isValid()){
+            throw new ValidationException(result.getMessage());
+        }
+
+        try {
+            Course course = courseDao.readBy(Integer.parseInt(courseId));
+            course.setStatusId(Integer.parseInt(statusId));
+            courseDao.update(course);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void addStudentToCourse(String studentId, String courseId) throws ServiceException, ValidationException {
+        ValidationResult result = adminServiceValidator.validateTwoNumbers(courseId, studentId);
+
+        if (!result.isValid()){
+            throw new ValidationException(result.getMessage());
+        }
+
+        try {
+            courseDao.addStudentToCourse(Integer.parseInt(courseId), Integer.parseInt(studentId));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }
