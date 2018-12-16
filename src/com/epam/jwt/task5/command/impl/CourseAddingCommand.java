@@ -16,7 +16,7 @@ public class CourseAddingCommand implements CourseCommand {
     private static Logger logger = LogManager.getLogger(CourseAddingCommand.class);
 
     @Override
-    public JspPage carryOut(HttpServletRequest request, HttpServletResponse response) {
+    public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter(RequestParameter.COURSE_NAME);
         String description = request.getParameter(RequestParameter.COURSE_DESCRIPTION);
         String teacherId = request.getParameter(RequestParameter.TEACHER_ID);

@@ -10,6 +10,7 @@ public class Solution implements Serializable {
     private int statusId;
     private String answer;
     private String attachments;
+    private boolean isAccepted;//todo eq ha tos
 
     public Solution() {
     }
@@ -78,6 +79,14 @@ public class Solution implements Serializable {
 
     public void setAttachments(String attachments) {
         this.attachments = attachments;
+    }
+
+    public boolean isAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        isAccepted = accepted;
     }
 
     @Override

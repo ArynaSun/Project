@@ -2,23 +2,24 @@ package com.epam.jwt.task5.service.impl;
 
 import com.epam.jwt.task5.bean.Course;
 import com.epam.jwt.task5.bean.User;
+import com.epam.jwt.task5.dao.BaseDao;
 import com.epam.jwt.task5.dao.CourseDao;
 import com.epam.jwt.task5.dao.DaoHelper;
-import com.epam.jwt.task5.dao.UserDao;
 import com.epam.jwt.task5.dao.exception.DaoException;
+import com.epam.jwt.task5.dao.specification.SpecificationFactory;
 import com.epam.jwt.task5.service.AdminService;
 import com.epam.jwt.task5.service.exception.ServiceException;
 import com.epam.jwt.task5.service.exception.ValidationException;
 import com.epam.jwt.task5.service.validator.AdminServiceValidator;
-import com.epam.jwt.task5.service.validator.ValidationMessage;
+import com.epam.jwt.task5.service.validator.ValidationMessageKey;
 import com.epam.jwt.task5.service.validator.ValidationResult;
 import com.epam.jwt.task5.service.validator.ValidatorHelper;
 
 public class AdminServiceImpl implements AdminService {
 
-    public static final int TEACHER_ROLE_ID = 2;
+    private static final int TEACHER_ROLE_ID = 2;
     private AdminServiceValidator adminServiceValidator = ValidatorHelper.getAdminServiceValidator();
-    private UserDao userDao = DaoHelper.getUserDao();
+    private BaseDao<User, ?> userDao = DaoHelper.getUserDao();
     private CourseDao courseDao = DaoHelper.getCourseDao();
 
     @Override
@@ -31,9 +32,9 @@ public class AdminServiceImpl implements AdminService {
         }
         try {
 
-            User user = userDao.readBy(email);
+            User user = userDao.readBy(SpecificationFactory.userByEmail(email));
             if (user != null) {
-                throw new ValidationException(ValidationMessage.USER_EXISTS_MESSAGE);
+                throw new ValidationException(ValidationMessageKey.USER_EXISTS_MESSAGE);
             }
             user = new User();
 
@@ -52,7 +53,7 @@ public class AdminServiceImpl implements AdminService {
     public void addCourse(String name, String description, String teacherId, String subjectId) throws ServiceException, ValidationException {
         ValidationResult result = adminServiceValidator.validateCourse(name, description, teacherId, subjectId);
 
-        if (!result.isValid()){
+        if (!result.isValid()) {
             throw new ValidationException(result.getMessage());
         }
 
@@ -83,12 +84,12 @@ public class AdminServiceImpl implements AdminService {
     public void changeCourseStatus(String courseId, String statusId) throws ServiceException, ValidationException {
         ValidationResult result = adminServiceValidator.validateTwoNumbers(courseId, statusId);
 
-        if (!result.isValid()){
+        if (!result.isValid()) {
             throw new ValidationException(result.getMessage());
         }
 
         try {
-            Course course = courseDao.readBy(Integer.parseInt(courseId));
+            Course course = courseDao.readBy(SpecificationFactory.courseById(Integer.parseInt(courseId)));
             course.setStatusId(Integer.parseInt(statusId));
             courseDao.update(course);
         } catch (DaoException e) {
@@ -100,7 +101,7 @@ public class AdminServiceImpl implements AdminService {
     public void addStudentToCourse(String studentId, String courseId) throws ServiceException, ValidationException {
         ValidationResult result = adminServiceValidator.validateTwoNumbers(courseId, studentId);
 
-        if (!result.isValid()){
+        if (!result.isValid()) {
             throw new ValidationException(result.getMessage());
         }
 

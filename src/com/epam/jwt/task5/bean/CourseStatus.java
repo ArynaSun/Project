@@ -1,14 +1,13 @@
 package com.epam.jwt.task5.bean;
 
-public class CourseStatus {//TODO EQ HA TOS
+public enum  CourseStatus {
+    PLANNED(1, "Запланирован"), ACTIVE(2,"Активный"), COMPLETED(3, "Завершен");
 
-    private int id;
-    private String statusName;
+    private final int id;
+    private final String statusName;
 
-    public CourseStatus() {
-    }
 
-    public CourseStatus(int id, String statusName) {
+    CourseStatus(int id, String statusName) {
         this.id = id;
         this.statusName = statusName;
     }
@@ -17,15 +16,7 @@ public class CourseStatus {//TODO EQ HA TOS
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getStatusName() {
         return statusName;
-    }
-
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
     }
 }

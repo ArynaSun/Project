@@ -1,7 +1,7 @@
 package com.epam.jwt.task5.service.validator.impl;
 
 import com.epam.jwt.task5.service.validator.UserValidator;
-import com.epam.jwt.task5.service.validator.ValidationMessage;
+import com.epam.jwt.task5.service.validator.ValidationMessageKey;
 import com.epam.jwt.task5.service.validator.ValidationResult;
 
 public class BaseServiceValidator implements UserValidator {
@@ -23,15 +23,15 @@ public class BaseServiceValidator implements UserValidator {
 
         if (!validateName(name)) {
             validationResult.setValid(false);
-            validationResult.addMessage(ValidationMessage.NOT_VALID_NAME_MESSAGE);
+            validationResult.addMessage(ValidationMessageKey.NOT_VALID_NAME_MESSAGE);
         }
         if (!validateEmail(email)) {
             validationResult.setValid(false);
-            validationResult.addMessage(ValidationMessage.NOT_VALID_EMAIL_MESSAGE);
+            validationResult.addMessage(ValidationMessageKey.NOT_VALID_EMAIL_MESSAGE);
         }
         if (!validatePassword(password)) {
             validationResult.setValid(false);
-            validationResult.addMessage(ValidationMessage.NOT_VALID_PASSWORD_MESSAGE);
+            validationResult.addMessage(ValidationMessageKey.NOT_VALID_PASSWORD_MESSAGE);
         }
 
         return validationResult;

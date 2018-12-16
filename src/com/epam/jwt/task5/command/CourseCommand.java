@@ -4,5 +4,5 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface CourseCommand {
-    JspPage carryOut(HttpServletRequest request, HttpServletResponse response);
+    JspPage execute(HttpServletRequest request, HttpServletResponse response);
 }

@@ -1,20 +1,21 @@
 package com.epam.jwt.task5.service.impl;
 
 import com.epam.jwt.task5.bean.User;
+import com.epam.jwt.task5.dao.BaseDao;
 import com.epam.jwt.task5.dao.DaoHelper;
-import com.epam.jwt.task5.dao.UserDao;
 import com.epam.jwt.task5.dao.exception.DaoException;
+import com.epam.jwt.task5.dao.specification.SpecificationFactory;
 import com.epam.jwt.task5.service.StudentService;
 import com.epam.jwt.task5.service.exception.ServiceException;
 import com.epam.jwt.task5.service.exception.ValidationException;
 import com.epam.jwt.task5.service.validator.StudentServiceValidator;
-import com.epam.jwt.task5.service.validator.ValidationMessage;
+import com.epam.jwt.task5.service.validator.ValidationMessageKey;
 import com.epam.jwt.task5.service.validator.ValidationResult;
 import com.epam.jwt.task5.service.validator.ValidatorHelper;
 
 public class StudentServiceImpl implements StudentService {
 
-    public static final int STUDENT_ROLE_ID = 3;
+    private static final int STUDENT_ROLE_ID = 3;
 
     @Override
     public void registerStudent(String name, String email, String password) throws ServiceException, ValidationException {
@@ -27,10 +28,10 @@ public class StudentServiceImpl implements StudentService {
         }
         try {
 
-            UserDao userDao = DaoHelper.getUserDao();
-            User user = userDao.readBy(email);
+            BaseDao<User, ?> userDao = DaoHelper.getUserDao();
+            User user = userDao.readBy(SpecificationFactory.userByEmail(email));
             if (user != null) {
-                throw new ValidationException(ValidationMessage.USER_EXISTS_MESSAGE);
+                throw new ValidationException(ValidationMessageKey.USER_EXISTS_MESSAGE);
             }
             user = new User();
 
