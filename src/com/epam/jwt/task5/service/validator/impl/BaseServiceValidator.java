@@ -4,6 +4,9 @@ import com.epam.jwt.task5.service.validator.UserValidator;
 import com.epam.jwt.task5.service.validator.ValidationMessageKey;
 import com.epam.jwt.task5.service.validator.ValidationResult;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class BaseServiceValidator implements UserValidator {
 
 
@@ -16,6 +19,10 @@ public class BaseServiceValidator implements UserValidator {
             "(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
     public static final int MIN_PASSWORD_LENGTH = 5;
     public static final int MAX_PASSWORD_LENGTH = 21;
+    public static final int MIN_MARK = 0;
+    public static final int MAX_MARK = 10;
+    public static final int MAX_DESCRIPTION_LENGTH = 1000;
+    public static final String DATE_REGEX = "(0?[1-9]|[12][0-9]|3[01]).(0?[1-9]|1[012]).((19|20)\\d\\d)";
 
     @Override
     public ValidationResult validateUserData(String name, String email, String password) {
@@ -35,6 +42,20 @@ public class BaseServiceValidator implements UserValidator {
         }
 
         return validationResult;
+    }
+
+    public ValidationResult validateRequestData(String name, String userId) {
+        ValidationResult result = new ValidationResult();
+        if (!validateName(name)){
+            result.setValid(false);
+            result.addMessage(ValidationMessageKey.NOT_VALID_NAME_MESSAGE);
+        }
+
+        if (!validateNumber(userId)){
+            result.setValid(false);
+            result.addMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE);
+        }
+        return result;
     }
 
     protected boolean validatePassword(String password) {
@@ -57,5 +78,25 @@ public class BaseServiceValidator implements UserValidator {
             return false;
         }
         return true;
+    }
+
+    protected boolean validateMark(String mark) {
+        return validateNumber(mark) && Integer.valueOf(mark) >= MIN_MARK && Integer.valueOf(mark) <= MAX_MARK;
+    }
+
+    protected boolean validateDescription(String description) {
+        return description != null && !description.isEmpty() && description.length() < MAX_DESCRIPTION_LENGTH;
+    }
+
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+    boolean validateDate(String date) {
+        try {
+            format.parse(date);
+            return true;
+        }
+        catch(ParseException e){
+            return false;
+        }
     }
 }

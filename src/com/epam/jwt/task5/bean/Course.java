@@ -1,25 +1,25 @@
 package com.epam.jwt.task5.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Course implements Serializable {
     private String name;
-    private String description;//TODO
+    private String description;
     private int id;
     private int teacherId;
     private int subjectId;
-    private int statusId;//TODO
+    private int statusId;
 
     public Course() {
     }
 
-    public Course(String name, String description, int id, int teacherId, int subjectId) {
+    public Course(String name, String description, int id, int teacherId, int subjectId, int statusId) {
         this.name = name;
         this.description = description;
         this.id = id;
         this.teacherId = teacherId;
         this.subjectId = subjectId;
+        this.statusId = statusId;
     }
 
     public String getName() {
@@ -91,6 +91,13 @@ public class Course implements Serializable {
                 return false;
             }
         }
+        if (null == description) {
+            return (description == course.description);
+        } else {
+            if (!description.equals(course.description)) {
+                return false;
+            }
+        }
         if (id != course.id) {
             return false;
         }
@@ -100,17 +107,22 @@ public class Course implements Serializable {
         if (subjectId != course.subjectId) {
             return false;
         }
+        if (statusId != course.statusId) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public int hashCode() {
-        return ((name == null) ? 0 : (name.hashCode() * 11)) + (id * 31) + (teacherId * 13) + (subjectId * 17);
+        return ((name == null) ? 0 : (name.hashCode() * 11)) +
+                ((description == null) ? 0 : (description.hashCode() * 17)) + (id * 31) +
+                (teacherId * 31)+ (statusId * 11) + (subjectId * 19);
     }
 
     @Override
     public String toString(){
-        return getClass().getName() + "name: " + name + ", id: " + id + ", teacherId: "
-                + teacherId + ", subjectId: "  + subjectId;
+        return getClass().getName() + "name: " + name + ", description: " + description + ", id: " + id + ", teacherId: "
+                + teacherId +", statusId: " + statusId + ", subjectId: "  + subjectId;
     }
 }

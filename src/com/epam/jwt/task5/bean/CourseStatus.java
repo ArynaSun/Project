@@ -1,6 +1,8 @@
 package com.epam.jwt.task5.bean;
 
-public enum  CourseStatus {
+import java.io.Serializable;
+
+public enum  CourseStatus implements Serializable{
     PLANNED(1, "Запланирован"), ACTIVE(2,"Активный"), COMPLETED(3, "Завершен");
 
     private final int id;

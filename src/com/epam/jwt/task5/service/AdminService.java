@@ -9,11 +9,13 @@ public interface AdminService {
     void addCourse(String name, String description, String teacherId, String subjectId)
             throws ServiceException, ValidationException;
 
-    void addSubject(String name) throws ServiceException, ValidationException;
+   // void addSubject(String name) throws ServiceException, ValidationException;//todo нет в блокноте
 
     void changeCourseTeacher(String courseId, String teacherId) throws ServiceException, ValidationException;
 
     void changeCourseStatus(String courseId, String statusId) throws ServiceException, ValidationException;
 
     void addStudentToCourse(String studentId, String courseId) throws ServiceException, ValidationException;
+
+    void changeRequestStatus(String requestId, String statusId)throws ServiceException, ValidationException;
 }

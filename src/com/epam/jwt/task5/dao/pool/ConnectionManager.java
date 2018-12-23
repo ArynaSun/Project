@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 
-    private static Logger logger = LogManager.getLogger(ConnectionPool.class);//TODO maybe i will use it
+    private static Logger logger = LogManager.getLogger(ConnectionPool.class);
 
     private static final String URL = "jdbc:mysql://localhost:3306/coursedb?" +
             "useUnicode=true&" +
@@ -22,9 +22,11 @@ public class ConnectionManager {
     private static final String user = "root";
     private static final String password = "root";
 
+    public static final String COM_MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
+
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(COM_MYSQL_JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -32,11 +34,13 @@ public class ConnectionManager {
 
     private static ConnectionPool pool = null;
 
+    public static final int POOL_SIZE = 3;
+
     static {
         try {
-            pool = new ConnectionPool(3, URL, user, password);
+            pool = new ConnectionPool(POOL_SIZE, URL, user, password);
         } catch (ConnectionException | ConnectionPoolException e) {
-            logger.info(e.getMessage());
+            logger.error("Ошибка соеднинения", e);
         }
     }
 
@@ -44,7 +48,7 @@ public class ConnectionManager {
         try {
             return DriverManager.getConnection(URL, user, password);
         } catch (SQLException e) {
-            throw new ConnectionException(e);
+            throw new ConnectionException("Ошибка соеднинения с базой", e);// нужно ли в константу
         }
     }
 

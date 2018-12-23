@@ -33,10 +33,9 @@ public class SolutionDaoImpl implements BaseDao<Solution, ResultSet> {
             preparedStatement.setInt(1, solution.getStudentId());
             preparedStatement.setInt(2, solution.getTaskId());
             preparedStatement.setInt(3, solution.getMark());
-            preparedStatement.setInt(4, solution.getStatusId());
-            preparedStatement.setString(5, solution.getAnswer());
-            preparedStatement.setString(6, solution.getAttachments());
-            preparedStatement.setInt(7, solution.isAccepted() ? 1 : 0);
+            preparedStatement.setString(4, solution.getAnswer());
+            preparedStatement.setString(5, solution.getAttachments());
+            preparedStatement.setInt(6, solution.isAccepted() ? 1 : 0);
             preparedStatement.execute();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Ошибка уровня Dao", e);
@@ -140,10 +139,9 @@ public class SolutionDaoImpl implements BaseDao<Solution, ResultSet> {
             preparedStatement.setInt(2, solution.getStudentId());
             preparedStatement.setInt(3, solution.getTaskId());
             preparedStatement.setInt(4, solution.getMark());
-            preparedStatement.setInt(5, solution.getStatusId());
-            preparedStatement.setString(6, solution.getAnswer());
-            preparedStatement.setString(7, solution.getAttachments());
-            preparedStatement.setInt(8, solution.isAccepted() ? 1 : 0);
+            preparedStatement.setString(5, solution.getAnswer());
+            preparedStatement.setString(6, solution.getAttachments());
+            preparedStatement.setInt(7, solution.isAccepted() ? 1 : 0);
             preparedStatement.execute();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Ошибка уровня Dao", e);
@@ -201,9 +199,9 @@ public class SolutionDaoImpl implements BaseDao<Solution, ResultSet> {
     private static final class SqlQuery {
 
         private static final String INSERT_INTO_SOLUTION = "INSERT INTO solution " +
-                "(student_id, task_id, mark, status_id, answer, attachments, is_accepted) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "(student_id, task_id, mark, answer, attachments, is_accepted) VALUES (?, ?, ?, ?, ?, ?)";
         private static final String UPDATE_SOLUTION = "UPDATE solution SET student_id = ?, task_id = ?, " +
-                "mark = ?, status_id = ?, answer = ?, attachments = ?, is_accepted = ? WHERE id = ?";
+                "mark = ?, answer = ?, attachments = ?, is_accepted = ? WHERE id = ?";
         private static final String DELETE_FROM_SOLUTION_WHERE_ID = "DELETE FROM solution WHERE id = ?";
     }
 }

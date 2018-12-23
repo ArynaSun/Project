@@ -1,6 +1,7 @@
 package com.epam.jwt.task5.service.impl;
 
 import com.epam.jwt.task5.bean.Course;
+import com.epam.jwt.task5.bean.Request;
 import com.epam.jwt.task5.bean.User;
 import com.epam.jwt.task5.dao.BaseDao;
 import com.epam.jwt.task5.dao.CourseDao;
@@ -21,6 +22,7 @@ public class AdminServiceImpl implements AdminService {
     private AdminServiceValidator adminServiceValidator = ValidatorHelper.getAdminServiceValidator();
     private BaseDao<User, ?> userDao = DaoHelper.getUserDao();
     private CourseDao courseDao = DaoHelper.getCourseDao();
+    private BaseDao<Request, ?> requestDao = DaoHelper.getRequestDao();
 
     @Override
     public void registerTeacher(String name, String email, String password) throws ServiceException, ValidationException {
@@ -45,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
 
             userDao.create(user);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e);//todo mes
         }
     }
 
@@ -66,18 +68,24 @@ public class AdminServiceImpl implements AdminService {
         try {
             courseDao.create(course);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e);//todo mes
         }
     }
 
     @Override
-    public void addSubject(String name) throws ServiceException, ValidationException {
-
-    }
-
-    @Override
     public void changeCourseTeacher(String courseId, String teacherId) throws ServiceException, ValidationException {
+        ValidationResult result = adminServiceValidator.validateTwoNumbers(courseId, teacherId);
 
+        if (!result.isValid()){
+            throw new ValidationException(result.getMessage());
+        }
+        try {
+            Course course = courseDao.readBy(SpecificationFactory.courseById(Integer.parseInt(courseId)));
+            course.setTeacherId(Integer.parseInt(teacherId));
+            courseDao.update(course);
+        } catch (DaoException e) {
+            throw new ServiceException(e);//todo mes
+        }
     }
 
     @Override
@@ -93,7 +101,7 @@ public class AdminServiceImpl implements AdminService {
             course.setStatusId(Integer.parseInt(statusId));
             courseDao.update(course);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e);//todo mes
         }
     }
 
@@ -108,7 +116,24 @@ public class AdminServiceImpl implements AdminService {
         try {
             courseDao.addStudentToCourse(Integer.parseInt(courseId), Integer.parseInt(studentId));
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e);//todo mes
         }
+    }
+
+    @Override
+    public void changeRequestStatus(String requestId, String statusId) throws ServiceException, ValidationException {
+        ValidationResult result = adminServiceValidator.validateTwoNumbers(requestId, statusId);
+
+        if (!result.isValid()){
+            throw new ValidationException(result.getMessage());
+        }
+        try {
+            Request request = requestDao.readBy(SpecificationFactory.requestById(Integer.parseInt(requestId)));
+            request.setStatusId(Integer.parseInt(statusId));
+            requestDao.update(request);
+        } catch (DaoException e) {
+            throw new ServiceException(e);//todo mes
+        }
+
     }
 }

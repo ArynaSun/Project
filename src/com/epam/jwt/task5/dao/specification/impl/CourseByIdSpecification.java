@@ -33,11 +33,11 @@ public class CourseByIdSpecification implements DaoSpecification<Course, ResultS
                 course.setName(resultSet.getString(ColumnInfo.COURSE_NAME));
                 course.setDescription(resultSet.getString(ColumnInfo.COURSE_DESCRIPTION));
                 course.setStatusId(resultSet.getInt(ColumnInfo.COURSE_STATUS_ID));
-                course.setSubjectId(resultSet.getInt(ColumnInfo.SUBJECT_ID));
-                course.setTeacherId(resultSet.getInt(ColumnInfo.TEACHER_ID));
+                course.setSubjectId(resultSet.getInt(ColumnInfo.COURSE_SUBJECT_ID));
+                course.setTeacherId(resultSet.getInt(ColumnInfo.COURSE_TEACHER_ID));
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);
+            throw new SpecificationException(e);//todo
         }
         courseList.add(course);
 

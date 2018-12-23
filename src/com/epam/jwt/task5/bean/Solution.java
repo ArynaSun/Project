@@ -7,7 +7,6 @@ public class Solution implements Serializable {
     private int studentId;
     private int taskId;
     private int mark;
-    private int statusId;
     private String answer;
     private String attachments;
     private boolean isAccepted;//todo eq ha tos
@@ -15,14 +14,14 @@ public class Solution implements Serializable {
     public Solution() {
     }
 
-    public Solution(int id, int studentId, int taskId, int mark, int statusId, String answer, String attachments) {
+    public Solution(int id, int studentId, int taskId, int mark, String answer, String attachments, boolean isAccepted) {
         this.id = id;
         this.studentId = studentId;
         this.taskId = taskId;
         this.mark = mark;
-        this.statusId = statusId;
         this.answer = answer;
         this.attachments = attachments;
+        this.isAccepted = isAccepted;
     }
 
     public int getId() {
@@ -55,14 +54,6 @@ public class Solution implements Serializable {
 
     public void setMark(int mark) {
         this.mark = mark;
-    }
-
-    public int getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
     }
 
     public String getAnswer() {
@@ -115,7 +106,7 @@ public class Solution implements Serializable {
         if (mark != solution.mark) {
             return false;
         }
-        if (statusId != solution.statusId) {
+        if (isAccepted != solution.isAccepted) {
             return false;
         }
         if (null == answer) {
@@ -130,14 +121,14 @@ public class Solution implements Serializable {
 
     @Override
     public int hashCode() {
-        return ((id * 11) + (studentId * 31) + (taskId * 17) + (mark * 13) + (statusId * 29) +
-                ((null == answer) ? 0 : (answer.hashCode() * 11) +
-                        ((null == attachments) ? 0 : (attachments.hashCode() * 31))));
+        return ((id * 11) + (studentId * 31) + (taskId * 17) + (isAccepted ? 1* 19 : 0 ) + (mark * 13) +
+                ((null == answer) ? 0 : (answer.hashCode() * 11) + ((null == attachments) ? 0 : (attachments.hashCode() * 31))));
     }
 
     @Override
     public String toString() {
         return getClass().getName() + "id: " + id + ", studentId: " + studentId + ", taskId: " + taskId +
-                ", mark: " + mark + ", statusId: " + statusId + ", answer: " + answer + ", attachments: " + attachments;
+                ", mark: " + mark + ", statusId: " + ", answer: " + answer + ", attachments: " + attachments +
+                ", isAccepted: " + isAccepted;
     }
 }

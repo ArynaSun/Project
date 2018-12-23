@@ -54,8 +54,8 @@ public class ConnectionPool {
         workingConnections.remove(connection);
         try {
             freeConnections.put(connection);
-        } catch (InterruptedException e) {//TODO or just log?
-            throw new ConnectionPoolException(e);
+        } catch (InterruptedException e) {
+            throw new ConnectionPoolException(e);//todo my message
         }
     }
 
