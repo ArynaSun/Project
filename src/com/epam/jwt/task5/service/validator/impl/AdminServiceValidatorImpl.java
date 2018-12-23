@@ -29,18 +29,4 @@ public class AdminServiceValidatorImpl extends BaseServiceValidator implements A
 
         return result;
     }
-
-    @Override
-    public ValidationResult validateTwoNumbers(String firstNumber, String secondNumber) {
-        ValidationResult result = new ValidationResult();
-
-        if (!validateNumber(secondNumber) || !validateNumber(firstNumber)) {
-            result.setValid(false);
-            result.addMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE);
-        }
-        return result;
-    }
-
-
-
 }

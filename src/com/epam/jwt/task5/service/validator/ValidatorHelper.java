@@ -1,15 +1,13 @@
 package com.epam.jwt.task5.service.validator;
 
-import com.epam.jwt.task5.service.validator.impl.AdminServiceValidatorImpl;
-import com.epam.jwt.task5.service.validator.impl.BaseServiceValidator;
-import com.epam.jwt.task5.service.validator.impl.StudentServiceValidatorImpl;
-import com.epam.jwt.task5.service.validator.impl.TeacherServiceValidatorImpl;
+import com.epam.jwt.task5.service.validator.impl.*;
 
 public class ValidatorHelper {
     private static final BaseServiceValidator baseServiceValidator = new BaseServiceValidator();
     private static final AdminServiceValidator adminServiceValidator = new AdminServiceValidatorImpl();
     private static final StudentServiceValidator studentServiceValidator =new StudentServiceValidatorImpl();
     private static final TeacherServiceValidator teacherServiceValidator = new TeacherServiceValidatorImpl();
+    private static final CommonServiceValidator commonServiceValidator = new CommonServiceValidatorImpl();
 
     public static BaseServiceValidator getBaseServiceValidator() {
         return baseServiceValidator;
@@ -25,5 +23,9 @@ public class ValidatorHelper {
 
     public static TeacherServiceValidator getTeacherServiceValidator() {
         return teacherServiceValidator;
+    }
+
+    public static CommonServiceValidator getCommonServiceValidator() {
+        return commonServiceValidator;
     }
 }

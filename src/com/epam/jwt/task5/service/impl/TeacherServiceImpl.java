@@ -2,10 +2,12 @@ package com.epam.jwt.task5.service.impl;
 
 import com.epam.jwt.task5.bean.Request;
 import com.epam.jwt.task5.bean.Review;
+import com.epam.jwt.task5.bean.Solution;
 import com.epam.jwt.task5.bean.Task;
 import com.epam.jwt.task5.dao.BaseDao;
 import com.epam.jwt.task5.dao.DaoHelper;
 import com.epam.jwt.task5.dao.exception.DaoException;
+import com.epam.jwt.task5.dao.specification.SpecificationFactory;
 import com.epam.jwt.task5.service.TeacherService;
 import com.epam.jwt.task5.service.exception.ServiceException;
 import com.epam.jwt.task5.service.exception.ValidationException;
@@ -76,6 +78,15 @@ public class TeacherServiceImpl implements TeacherService {
 
         if (!result.isValid()){
             throw new ValidationException(result.getMessage());//todo mes
+        }
+
+        BaseDao<Solution, ?> solutionDao = DaoHelper.getSolutionDao();
+        try {
+            Solution solution = solutionDao.readBy(SpecificationFactory.solutionById(Integer.parseInt(solutionId)));
+            solution.setMark(Integer.parseInt(mark));
+            solutionDao.update(solution);
+        } catch (DaoException e) {
+            throw new ServiceException(e);//todo mes
         }
 
 

@@ -22,7 +22,6 @@ public class BaseServiceValidator implements UserValidator {
     public static final int MIN_MARK = 0;
     public static final int MAX_MARK = 10;
     public static final int MAX_DESCRIPTION_LENGTH = 1000;
-    public static final String DATE_REGEX = "(0?[1-9]|[12][0-9]|3[01]).(0?[1-9]|1[012]).((19|20)\\d\\d)";
 
     @Override
     public ValidationResult validateUserData(String name, String email, String password) {
@@ -44,7 +43,18 @@ public class BaseServiceValidator implements UserValidator {
         return validationResult;
     }
 
-    public ValidationResult validateRequestData(String name, String userId) {
+    @Override
+    public ValidationResult validateTwoNumbers(String firstNumber, String secondNumber) {
+        ValidationResult result = new ValidationResult();
+
+        if (!validateNumber(secondNumber) || !validateNumber(firstNumber)) {
+            result.setValid(false);
+            result.addMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE);
+        }
+        return result;
+    }
+
+    public ValidationResult validateRequestData(String name, String userId) {//todo не должно быть у админа
         ValidationResult result = new ValidationResult();
         if (!validateName(name)){
             result.setValid(false);
