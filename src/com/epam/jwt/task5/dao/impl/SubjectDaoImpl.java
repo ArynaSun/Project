@@ -42,7 +42,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -50,7 +50,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -76,7 +76,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -84,7 +84,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
         return subject;
@@ -111,7 +111,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -119,7 +119,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
         return subjectList;
@@ -135,8 +135,9 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
             connection = ConnectionManager.getPool().takeConnection();
             preparedStatement = connection.prepareStatement(
                     SqlQuery.UPDATE_SUBJECT);
-            preparedStatement.setInt(1, subject.getId());
-            preparedStatement.setString(2, subject.getName());
+            preparedStatement.setString(1, subject.getName());
+            preparedStatement.setInt(2, subject.getId());
+
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Ошибка уровня Dao", e);
@@ -146,7 +147,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -154,7 +155,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -179,7 +180,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -187,7 +188,7 @@ public class SubjectDaoImpl implements BaseDao<Subject, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }

@@ -13,17 +13,17 @@ import com.epam.jwt.task5.service.validator.ValidationResult;
 import com.epam.jwt.task5.service.validator.ValidatorHelper;
 import com.epam.jwt.task5.service.validator.impl.BaseServiceValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CommonServiceImpl implements CommonService {
-    BaseServiceValidator baseServiceValidator = ValidatorHelper.getBaseServiceValidator();
-    CommonServiceValidator commonServiceValidator = ValidatorHelper.getCommonServiceValidator();
-    BaseDao<Course, ?> courseDao = DaoHelper.getCourseDao();
-    BaseDao<Solution, ?> solutionDao = DaoHelper.getSolutionDao();
-    BaseDao<Request, ?> requestDao = DaoHelper.getRequestDao();
-    BaseDao<Task, ?> taskDao = DaoHelper.getTaskDao();
-    User user = null;
+    private BaseServiceValidator baseServiceValidator = ValidatorHelper.getBaseServiceValidator();
+    private CommonServiceValidator commonServiceValidator = ValidatorHelper.getCommonServiceValidator();
+    private BaseDao<Course, ?> courseDao = DaoHelper.getCourseDao();
+    private BaseDao<Solution, ?> solutionDao = DaoHelper.getSolutionDao();
+    private BaseDao<Request, ?> requestDao = DaoHelper.getRequestDao();
+    private BaseDao<Task, ?> taskDao = DaoHelper.getTaskDao();
+    private BaseDao<Review, ?> reviewDao = DaoHelper.getReviewDao();
+    private User user = null;
 
     @Override
     public User findUserById(String userId) throws ServiceException, ValidationException {
@@ -43,7 +43,45 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<Course> findCourses(String statusId) throws ServiceException, ValidationException {
+    public List<User> findUsersByRoleId(String roleId) throws ServiceException, ValidationException {
+        List<User> userList = null;
+
+        ValidationResult result = commonServiceValidator.validateId(roleId);
+
+        if (!result.isValid()) {
+            throw new ValidationException(result.getMessage());
+        }
+
+        BaseDao<User, ?> userDao = DaoHelper.getUserDao();
+        try {
+            userList = userDao.read(SpecificationFactory.usersByRoleId(Integer.parseInt(roleId)));
+        } catch (DaoException e) {
+            throw new ServiceException(e);//todo mes
+        }
+        return userList;
+    }
+
+    @Override
+    public List<User> findStudentsBy(String courseId) throws ServiceException, ValidationException {
+        List<User> userList = null;
+
+        ValidationResult result = commonServiceValidator.validateId(courseId);
+
+        if (!result.isValid()) {
+            throw new ValidationException(result.getMessage());
+        }
+
+        BaseDao<User, ?> userDao = DaoHelper.getUserDao();
+        try {
+            userList = userDao.read(SpecificationFactory.usersBy(Integer.parseInt(courseId)));
+        } catch (DaoException e) {
+            throw new ServiceException(e);//todo mes
+        }
+        return userList;
+    }
+
+    @Override
+    public List<Course> findCoursesByStatusId(String statusId) throws ServiceException, ValidationException {
         List<Course> courseList = null;
 
         ValidationResult result = commonServiceValidator.validateId(statusId);
@@ -53,12 +91,44 @@ public class CommonServiceImpl implements CommonService {
         }
 
         try {
-            courseList = courseDao.read(SpecificationFactory.courseByStatus(Integer.parseInt(statusId)));
+            courseList = courseDao.read(SpecificationFactory.coursesByStatus(Integer.parseInt(statusId)));
         } catch (DaoException e) {
             throw new ServiceException(e);//todo mes
         }
 
         return courseList;
+    }
+
+    @Override
+    public List<Course> findCoursesBy(int studentId, int statusId) throws ServiceException, ValidationException {//todo breeed
+        List<Course> courseList = null;
+
+        try {
+            courseList = courseDao.read(SpecificationFactory.coursesByStudentIdStatusId(studentId, statusId));
+        } catch (DaoException e) {
+            throw new ServiceException(e);//todo mes
+        }
+
+        return courseList;
+    }
+
+    @Override
+    public Course findCourseByTeacherId(int teacherId) throws ServiceException, ValidationException {
+        List<Course> courseList = null;
+
+//        ValidationResult result = commonServiceValidator.validateId(teacherId);
+//
+//        if (!result.isValid()) {
+//            throw new ValidationException(result.getMessage());
+//        }
+
+        try {
+            courseList = courseDao.read(SpecificationFactory.coursesByTeacherId(teacherId));
+        } catch (DaoException e) {
+            throw new ServiceException(e);//todo mes
+        }
+
+        return courseList != null ? courseList.get(0) : null;
     }
 
     @Override
@@ -91,7 +161,7 @@ public class CommonServiceImpl implements CommonService {
         }
 
         try {
-            taskList = taskDao.read(SpecificationFactory.taskByCourseId(Integer.parseInt(courseId)));
+            taskList = taskDao.read(SpecificationFactory.tasksByCourseId(Integer.parseInt(courseId)));
         } catch (DaoException e) {
             throw new ServiceException(e);//todo mes
         }
@@ -111,7 +181,7 @@ public class CommonServiceImpl implements CommonService {
 
         try {
             solutionList = solutionDao.read(SpecificationFactory.
-                    solutionByCourseIdStudentId(Integer.parseInt(courseId), Integer.parseInt(studentId)));
+                    solutionsByCourseIdStudentId(Integer.parseInt(courseId), Integer.parseInt(studentId)));
         } catch (DaoException e) {
             throw new ServiceException(e);//todo mes
         }
@@ -139,14 +209,39 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<Request> findRequests() throws ServiceException, ValidationException {
+    public List<Request> findRequests(String roleId) throws ServiceException, ValidationException {//todo validator?
         List<Request> requestList = null;
 
+        ValidationResult result = commonServiceValidator.validateId(roleId);
+
+        if (!result.isValid()) {
+            throw new ValidationException(result.getMessage());
+        }
+
         try {
-            requestList = requestDao.read(SpecificationFactory.allRequests());
+            requestList = requestDao.read(SpecificationFactory.requestsByRoleId(Integer.parseInt(roleId)));
         } catch (DaoException e) {
             throw new ServiceException(e);//todo mes
         }
         return requestList;
+    }
+
+    @Override
+    public List<Review> findReview(String studentId) throws ServiceException, ValidationException {
+        List<Review> reviewList = null;
+
+        ValidationResult result = commonServiceValidator.validateId(studentId);
+
+        if (!result.isValid()) {
+            throw new ValidationException(result.getMessage());
+        }
+
+        try {
+            reviewList = reviewDao.read(SpecificationFactory.reviewsByStudentId(Integer.parseInt(studentId)));
+        } catch (DaoException e) {
+            throw new ServiceException(e);//todo mes
+        }
+
+        return reviewList;
     }
 }

@@ -27,7 +27,7 @@ public class TasksByCourseIdSpecification implements DaoSpecification<Task, Resu
         Task task = null;
 
         try {
-            if (resultSet.next()){
+            while (resultSet.next()){
                 task = new Task();
                 task.setId(resultSet.getInt(ColumnInfo.TASK_ID));
                 task.setCourseId(courseId);
@@ -35,11 +35,13 @@ public class TasksByCourseIdSpecification implements DaoSpecification<Task, Resu
                 task.setAttachments(resultSet.getString(ColumnInfo.TASK_ATTACHMENTS));
                 task.setAssignmentDate(resultSet.getString(ColumnInfo.TASK_ASSIGNMENT_DATE));
                 task.setDeadline(resultSet.getString(ColumnInfo.TASK_DEADLINE));
+
+                taskList.add(task);
             }
         } catch (SQLException e) {
             throw new SpecificationException(e);//todo
         }
-        taskList.add(task);
+
 
         return taskList;
     }

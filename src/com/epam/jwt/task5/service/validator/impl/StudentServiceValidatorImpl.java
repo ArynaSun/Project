@@ -3,6 +3,7 @@ package com.epam.jwt.task5.service.validator.impl;
 import com.epam.jwt.task5.service.validator.StudentServiceValidator;
 import com.epam.jwt.task5.service.validator.ValidationMessageKey;
 import com.epam.jwt.task5.service.validator.ValidationResult;
+import com.epam.jwt.task5.util.PropertyHelper;
 
 public class StudentServiceValidatorImpl extends BaseServiceValidator implements StudentServiceValidator {
 
@@ -16,22 +17,22 @@ public class StudentServiceValidatorImpl extends BaseServiceValidator implements
 
         if (!validateNumber(studentId)) {
             result.setValid(false);
-            result.addMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE);
+            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE));
         }
 
         if (!validateNumber(taskId)) {
             result.setValid(false);
-            result.addMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE);
+            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE));
         }
 
         if (!validateMark(mark)) {
             result.setValid(false);
-            result.addMessage(ValidationMessageKey.INVALID_MARK_MESSAGE);
+            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_MARK_MESSAGE));
         }
 
         if (!validateAnswer(answer)) {
             result.setValid(false);
-            result.addMessage(ValidationMessageKey.INVALID_ANSWER_MESSAGE);
+            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_ANSWER_MESSAGE));
         }
 
         return result;

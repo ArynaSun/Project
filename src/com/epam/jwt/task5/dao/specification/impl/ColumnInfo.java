@@ -32,5 +32,10 @@ public interface ColumnInfo {
     String TASK_ATTACHMENTS = "attachments";
     String TASK_ASSIGNMENT_DATE = "assignment_date";
     String TASK_DEADLINE = "deadline";
+    String REVIEW_ID = "id";
+    String REVIEW_COURSE_ID = "course_id";
+    String REVIEW_MARK = "mark";
+    String REVIEW_DESCRIPTION = "description";
+    String REQUEST_COURSE_ID = "course_id";
 }
 

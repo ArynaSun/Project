@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CourseDaoImpl implements CourseDao {
+
     private static final int FIRST_ELEMENT_OF_LIST_INDEX = 0;
     private static Logger logger = LogManager.getLogger(CourseDaoImpl.class);
 
@@ -28,7 +29,7 @@ public class CourseDaoImpl implements CourseDao {
         try {
             connection = ConnectionManager.getPool().takeConnection();
             preparedStatement = connection.prepareStatement(
-                    SqlQuery.INSERT_INTO_COURSE_NAME_DECRIPTION_TEACHER_ID_SUBJECT_ID_STATUS_ID_VALUES);
+                    SqlQuery.INSERT_INTO_COURSE_NAME_DESCRIPTION_TEACHER_ID_SUBJECT_ID_STATUS_ID_VALUES);
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setString(2, entity.getDescription());
             preparedStatement.setInt(3, entity.getTeacherId());
@@ -43,7 +44,7 @@ public class CourseDaoImpl implements CourseDao {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -51,7 +52,7 @@ public class CourseDaoImpl implements CourseDao {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -79,7 +80,7 @@ public class CourseDaoImpl implements CourseDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close resultSet");
+                logger.error("Unable to close resultSet");
             }
 
             try {
@@ -87,14 +88,14 @@ public class CourseDaoImpl implements CourseDao {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
             try {
                 if (connection != null) {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
 
@@ -123,7 +124,7 @@ public class CourseDaoImpl implements CourseDao {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close resultSet");
+                logger.error("Unable to close resultSet");
             }
 
             try {
@@ -131,14 +132,14 @@ public class CourseDaoImpl implements CourseDao {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
             try {
                 if (connection != null) {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
 
@@ -169,14 +170,14 @@ public class CourseDaoImpl implements CourseDao {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
             try {
                 if (connection != null) {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -207,7 +208,7 @@ public class CourseDaoImpl implements CourseDao {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -233,14 +234,14 @@ public class CourseDaoImpl implements CourseDao {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
             try {
                 if (connection != null) {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -249,9 +250,9 @@ public class CourseDaoImpl implements CourseDao {
         private static final String UPDATE_COURSE = "UPDATE course SET name = ?, desription = ?, " +
                 "status_id = ?, teacher_id = ?, subject_id = ? WHERE id = ?";
         private static final String DELETE_FROM_COURSE_WHERE_ID = "DELETE FROM course WHERE id = ?";
-        private static final String INSERT_INTO_COURSE_NAME_DECRIPTION_TEACHER_ID_SUBJECT_ID_STATUS_ID_VALUES =
-                "INSERT INTO course(name, decription, teacher_id, subject_id, status_id) VALUES (?, ?, ?, ?, ?)";
+        private static final String INSERT_INTO_COURSE_NAME_DESCRIPTION_TEACHER_ID_SUBJECT_ID_STATUS_ID_VALUES =
+                "INSERT INTO course(name, desription, teacher_id, subject_id, status_id) VALUES (?, ?, ?, ?, ?)";
         private static final String INSERT_INTO_COURSE_STUDENT_RELATION_VALUES =
-                "INSERT INTO course_student_relation VALUES(?,?)";
+                "INSERT INTO course_student_relation(student_id, course_id) VALUES(?,?)";
     }
 }

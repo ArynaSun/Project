@@ -2,19 +2,21 @@ package com.epam.jwt.task5.bean;
 
 import java.io.Serializable;
 
-public class Request implements Serializable {
+public class Request implements Serializable { // TODO: 25.12.2018 eq hash roString
     private int id;
     private String name;
     private int userId;
+    private int courseId;
     private int statusId;
 
     public Request() {
     }
 
-    public Request(int id, String name, int userId, int statusId) {
+    public Request(int id, String name, int userId, int courseId, int statusId) {
         this.id = id;
         this.name = name;
         this.userId = userId;
+        this.courseId = courseId;
         this.statusId = statusId;
     }
 
@@ -40,6 +42,14 @@ public class Request implements Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     public int getStatusId() {

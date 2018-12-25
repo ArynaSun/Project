@@ -128,7 +128,7 @@ public class AdminServiceImpl implements AdminService {
             throw new ValidationException(result.getMessage());
         }
         try {
-            Request request = requestDao.readBy(SpecificationFactory.requestById(Integer.parseInt(requestId)));
+            Request request = requestDao.readBy(SpecificationFactory.requestsById(Integer.parseInt(requestId)));
             request.setStatusId(Integer.parseInt(statusId));
             requestDao.update(request);
         } catch (DaoException e) {

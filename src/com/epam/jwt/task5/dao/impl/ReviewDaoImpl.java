@@ -44,7 +44,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -52,7 +52,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -77,7 +77,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                 preparedStatement.close();
             }
         } catch (SQLException e) {
-            logger.info("Unable to close preparedStatement");
+            logger.error("Unable to close preparedStatement");
         }
 
         try {
@@ -85,7 +85,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                 ConnectionManager.getPool().releaseConnection(connection);
             }
         } catch (ConnectionPoolException e) {
-            logger.info("Unable to close connection");
+            logger.error("Unable to close connection");
         }
     }
         return review;
@@ -111,7 +111,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -119,7 +119,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
         return reviewList;
@@ -134,11 +134,13 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
             connection = ConnectionManager.getPool().takeConnection();
             preparedStatement = connection.prepareStatement(
                     SqlQuery.UPDATE_REVIEW);
-            preparedStatement.setInt(1,entity.getId());
-            preparedStatement.setInt(2, entity.getStudentId());
-            preparedStatement.setInt(3, entity.getCourseId());
-            preparedStatement.setInt(4, entity.getMark());
-            preparedStatement.setString(5, entity.getDescription());
+
+            preparedStatement.setInt(1, entity.getStudentId());
+            preparedStatement.setInt(2, entity.getCourseId());
+            preparedStatement.setInt(3, entity.getMark());
+            preparedStatement.setString(4, entity.getDescription());
+            preparedStatement.setInt(5,entity.getId());
+
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Ошибка уровня Dao", e);
@@ -148,7 +150,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -156,7 +158,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -180,7 +182,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -188,7 +190,7 @@ public class ReviewDaoImpl implements BaseDao<Review, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }

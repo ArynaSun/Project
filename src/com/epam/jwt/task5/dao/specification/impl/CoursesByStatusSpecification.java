@@ -27,7 +27,7 @@ public class CoursesByStatusSpecification implements DaoSpecification<Course, Re
         Course course = null;
 
         try {
-            if (resultSet.next()){
+            while (resultSet.next()){
                 course = new Course();
                 course.setId(resultSet.getInt(ColumnInfo.COURSE_ID));
                 course.setName(resultSet.getString(ColumnInfo.COURSE_NAME));
@@ -35,11 +35,12 @@ public class CoursesByStatusSpecification implements DaoSpecification<Course, Re
                 course.setTeacherId(resultSet.getInt(ColumnInfo.COURSE_TEACHER_ID));
                 course.setSubjectId(resultSet.getInt(ColumnInfo.COURSE_SUBJECT_ID));
                 course.setStatusId(statusId);
+
+                courseList.add(course);
             }
         } catch (SQLException e) {
             throw new SpecificationException(e);//todo
         }
-        courseList.add(course);
 
         return courseList;
     }

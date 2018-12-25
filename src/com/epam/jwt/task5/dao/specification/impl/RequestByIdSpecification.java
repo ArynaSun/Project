@@ -27,12 +27,13 @@ public class RequestByIdSpecification implements DaoSpecification<Request, Resul
         Request request = null;
 
         try {
-            if (resultSet.next()){
+            while (resultSet.next()){
                 request = new Request();
                 request.setId(id);
                 request.setName(ColumnInfo.REQUEST_NAME);
                 request.setStatusId(resultSet.getInt(ColumnInfo.REQUEST_STATUS_ID));
                 request.setUserId(resultSet.getInt(ColumnInfo.REQUEST_USER_ID));
+                request.setCourseId(resultSet.getInt(ColumnInfo.REQUEST_COURSE_ID));
             }
         } catch (SQLException e) {
             throw new SpecificationException(e);//todo message or other exception

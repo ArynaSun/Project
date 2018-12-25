@@ -93,8 +93,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void createRequest(String name, String userId) throws ServiceException, ValidationException {
-        ValidationResult result = baseServiceValidator.validateRequestData(name, userId);
+    public void createRequest(String name, String userId, String courseId) throws ServiceException, ValidationException {
+        ValidationResult result = baseServiceValidator.validateRequestData(name, userId, courseId);
 
         if (!result.isValid()) {
             throw new ValidationException(result.getMessage());
@@ -106,6 +106,7 @@ public class TeacherServiceImpl implements TeacherService {
         request.setUserId(Integer.parseInt(userId));
         request.setName(name);
         request.setStatusId(REQUEST_STATUS_ID);
+        request.setCourseId(Integer.parseInt(courseId));
 
         try {
             requestDao.create(request);

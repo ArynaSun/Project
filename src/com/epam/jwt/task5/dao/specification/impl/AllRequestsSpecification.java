@@ -22,17 +22,19 @@ public class AllRequestsSpecification implements DaoSpecification<Request, Resul
         Request request =  null;
 
         try {
-            if (resultSet.next()){
+            while (resultSet.next()){
                 request = new Request();
                 request.setId(resultSet.getInt(ColumnInfo.REQUEST_ID));
                 request.setName(resultSet.getString(ColumnInfo.REQUEST_NAME));
                 request.setStatusId(resultSet.getInt(ColumnInfo.REQUEST_STATUS_ID));
                 request.setUserId(resultSet.getInt(ColumnInfo.REQUEST_USER_ID));
+                request.setCourseId(resultSet.getInt(ColumnInfo.REQUEST_COURSE_ID));
+
+                requestList.add(request);
             }
         } catch (SQLException e) {
             throw new SpecificationException(e);//todo message or other exception
         }
-        requestList.add(request);
 
         return requestList;
     }

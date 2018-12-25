@@ -44,7 +44,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -52,7 +52,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -77,7 +77,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -85,7 +85,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -110,7 +110,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -118,7 +118,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
 
@@ -139,6 +139,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
             preparedStatement.setString(4, task.getAssignmentDate());
             preparedStatement.setString(5, task.getDeadline());
             preparedStatement.setInt(6,task.getId());
+
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Ошибка уровня Dao", e);
@@ -148,7 +149,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -156,7 +157,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }
@@ -171,6 +172,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
             preparedStatement = connection.prepareStatement(
                     SqlQuery.DELETE_FROM_TASK_WHERE_ID);
             preparedStatement.setInt(1, task.getId());
+
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Ошибка уровня Dao", e);
@@ -180,7 +182,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                logger.info("Unable to close preparedStatement");
+                logger.error("Unable to close preparedStatement");
             }
 
             try {
@@ -188,7 +190,7 @@ public class TaskDaoImpl implements BaseDao<Task, ResultSet> {
                     ConnectionManager.getPool().releaseConnection(connection);
                 }
             } catch (ConnectionPoolException e) {
-                logger.info("Unable to close connection");
+                logger.error("Unable to close connection");
             }
         }
     }

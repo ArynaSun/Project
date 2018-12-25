@@ -41,14 +41,14 @@ public class UserDaoImpl implements BaseDao<User, ResultSet> {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close preparedStatement");
+                    logger.error("Unable to close preparedStatement");
                 }
             }
             if (connection != null) {
                 try {
                     ConnectionManager.getPool().releaseConnection(connection);
                 } catch (ConnectionPoolException e) {
-                    logger.info("Unable to close connection");
+                    logger.error("Unable to close connection");
                 }
             }
         }
@@ -76,7 +76,7 @@ public class UserDaoImpl implements BaseDao<User, ResultSet> {
                 try {
                     resultSet.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close resultSet");
+                    logger.error("Unable to close resultSet");
                 }
             }
 
@@ -84,14 +84,14 @@ public class UserDaoImpl implements BaseDao<User, ResultSet> {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close preparedStatement");
+                    logger.error("Unable to close preparedStatement");
                 }
             }
             if (connection != null) {
                 try {
                     ConnectionManager.getPool().releaseConnection(connection);
                 } catch (ConnectionPoolException e) {
-                    logger.info("Unable to close connection");
+                    logger.error("Unable to close connection");
                 }
             }
         }
@@ -120,7 +120,7 @@ public class UserDaoImpl implements BaseDao<User, ResultSet> {
                 try {
                     resultSet.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close resultSet");
+                    logger.error("Unable to close resultSet");
                 }
             }
 
@@ -128,14 +128,14 @@ public class UserDaoImpl implements BaseDao<User, ResultSet> {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close preparedStatement");
+                    logger.error("Unable to close preparedStatement");
                 }
             }
             if (connection != null) {
                 try {
                     ConnectionManager.getPool().releaseConnection(connection);
                 } catch (ConnectionPoolException e) {
-                    logger.info("Unable to close connection");
+                    logger.error("Unable to close connection");
                 }
             }
         }
@@ -155,6 +155,8 @@ public class UserDaoImpl implements BaseDao<User, ResultSet> {
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getName());
             preparedStatement.setInt(4, user.getRoleId());
+            preparedStatement.setInt(5, user.getId());
+
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException(e);
@@ -163,14 +165,14 @@ public class UserDaoImpl implements BaseDao<User, ResultSet> {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close preparedStatement");
+                    logger.error("Unable to close preparedStatement");
                 }
             }
             if (connection != null) {
                 try {
                     ConnectionManager.getPool().releaseConnection(connection);
                 } catch (ConnectionPoolException e) {
-                    logger.info("Unable to close connection");
+                    logger.error("Unable to close connection");
                 }
             }
         }
@@ -194,14 +196,14 @@ public class UserDaoImpl implements BaseDao<User, ResultSet> {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
-                    logger.info("Unable to close preparedStatement");
+                    logger.error("Unable to close preparedStatement");
                 }
             }
             if (connection != null) {
                 try {
                     ConnectionManager.getPool().releaseConnection(connection);
                 } catch (ConnectionPoolException e) {
-                    logger.info("Unable to close connection");
+                    logger.error("Unable to close connection");
                 }
             }
         }

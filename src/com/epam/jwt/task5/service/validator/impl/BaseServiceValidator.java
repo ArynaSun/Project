@@ -3,6 +3,7 @@ package com.epam.jwt.task5.service.validator.impl;
 import com.epam.jwt.task5.service.validator.UserValidator;
 import com.epam.jwt.task5.service.validator.ValidationMessageKey;
 import com.epam.jwt.task5.service.validator.ValidationResult;
+import com.epam.jwt.task5.util.PropertyHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ public class BaseServiceValidator implements UserValidator {
     public static final int MIN_MARK = 0;
     public static final int MAX_MARK = 10;
     public static final int MAX_DESCRIPTION_LENGTH = 1000;
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
 
     @Override
     public ValidationResult validateUserData(String name, String email, String password) {
@@ -29,15 +31,15 @@ public class BaseServiceValidator implements UserValidator {
 
         if (!validateName(name)) {
             validationResult.setValid(false);
-            validationResult.addMessage(ValidationMessageKey.NOT_VALID_NAME_MESSAGE);
+            validationResult.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.NOT_VALID_NAME_MESSAGE));
         }
         if (!validateEmail(email)) {
             validationResult.setValid(false);
-            validationResult.addMessage(ValidationMessageKey.NOT_VALID_EMAIL_MESSAGE);
+            validationResult.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.NOT_VALID_EMAIL_MESSAGE));
         }
         if (!validatePassword(password)) {
             validationResult.setValid(false);
-            validationResult.addMessage(ValidationMessageKey.NOT_VALID_PASSWORD_MESSAGE);
+            validationResult.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.NOT_VALID_PASSWORD_MESSAGE));
         }
 
         return validationResult;
@@ -49,21 +51,21 @@ public class BaseServiceValidator implements UserValidator {
 
         if (!validateNumber(secondNumber) || !validateNumber(firstNumber)) {
             result.setValid(false);
-            result.addMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE);
+            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE));
         }
         return result;
     }
 
-    public ValidationResult validateRequestData(String name, String userId) {//todo не должно быть у админа
+    public ValidationResult validateRequestData(String name, String userId, String courseId) {//todo не должно быть у админа
         ValidationResult result = new ValidationResult();
         if (!validateName(name)){
             result.setValid(false);
-            result.addMessage(ValidationMessageKey.NOT_VALID_NAME_MESSAGE);
+            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.NOT_VALID_NAME_MESSAGE));
         }
 
-        if (!validateNumber(userId)){
+        if (!validateNumber(userId) || !validateNumber(courseId)){
             result.setValid(false);
-            result.addMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE);
+            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE));
         }
         return result;
     }
@@ -98,7 +100,7 @@ public class BaseServiceValidator implements UserValidator {
         return description != null && !description.isEmpty() && description.length() < MAX_DESCRIPTION_LENGTH;
     }
 
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
 
     boolean validateDate(String date) {
         try {

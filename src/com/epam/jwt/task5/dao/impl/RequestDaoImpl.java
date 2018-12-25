@@ -19,7 +19,7 @@ import java.util.List;
 public class RequestDaoImpl implements BaseDao<Request, ResultSet> {
 
     private static final int FIRST_ELEMENT_OF_LIST_INDEX = 0;
-    private static Logger logger = LogManager.getLogger(ReviewDaoImpl.class);
+    private static Logger logger = LogManager.getLogger(RequestDaoImpl.class);
 
     @Override
     public void create(Request entity) throws DaoException {
@@ -33,6 +33,7 @@ public class RequestDaoImpl implements BaseDao<Request, ResultSet> {
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setInt(2, entity.getUserId());
             preparedStatement.setInt(3, entity.getStatusId());
+            preparedStatement.setInt(4, entity.getCourseId());
             preparedStatement.execute();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);//todo mes
@@ -152,10 +153,11 @@ public class RequestDaoImpl implements BaseDao<Request, ResultSet> {
             connection = ConnectionManager.getPool().takeConnection();
             preparedStatement = connection.prepareStatement(
                     SqlQuery.UPDATE_REQUEST);
-            preparedStatement.setInt(1, entity.getId());
-            preparedStatement.setString(2, entity.getName());
-            preparedStatement.setInt(3, entity.getUserId());
-            preparedStatement.setInt(4, entity.getStatusId());
+            preparedStatement.setInt(5, entity.getId());
+            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setInt(2, entity.getUserId());
+            preparedStatement.setInt(3, entity.getStatusId());
+            preparedStatement.setInt(4, entity.getCourseId());
             preparedStatement.executeUpdate();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException(e);//todo mes
@@ -213,8 +215,8 @@ public class RequestDaoImpl implements BaseDao<Request, ResultSet> {
     private static final class SqlQuery{
 
         public static final String INSERT_INTO_REQUEST_NAME_USER_ID_STATUS_ID_VALUES = "INSERT INTO request " +
-                "(name, user_id, status_id) VALUES (?, ?, ?)";
-        public static final String UPDATE_REQUEST = "UPDATE request SET name = ?, user_id = ?, status_id = ? WHERE id = ? ";
+                "(name, user_id, status_id, course_id) VALUES (?, ?, ?, ?)";
+        public static final String UPDATE_REQUEST = "UPDATE request SET name = ?, user_id = ?, status_id = ?, course_id = ? WHERE id = ? ";
         public static final String DELETE_FROM_REQUEST = "DELETE FROM request WHERE id = ?";
     }
 }
