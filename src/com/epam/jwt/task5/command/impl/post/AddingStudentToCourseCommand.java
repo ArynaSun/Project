@@ -30,6 +30,7 @@ public class AddingStudentToCourseCommand implements CourseCommand {
             request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
+            return JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
             request.setAttribute(JspAttribute.ERROR_MESSAGE, e.getMessage());
         }

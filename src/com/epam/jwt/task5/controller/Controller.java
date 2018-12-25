@@ -1,6 +1,7 @@
 package com.epam.jwt.task5.controller;
 
 import com.epam.jwt.task5.command.CourseCommand;
+import com.epam.jwt.task5.command.SessionAttribute;
 import com.epam.jwt.task5.command.impl.GetCommand;
 import com.epam.jwt.task5.command.JspPage;
 import com.epam.jwt.task5.command.impl.PostCommand;
@@ -36,6 +37,7 @@ public class Controller extends HttpServlet {
             GetCommand getCommand = GetCommand.valueOf(command.toUpperCase());
             CourseCommand courseCommand = getCommand.getCommand();
             JspPage jspPage = courseCommand.execute(request, response);
+            request.getSession().setAttribute(SessionAttribute.LAST_OPEN_PAGE, jspPage);
             String jspPath = jspPage.getPath();
             request.getServletContext().getRequestDispatcher(jspPath).forward(request, response);
         }catch (IllegalArgumentException | NullPointerException e){

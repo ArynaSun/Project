@@ -34,6 +34,7 @@ public class AddingReviewToStudentCommand implements CourseCommand{
 
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
+            return JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
             request.setAttribute(JspAttribute.ERROR_MESSAGE, e.getMessage());
         }

@@ -13,4 +13,10 @@ public interface RequestParameter {
     String COURSE_ID = "course_id";
     String MARK = "mark";
     String REVIEW_DESCRIPTION = "review_description" ;
+    String TASK_NAME = "task_name" ;
+    String TASK_ATTACHMENTS = "task_attachments";
+    String TASK_ASSIGNMENT_DATE = "task_assignment_date";
+    String TASK_DEADLINE = "task_deadline" ;
+    String COURSE_STATUS_ID = "course_status_id";
+    String LANGUAGE = "language";
 }
