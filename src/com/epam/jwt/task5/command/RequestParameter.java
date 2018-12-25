@@ -19,4 +19,12 @@ public interface RequestParameter {
     String TASK_DEADLINE = "task_deadline" ;
     String COURSE_STATUS_ID = "course_status_id";
     String LANGUAGE = "language";
+    String SOLUTION_ID = "solution_id";
+    String REQUEST_NAME = "request_name";
+    String USER_ID = "user_id";
+    String REQUEST_ID = "request_id";
+    String REQUEST_STATUS_ID = "request_status_id" ;
+    String TASK_ID = "task_id";
+    String SOLUTION_ANSWER = "solution_answer";
+    String SOLUTION_ATTACHMENTS = "solution_attachments";
 }

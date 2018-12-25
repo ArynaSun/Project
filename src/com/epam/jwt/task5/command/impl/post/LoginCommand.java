@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LoginCommand implements CourseCommand {
+public class LoginCommand implements CourseCommand {//todo
 
     private static Logger logger = LogManager.getLogger(LoginCommand.class);
 
