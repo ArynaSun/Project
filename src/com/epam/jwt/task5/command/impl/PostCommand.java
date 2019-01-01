@@ -5,6 +5,7 @@ import com.epam.jwt.task5.command.impl.post.*;
 
 public enum PostCommand {
     LOGIN(new LoginCommand()),
+    LOGOUT(new LogoutCommand()),
     ADDING_COURSE(new AddingCourseCommand()),
     ADDING_REVIEW_TO_STUDENT(new AddingReviewToStudentCommand()),
     ADDING_STUDENT_TO_COURSE(new AddingStudentToCourseCommand()),

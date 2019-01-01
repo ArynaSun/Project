@@ -27,4 +27,6 @@ public interface RequestParameter {
     String TASK_ID = "task_id";
     String SOLUTION_ANSWER = "solution_answer";
     String SOLUTION_ATTACHMENTS = "solution_attachments";
+    String MESSAGE = "message";
+    String STUDENT_NAME = "student_name";
 }

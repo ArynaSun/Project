@@ -31,7 +31,7 @@ public class CoursesByStudentIdStatusIdSpecification implements DaoSpecification
         Course course = null;
 
         try {
-            while (resultSet.next()){//todo ???
+            while (resultSet.next()){
                 course = new Course();
 
                 course.setId(resultSet.getInt(ColumnInfo.COURSE_ID));
@@ -44,7 +44,7 @@ public class CoursesByStudentIdStatusIdSpecification implements DaoSpecification
                 courseList.add(course);
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo
+            throw new SpecificationException("Database Error", e);
         }
 
         return courseList;

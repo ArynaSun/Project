@@ -9,7 +9,7 @@ public class Solution implements Serializable {
     private int mark;
     private String answer;
     private String attachments;
-    private boolean isAccepted;//todo eq ha tos
+    private boolean isAccepted;
 
     public Solution() {
     }
@@ -122,7 +122,8 @@ public class Solution implements Serializable {
     @Override
     public int hashCode() {
         return ((id * 11) + (studentId * 31) + (taskId * 17) + (isAccepted ? 1* 19 : 0 ) + (mark * 13) +
-                ((null == answer) ? 0 : (answer.hashCode() * 11) + ((null == attachments) ? 0 : (attachments.hashCode() * 31))));
+                ((null == answer) ? 0 : (answer.hashCode() * 11) +
+                        ((null == attachments) ? 0 : (attachments.hashCode() * 31))));
     }
 
     @Override

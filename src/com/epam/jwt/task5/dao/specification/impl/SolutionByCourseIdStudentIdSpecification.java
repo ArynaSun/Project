@@ -20,7 +20,8 @@ public class SolutionByCourseIdStudentIdSpecification implements DaoSpecificatio
 
     @Override
     public String receiveInstruction() {
-        return "SELECT * FROM solution WHERE task_id IN (SELECT task_id FROM task WHERE course_id = " + courseId + ")) AND student id = " + studentId;
+        return "SELECT * FROM solution WHERE task_id IN (SELECT task_id FROM task WHERE course_id = " +
+                courseId + ")) AND_SYMBOL student id = " + studentId;
     }
 
     @Override
@@ -40,7 +41,7 @@ public class SolutionByCourseIdStudentIdSpecification implements DaoSpecificatio
                 solution.setAccepted(resultSet.getBoolean(ColumnInfo.SOLUTION_IS_ACCEPTED));
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo
+            throw new SpecificationException("Database Error", e);
         }
 
         solutionList.add(solution);

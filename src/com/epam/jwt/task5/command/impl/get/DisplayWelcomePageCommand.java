@@ -5,6 +5,7 @@ import com.epam.jwt.task5.bean.CourseStatus;
 import com.epam.jwt.task5.command.CourseCommand;
 import com.epam.jwt.task5.command.JspPage;
 import com.epam.jwt.task5.command.JspAttribute;
+import com.epam.jwt.task5.dto.CourseDTO;
 import com.epam.jwt.task5.service.CommonService;
 import com.epam.jwt.task5.service.ServiceHelper;
 import com.epam.jwt.task5.service.exception.ServiceException;
@@ -22,16 +23,26 @@ public class DisplayWelcomePageCommand implements CourseCommand {
     @Override
     public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
         List<Course> courseList = new ArrayList<>();
+        List<CourseDTO> plannedCourseListDTO = new ArrayList<>();
 
         CommonService commonService = ServiceHelper.getCommonService();
         try {
             courseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));//TODO ASK TEACHER
-            request.setAttribute(JspAttribute.PLANNED_COURSES, courseList);
+            for (Course course : courseList) {
+                CourseDTO courseDTO = new CourseDTO();
+
+                courseDTO.setSubjectName(commonService.findSubjectById(String.valueOf(course.getSubjectId())).getName());
+                courseDTO.setCourse(course);
+                courseDTO.setTeacherName(commonService.findUserById(String.valueOf(course.getTeacherId())).getName());
+
+                plannedCourseListDTO.add(courseDTO);
+            }
+            request.setAttribute(JspAttribute.PLANNED_COURSES, plannedCourseListDTO);
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
             return JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e.getMessage());
+            request.setAttribute(JspAttribute.SERVER_MESSAGE, e.getMessage());
         }
 
         return JspPage.WELCOME_PAGE;

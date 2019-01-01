@@ -39,7 +39,7 @@ public class TasksByCourseIdSpecification implements DaoSpecification<Task, Resu
                 taskList.add(task);
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo
+            throw new SpecificationException("Database Error", e);
         }
 
 

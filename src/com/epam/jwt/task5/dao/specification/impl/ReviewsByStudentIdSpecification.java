@@ -40,7 +40,7 @@ public class ReviewsByStudentIdSpecification implements DaoSpecification<Review,
                 reviewList.add(review);
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo message or other exception
+            throw new SpecificationException("Database Error", e);
         }
 
         return reviewList;

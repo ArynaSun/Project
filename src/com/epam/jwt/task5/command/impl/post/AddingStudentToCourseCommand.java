@@ -25,16 +25,21 @@ public class AddingStudentToCourseCommand implements CourseCommand {
         String studentId = request.getParameter(RequestParameter.STUDENT_ID);
         String courseId = request.getParameter(RequestParameter.COURSE_ID);
 
+        JspPage jspPage;
+
         try {
             adminService.addStudentToCourse(studentId,courseId );
-            request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
+            jspPage = new JspPage(JspPage.ADMIN_PAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
-            return JspPage.ERROR_PAGE;
+
+            jspPage = JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e.getMessage());
+            jspPage = new JspPage(JspPage.ADMIN_PAGE, e.getMessage());
         }
 
-        return JspPage.ADMIN_PAGE;
+        return jspPage;
     }
 }

@@ -19,7 +19,7 @@ public class CoursesByTeacherIdSpecification implements DaoSpecification<Course,
 
     @Override
     public String receiveInstruction() {
-        return "SELECT * FROM course WHERE teacher_id = " + teacherId + " AND status_id = " + CourseStatus.ACTIVE.getId();
+        return "SELECT * FROM course WHERE teacher_id = " + teacherId + " AND_SYMBOL status_id = " + CourseStatus.ACTIVE.getId();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class CoursesByTeacherIdSpecification implements DaoSpecification<Course,
                 courseList.add(course);
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo
+            throw new SpecificationException("Database Error", e);
         }
 
         return courseList;

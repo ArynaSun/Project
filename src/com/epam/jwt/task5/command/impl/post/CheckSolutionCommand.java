@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CheckSolutionCommand implements CourseCommand {
     private static Logger logger = LogManager.getLogger(CheckSolutionCommand.class);
@@ -24,17 +26,28 @@ public class CheckSolutionCommand implements CourseCommand {
 
         String solutionId = request.getParameter(RequestParameter.SOLUTION_ID);
         String mark = request.getParameter(RequestParameter.MARK);
+        String courseId = request.getParameter(RequestParameter.COURSE_ID);
+
+        JspPage jspPage;
+        Map<String, String> stringMap = new HashMap<>();
+
+        stringMap.put(RequestParameter.COURSE_ID, courseId);
 
         try {
             teacherService.checkSolution(solutionId, mark);
-            request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
+            stringMap.put(RequestParameter.MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
+            jspPage = new JspPage(JspPage.COURSE_INFO, stringMap);
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
-            return JspPage.ERROR_PAGE;
+
+            jspPage = JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e);
+            stringMap.put(RequestParameter.MESSAGE, e.getMessage());
+            jspPage = new JspPage(JspPage.COURSE_INFO, stringMap);
         }
 
-        return JspPage.COURSE_INFO;
+        return jspPage;
     }
 }

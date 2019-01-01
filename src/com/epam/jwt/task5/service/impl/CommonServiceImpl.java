@@ -4,6 +4,7 @@ import com.epam.jwt.task5.bean.*;
 import com.epam.jwt.task5.dao.BaseDao;
 import com.epam.jwt.task5.dao.DaoHelper;
 import com.epam.jwt.task5.dao.exception.DaoException;
+import com.epam.jwt.task5.dao.exception.SpecificationException;
 import com.epam.jwt.task5.dao.specification.SpecificationFactory;
 import com.epam.jwt.task5.service.CommonService;
 import com.epam.jwt.task5.service.exception.ServiceException;
@@ -23,7 +24,9 @@ public class CommonServiceImpl implements CommonService {
     private BaseDao<Request, ?> requestDao = DaoHelper.getRequestDao();
     private BaseDao<Task, ?> taskDao = DaoHelper.getTaskDao();
     private BaseDao<Review, ?> reviewDao = DaoHelper.getReviewDao();
-    private User user = null;
+    private BaseDao<User, ?> userDao = DaoHelper.getUserDao();
+    private BaseDao<Subject, ?> subjectDao = DaoHelper.getSubjectDao();
+
 
     @Override
     public User findUserById(String userId) throws ServiceException, ValidationException {
@@ -32,8 +35,7 @@ public class CommonServiceImpl implements CommonService {
         if (!result.isValid()) {
             throw new ValidationException(result.getMessage());
         }
-
-        BaseDao<User, ?> userDao = DaoHelper.getUserDao();
+        User user = null;
         try {
             user = userDao.readBy(SpecificationFactory.userById(Integer.parseInt(userId)));
         } catch (DaoException e) {
@@ -128,7 +130,7 @@ public class CommonServiceImpl implements CommonService {
             throw new ServiceException(e);//todo mes
         }
 
-        return courseList != null ? courseList.get(0) : null;
+        return !courseList.isEmpty() ? courseList.get(0) : null;
     }
 
     @Override
@@ -243,5 +245,41 @@ public class CommonServiceImpl implements CommonService {
         }
 
         return reviewList;
+    }
+
+    @Override
+    public User findUserBy(String email, String password) throws ServiceException, ValidationException {
+
+        try {
+            User user = userDao.readBy(SpecificationFactory.userByEmail(email));
+            if (user == null){
+                throw new ValidationException("Неправильное мыло"); //todo hardcode to property helper
+            }
+            if (!user.getPassword().equals(password)){
+                throw new ValidationException("Неправильный пароль"); //todo hardcode to property helper
+            }
+            return user;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Subject findSubjectById(String subjectId) throws ServiceException, ValidationException {
+        Subject subject = null;
+
+        ValidationResult result = commonServiceValidator.validateId(subjectId);
+
+        if (!result.isValid()) {
+            throw new ValidationException(result.getMessage());
+        }
+
+        try {
+            subject = subjectDao.readBy(SpecificationFactory.subjectById(Integer.parseInt(subjectId)));
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+        return subject;
     }
 }

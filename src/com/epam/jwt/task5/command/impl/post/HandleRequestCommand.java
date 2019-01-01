@@ -8,14 +8,13 @@ import com.epam.jwt.task5.service.AdminService;
 import com.epam.jwt.task5.service.ServiceHelper;
 import com.epam.jwt.task5.service.exception.ServiceException;
 import com.epam.jwt.task5.service.exception.ValidationException;
-import com.epam.jwt.task5.util.PropertyHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class HandleRequestCommand implements CourseCommand {//todo
+public class HandleRequestCommand implements CourseCommand {//todo delete
     private static Logger logger = LogManager.getLogger(HandleRequestCommand.class);
 
     @Override
@@ -27,14 +26,14 @@ public class HandleRequestCommand implements CourseCommand {//todo
 
         try {
             adminService.changeRequestStatus(requestId, statusId);
-            request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+            //request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
             return JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e);
+            request.setAttribute(JspAttribute.SERVER_MESSAGE, e.getMessage());
         }
 
-        return JspPage.TEACHER_PAGE;
+        return JspPage.ADMIN_PAGE;
     }
 }

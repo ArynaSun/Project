@@ -36,7 +36,7 @@ public class RequestByIdSpecification implements DaoSpecification<Request, Resul
                 request.setCourseId(resultSet.getInt(ColumnInfo.REQUEST_COURSE_ID));
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo message or other exception
+            throw new SpecificationException("Database Error", e);
         }
         requestList.add(request);
 

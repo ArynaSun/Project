@@ -40,7 +40,7 @@ public class UsersByCourseIdSpecification implements DaoSpecification<User, Resu
                 userList.add(user);
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo mes
+            throw new SpecificationException("Database Error", e);
         }
 
         return userList;

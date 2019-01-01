@@ -33,7 +33,7 @@ public class AllRequestsSpecification implements DaoSpecification<Request, Resul
                 requestList.add(request);
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo message or other exception
+            throw new SpecificationException("Database Error", e);
         }
 
         return requestList;

@@ -40,7 +40,7 @@ public class SolutionsByTaskIdSpecification implements DaoSpecification<Solution
                 solutionList.add(solution);
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo
+            throw new SpecificationException("Database Error", e);
         }
 
         return solutionList;

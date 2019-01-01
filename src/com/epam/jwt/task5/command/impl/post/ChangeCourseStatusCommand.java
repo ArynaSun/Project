@@ -24,16 +24,21 @@ public class ChangeCourseStatusCommand implements CourseCommand {
         String courseId = request.getParameter(RequestParameter.COURSE_ID);
         String statusId = request.getParameter(RequestParameter.COURSE_STATUS_ID);
 
+        JspPage jspPage;
+
         try {
             adminService.changeCourseStatus(courseId,statusId);
-            request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
+            jspPage = new JspPage(JspPage.ADMIN_PAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
-            return JspPage.ERROR_PAGE;
+
+            jspPage = JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e);
+            jspPage = new JspPage(JspPage.ADMIN_PAGE, e.getMessage());
         }
 
-        return JspPage.ADMIN_PAGE;
+        return jspPage;
     }
 }

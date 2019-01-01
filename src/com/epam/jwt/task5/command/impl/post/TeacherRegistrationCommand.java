@@ -23,17 +23,20 @@ public class TeacherRegistrationCommand implements CourseCommand {
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
 
+        JspPage jspPage;
+
         try {
             ServiceHelper.getAdminService().registerTeacher(name,email,password);
-            request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
+            jspPage = new JspPage(JspPage.WELCOME_PAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
 
-            return JspPage.ERROR_PAGE;
+            jspPage = JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e);
+           jspPage = new JspPage(JspPage.WELCOME_PAGE, e.getMessage());
         }
 
-        return JspPage.ADMIN_PAGE;
+        return jspPage;
     }
 }

@@ -39,7 +39,7 @@ public class SolutionByIdSpecification implements DaoSpecification<Solution, Res
                 solution.setAccepted(resultSet.getBoolean(ColumnInfo.SOLUTION_IS_ACCEPTED));
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo
+            throw new SpecificationException("Database Error", e);
         }
 
         solutionList.add(solution);

@@ -14,9 +14,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddingTaskToCourseCommand implements CourseCommand {
     private static Logger logger = LogManager.getLogger(AddingTaskToCourseCommand.class);
+
     @Override
     public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
         TeacherService teacherService = ServiceHelper.getTeacherService();
@@ -27,15 +30,26 @@ public class AddingTaskToCourseCommand implements CourseCommand {
         String assignmentDate = request.getParameter(RequestParameter.TASK_ASSIGNMENT_DATE);
         String deadline = request.getParameter(RequestParameter.TASK_DEADLINE);
 
+        JspPage jspPage;
+        Map<String, String> stringMap = new HashMap<>();
+        stringMap.put(RequestParameter.COURSE_ID, courseId);
+
         try {
-            teacherService.createTask(courseId, name, attachments, assignmentDate, deadline );
-            request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+            teacherService.createTask(courseId, name, attachments, assignmentDate, deadline);
+
+            stringMap.put(RequestParameter.MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
+            jspPage = new JspPage(JspPage.COURSE_INFO, stringMap);
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
-            return JspPage.ERROR_PAGE;
+
+            jspPage = JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e);
+            stringMap.put(RequestParameter.MESSAGE, e.getMessage());
+
+            jspPage = new JspPage(JspPage.COURSE_INFO, stringMap);
         }
-        return JspPage.COURSE_INFO;
+
+        return jspPage;
     }
 }

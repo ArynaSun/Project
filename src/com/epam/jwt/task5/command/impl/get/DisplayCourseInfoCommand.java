@@ -51,13 +51,14 @@ public class DisplayCourseInfoCommand implements CourseCommand {
             }
 
             request.setAttribute(JspAttribute.STUDENTS, students);
-            request.setAttribute(JspAttribute.TASK_SOLUTIONS, taskSolutionsDTOS);
+            request.setAttribute(JspAttribute.TASKS, taskList);
             request.setAttribute(JspAttribute.COURSE, course);
+            request.setAttribute(JspAttribute.TASK_SOLUTIONS, taskSolutionsDTOS);
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
             return JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e.getMessage());
+            request.setAttribute(JspAttribute.SERVER_MESSAGE, e.getMessage());
         }
 
         return JspPage.COURSE_INFO;

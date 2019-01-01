@@ -39,7 +39,7 @@ public class RequestsByRoleIdSpecification implements DaoSpecification<Request, 
                 requestList.add(request);
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo message or other exception
+            throw new SpecificationException("Database Error", e);
         }
 
         return requestList;

@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RequestToRegistrationCommand implements CourseCommand {
     private static Logger logger = LogManager.getLogger(RequestToRegistrationCommand.class);
@@ -26,17 +28,20 @@ public class RequestToRegistrationCommand implements CourseCommand {
         String courseId = request.getParameter(RequestParameter.USER_ID);
         String userId = request.getParameter(RequestParameter.USER_ID);
 
+        JspPage jspPage;
+
         try {
             studentService.createRequest(name, userId, courseId);
-            request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
+            jspPage = new JspPage(JspPage.STUDENT_PAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e);
+            jspPage = new JspPage(JspPage.STUDENT_PAGE, e.getMessage());
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
 
-            return JspPage.ERROR_PAGE;
+            jspPage = JspPage.ERROR_PAGE;
         }
 
-        return JspPage.STUDENT_PAGE;
+        return jspPage;
     }
 }

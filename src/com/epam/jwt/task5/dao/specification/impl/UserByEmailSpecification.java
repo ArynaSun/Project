@@ -18,7 +18,7 @@ public class UserByEmailSpecification implements DaoSpecification<User, ResultSe
 
     @Override
     public String receiveInstruction() {
-        return "SELECT * FROM user WHERE email = " + email;
+        return "SELECT * FROM user WHERE email = '" + email + "'";
     }
 
     @Override

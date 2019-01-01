@@ -20,7 +20,7 @@ public class ChangeLanguageCommand implements CourseCommand {
     public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
 
         String language = request.getParameter(RequestParameter.LANGUAGE).toUpperCase();
-        LocaleHelper.setLocale(Language.valueOf(language).getLocale());
+        request.getSession().setAttribute(SessionAttribute.LOCALE, Language.valueOf(language).getLocale());
 
         JspPage jspPage = (JspPage) request.getSession().getAttribute(SessionAttribute.LAST_OPEN_PAGE);
 

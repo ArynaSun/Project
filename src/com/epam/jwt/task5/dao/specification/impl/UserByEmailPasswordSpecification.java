@@ -20,7 +20,7 @@ public class UserByEmailPasswordSpecification implements DaoSpecification<User, 
 
     @Override
     public String receiveInstruction() {
-        return "SELECT * FROM user WHERE email = " + email + " AND password = " + password ;
+        return "SELECT * FROM user WHERE email = " + email + " AND_SYMBOL password = " + password ;
     }
 
     @Override

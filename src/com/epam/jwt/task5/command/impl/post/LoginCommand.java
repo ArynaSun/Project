@@ -1,19 +1,21 @@
 package com.epam.jwt.task5.command.impl.post;
 
 import com.epam.jwt.task5.bean.User;
-import com.epam.jwt.task5.command.RequestParameter;
+import com.epam.jwt.task5.command.*;
 import com.epam.jwt.task5.dao.exception.DaoException;
 import com.epam.jwt.task5.dao.DaoHelper;
-import com.epam.jwt.task5.command.CourseCommand;
-import com.epam.jwt.task5.command.JspPage;
 import com.epam.jwt.task5.dao.specification.SpecificationFactory;
+import com.epam.jwt.task5.service.CommonService;
+import com.epam.jwt.task5.service.ServiceHelper;
+import com.epam.jwt.task5.service.exception.ServiceException;
+import com.epam.jwt.task5.service.exception.ValidationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LoginCommand implements CourseCommand {//todo
+public class LoginCommand implements CourseCommand {
 
     private static Logger logger = LogManager.getLogger(LoginCommand.class);
 
@@ -25,17 +27,37 @@ public class LoginCommand implements CourseCommand {//todo
 
         User user = null;
 
+        JspPage jspPage;
+
         try {
-            user = DaoHelper.getUserDao().readBy(SpecificationFactory.userByEmailPassword(email, password));
-        } catch (DaoException e) {
-            logger.info(e.getMessage());
-            return JspPage.WELCOME_PAGE;//TODO ERROR_PAGE
+            CommonService commonService = ServiceHelper.getCommonService();
+
+            user = commonService.findUserBy(email, password);
+
+        } catch (ServiceException e) {
+            logger.error(LOG_ERROR_MESSAGE, e);
+
+            return JspPage.ERROR_PAGE;
+
+        } catch (ValidationException e) {
+            jspPage = new JspPage(JspPage.WELCOME_PAGE, e.getMessage());
+
+            return jspPage;
         }
 
-        if(user != null){
-            return null; //JspPage.MAIN_PAGE;
-        } else {
-            return JspPage.WELCOME_PAGE;
+        request.getSession().setAttribute(SessionAttribute.USER, user);
+
+        switch (user.getRoleId()) {
+            case 0:
+                jspPage = JspPage.ADMIN_PAGE;
+                break;
+            case 1:
+                jspPage = JspPage.TEACHER_PAGE;
+                break;
+            default:
+                jspPage = JspPage.STUDENT_PAGE;
+                break;
         }
+        return jspPage;
     }
 }

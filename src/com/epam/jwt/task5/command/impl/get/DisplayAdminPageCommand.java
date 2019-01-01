@@ -49,7 +49,7 @@ public class DisplayAdminPageCommand implements CourseCommand {
             logger.error(LOG_ERROR_MESSAGE, e);
             return JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e.getMessage());
+            request.setAttribute(JspAttribute.SERVER_MESSAGE, e.getMessage());
         }
 
         return JspPage.ADMIN_PAGE;

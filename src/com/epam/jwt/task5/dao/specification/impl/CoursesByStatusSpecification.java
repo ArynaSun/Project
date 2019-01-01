@@ -39,7 +39,7 @@ public class CoursesByStatusSpecification implements DaoSpecification<Course, Re
                 courseList.add(course);
             }
         } catch (SQLException e) {
-            throw new SpecificationException(e);//todo
+            throw new SpecificationException("Database Error", e);
         }
 
         return courseList;

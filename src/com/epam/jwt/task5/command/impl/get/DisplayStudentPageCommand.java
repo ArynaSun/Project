@@ -7,9 +7,9 @@ import com.epam.jwt.task5.command.CourseCommand;
 import com.epam.jwt.task5.command.JspAttribute;
 import com.epam.jwt.task5.command.JspPage;
 import com.epam.jwt.task5.command.SessionAttribute;
+import com.epam.jwt.task5.dto.CourseDTO;
 import com.epam.jwt.task5.service.CommonService;
 import com.epam.jwt.task5.service.ServiceHelper;
-import com.epam.jwt.task5.service.StudentService;
 import com.epam.jwt.task5.service.exception.ServiceException;
 import com.epam.jwt.task5.service.exception.ValidationException;
 import org.apache.logging.log4j.LogManager;
@@ -24,21 +24,47 @@ public class DisplayStudentPageCommand implements CourseCommand {
     private static Logger logger = LogManager.getLogger(DisplayStudentPageCommand.class);
     @Override
     public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
-        List<Course> courseList = new ArrayList<>();
+        List<Course> plannedCourseList = new ArrayList<>();
+        List<CourseDTO> plannedCourseListDTO = new ArrayList<>();
+
         List<Course> studentCourseList = new ArrayList<>();
+        List<CourseDTO> studentCourseListDTO = new ArrayList<>();
 
         CommonService commonService = ServiceHelper.getCommonService();
         try {
             User student = (User) request.getSession().getAttribute(SessionAttribute.USER);
-            courseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));//TODO ASK TEACHER
+
+            plannedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));//TODO ASK TEACHER
             studentCourseList = commonService.findCoursesBy(student.getId(), CourseStatus.ACTIVE.getId());//todo get userId from session
-            request.setAttribute(JspAttribute.PLANNED_COURSES, courseList);
-            request.setAttribute(JspAttribute.STUDENT_COURSES, studentCourseList);
+
+            for (Course course : plannedCourseList) {
+                CourseDTO courseDTO = new CourseDTO();
+
+                courseDTO.setTeacherName(commonService.findUserById(String.valueOf(course.getTeacherId())).getName());
+                courseDTO.setSubjectName(commonService.findSubjectById(String.valueOf(course.getSubjectId())).getName());
+                courseDTO.setCourse(course);
+
+                plannedCourseListDTO.add(courseDTO);
+            }
+
+            for (Course course : studentCourseList) {
+                CourseDTO courseDTO = new CourseDTO();
+
+                courseDTO.setTeacherName(commonService.findUserById(String.valueOf(course.getTeacherId())).getName());
+                courseDTO.setCourse(course);
+                courseDTO.setSubjectName(commonService.findSubjectById(String.valueOf(course.getSubjectId())).getName());
+
+                studentCourseListDTO.add(courseDTO);
+            }
+
+            request.setAttribute(JspAttribute.PLANNED_COURSES, plannedCourseListDTO);
+            request.setAttribute(JspAttribute.STUDENT_COURSES, studentCourseListDTO);
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
+
             return JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e.getMessage());
+            request.setAttribute(JspAttribute.SERVER_MESSAGE, e.getMessage());
         }
 
 

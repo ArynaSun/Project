@@ -2,7 +2,7 @@ package com.epam.jwt.task5.bean;
 
 import java.io.Serializable;
 
-public class Request implements Serializable { // TODO: 25.12.2018 eq hash roString
+public class Request implements Serializable {
     private int id;
     private String name;
     private int userId;
@@ -87,6 +87,9 @@ public class Request implements Serializable { // TODO: 25.12.2018 eq hash roStr
         if (userId != request.userId) {
             return false;
         }
+        if (courseId != request.courseId) {
+            return false;
+        }
         if (statusId != request.statusId) {
             return false;
         }
@@ -96,12 +99,12 @@ public class Request implements Serializable { // TODO: 25.12.2018 eq hash roStr
     @Override
     public int hashCode() {
         return ((name == null) ? 0 : (name.hashCode() * 11)) + (id * 31) +
-                (userId * 31)+ (statusId * 19);
+                (userId * 31)+ (statusId * 17) +(statusId * 19);
     }
 
     @Override
     public String toString(){
         return getClass().getName() + "name: " + name + ", id: " + id +
-                ", statusId: " + statusId + ", userId: "  + userId;
+                ", statusId: " + statusId + ", courseId: " + courseId + ", userId: "  + userId;
     }
 }

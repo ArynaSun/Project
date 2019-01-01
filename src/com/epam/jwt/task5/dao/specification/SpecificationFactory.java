@@ -47,6 +47,10 @@ public class SpecificationFactory {
         return new SolutionByCourseIdStudentIdSpecification(courseId, studentId);
     }
 
+    public static DaoSpecification subjectById(int id){
+        return new SubjectByIdSpecification(id);
+    }
+
     public static DaoSpecification tasksByCourseId(int courseId){
         return new TasksByCourseIdSpecification(courseId);
     }

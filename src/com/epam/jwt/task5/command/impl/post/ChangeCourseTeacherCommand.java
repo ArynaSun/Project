@@ -24,15 +24,21 @@ public class ChangeCourseTeacherCommand implements CourseCommand{
         String courseId = request.getParameter(RequestParameter.COURSE_ID);
         String teacherId = request.getParameter(RequestParameter.TEACHER_ID);
 
+        JspPage jspPage;
+
         try {
             adminService.changeCourseTeacher(courseId, teacherId );
-            request.setAttribute(JspAttribute.SUCCESS_MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
+            jspPage = new JspPage(JspPage.ADMIN_PAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
-            return JspPage.ERROR_PAGE;
+
+            jspPage = JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-            request.setAttribute(JspAttribute.ERROR_MESSAGE, e);
+            jspPage = new JspPage(JspPage.ADMIN_PAGE, e.getMessage());
         }
-        return JspPage.ADMIN_PAGE;
+
+        return jspPage;
     }
 }
