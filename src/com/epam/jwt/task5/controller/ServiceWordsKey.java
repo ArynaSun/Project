@@ -22,5 +22,12 @@ public enum ServiceWordsKey {
     SOLUTIONS,
     CHANGE_LANGUAGE,
     RUSSIAN,
-    ENGLISH
+    ENGLISH,
+    E_MAIL,
+    PASSWORD,
+    SIGN_IN,
+    SIGN_UP,
+    NAME,
+    SEND_REQUEST,
+    BACK
 }

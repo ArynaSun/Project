@@ -4,6 +4,8 @@ import com.epam.jwt.task5.bean.*;
 import com.epam.jwt.task5.command.CourseCommand;
 import com.epam.jwt.task5.command.JspAttribute;
 import com.epam.jwt.task5.command.JspPage;
+import com.epam.jwt.task5.dto.CourseDTO;
+import com.epam.jwt.task5.dto.RequestDTO;
 import com.epam.jwt.task5.service.CommonService;
 import com.epam.jwt.task5.service.ServiceHelper;
 import com.epam.jwt.task5.service.exception.ServiceException;
@@ -22,11 +24,16 @@ public class DisplayAdminPageCommand implements CourseCommand {
     @Override
     public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
         List<Course> activeCourseList = new ArrayList<>();
+        List<CourseDTO> activeCourseListDTO = new ArrayList<>();
         List<Course> plannedCourseList = new ArrayList<>();
+        List<CourseDTO> plannedCourseListDTO = new ArrayList<>();
         List<Course> completedCourseList = new ArrayList<>();
+        List<CourseDTO> completedCourseListDTO = new ArrayList<>();
         List<User> teacherList = null;
         List<Request> studentRequestList = null;
+        List<RequestDTO> studentRequestListDTO = new ArrayList<>();
         List<Request> teacherRequestList = null;
+        List<RequestDTO> teacherRequestListDTO = new ArrayList<>();
 
         CommonService commonService = ServiceHelper.getCommonService();
 
@@ -38,12 +45,19 @@ public class DisplayAdminPageCommand implements CourseCommand {
             studentRequestList = commonService.findRequests(String.valueOf(Role.STUDENT.getId()));
             teacherRequestList = commonService.findRequests(String.valueOf(Role.TEACHER.getId()));
 
-            request.setAttribute(JspAttribute.ACTIVE_COURSES, activeCourseList);
-            request.setAttribute(JspAttribute.PLANNED_COURSES, plannedCourseList);
-            request.setAttribute(JspAttribute.COMPLETED_COURSES, completedCourseList);
+            initCourseDTO(activeCourseList, activeCourseListDTO, commonService);
+            initCourseDTO(plannedCourseList, plannedCourseListDTO, commonService);
+            initCourseDTO(completedCourseList, completedCourseListDTO, commonService);
+
+            initRequestDTO(studentRequestList, studentRequestListDTO, commonService);
+            initRequestDTO(teacherRequestList, teacherRequestListDTO, commonService);
+
+            request.setAttribute(JspAttribute.ACTIVE_COURSES, activeCourseListDTO);
+            request.setAttribute(JspAttribute.PLANNED_COURSES, plannedCourseListDTO);
+            request.setAttribute(JspAttribute.COMPLETED_COURSES, completedCourseListDTO);
             request.setAttribute(JspAttribute.TEACHERS, teacherList);
-            request.setAttribute(JspAttribute.STUDENT_REQUESTS, studentRequestList);
-            request.setAttribute(JspAttribute.TEACHER_REQUESTS, teacherRequestList);
+            request.setAttribute(JspAttribute.STUDENT_REQUESTS, studentRequestListDTO);
+            request.setAttribute(JspAttribute.TEACHER_REQUESTS, teacherRequestListDTO);
 
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);

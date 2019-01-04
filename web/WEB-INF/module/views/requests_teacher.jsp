@@ -3,8 +3,8 @@
 <div id="_teacher_requests">
     <h3>${REQUESTS_TO_COMPLETE_COURSE}</h3>
     <table>
-        <%--@elvariable id="StudentRequests" type="java.util.List"--%>
-        <c:forEach var="requestDTO" items="${StudentRequests}" varStatus="i">
+        <%--@elvariable id="TeacherRequests" type="java.util.List"--%>
+        <c:forEach var="requestDTO" items="${TeacherRequests}" varStatus="i">
             <tr>
                 <td><c:out value="${requestDTO.request.name}"/></td>
                 <td><c:out value="${requestDTO.userName}"/></td>

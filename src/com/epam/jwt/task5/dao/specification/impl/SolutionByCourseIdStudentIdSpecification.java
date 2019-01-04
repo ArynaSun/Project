@@ -21,7 +21,7 @@ public class SolutionByCourseIdStudentIdSpecification implements DaoSpecificatio
     @Override
     public String receiveInstruction() {
         return "SELECT * FROM solution WHERE task_id IN (SELECT task_id FROM task WHERE course_id = " +
-                courseId + ")) AND_SYMBOL student id = " + studentId;
+                courseId + ")) AND student id = " + studentId;
     }
 
     @Override

@@ -1,25 +1,25 @@
 
 <div id="_registration">
     <form action="controller" method="post">
-        <input type="hidden" name="command" value="registration">
+        <input type="hidden" name="command" value="STUDENT_REGISTRATION">
         <div>
-            <label>Name</label>
+            <label>${NAME}</label>
             <div>
-                <input type="text" name="name" placeholder="name">
+                <input type="text" name="name" placeholder="${NAME}">
             </div>
         </div>
         <div>
-            <label>E-mail</label>
+            <label>${E_MAIL}</label>
             <div>
-                <input type="text" name="email" placeholder="e-mail"><br/>
+                <input type="text" name="email" placeholder="${E_MAIL}"><br/>
             </div>
         </div>
         <div>
-            <label>Password</label>
+            <label>${PASSWORD}</label>
             <div>
-                <input type="password" name="password" placeholder="password"/>
+                <input type="password" name="password" placeholder="${PASSWORD}"/>
             </div>
         </div>
-        <input type="submit" value="sign up"/>
+        <input type="submit" value="${SIGN_UP}"/>
     </form>
 </div>

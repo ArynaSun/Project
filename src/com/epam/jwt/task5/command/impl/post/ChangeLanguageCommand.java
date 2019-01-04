@@ -5,7 +5,6 @@ import com.epam.jwt.task5.command.JspPage;
 import com.epam.jwt.task5.command.RequestParameter;
 import com.epam.jwt.task5.command.SessionAttribute;
 import com.epam.jwt.task5.util.Language;
-import com.epam.jwt.task5.util.LocaleHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +21,7 @@ public class ChangeLanguageCommand implements CourseCommand {
         String language = request.getParameter(RequestParameter.LANGUAGE).toUpperCase();
         request.getSession().setAttribute(SessionAttribute.LOCALE, Language.valueOf(language).getLocale());
 
-        JspPage jspPage = (JspPage) request.getSession().getAttribute(SessionAttribute.LAST_OPEN_PAGE);
+        JspPage jspPage = (JspPage) request.getSession().getAttribute(SessionAttribute.CURRENT_PAGE);
 
         return jspPage;
     }

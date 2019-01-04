@@ -1,5 +1,6 @@
 package com.epam.jwt.task5.command.impl.post;
 
+import com.epam.jwt.task5.bean.Request;
 import com.epam.jwt.task5.command.CourseCommand;
 import com.epam.jwt.task5.command.JspAttribute;
 import com.epam.jwt.task5.command.JspPage;
@@ -24,8 +25,8 @@ public class RequestToRegistrationCommand implements CourseCommand {
     public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
         StudentService studentService = ServiceHelper.getStudentService();
 
-        String name = request.getParameter(RequestParameter.REQUEST_NAME);
-        String courseId = request.getParameter(RequestParameter.USER_ID);
+        String name = "StudentRequest";
+        String courseId = request.getParameter(RequestParameter.COURSE_ID);
         String userId = request.getParameter(RequestParameter.USER_ID);
 
         JspPage jspPage;

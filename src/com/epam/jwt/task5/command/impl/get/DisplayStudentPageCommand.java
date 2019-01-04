@@ -34,6 +34,7 @@ public class DisplayStudentPageCommand implements CourseCommand {
         try {
             User student = (User) request.getSession().getAttribute(SessionAttribute.USER);
 
+
             plannedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));//TODO ASK TEACHER
             studentCourseList = commonService.findCoursesBy(student.getId(), CourseStatus.ACTIVE.getId());//todo get userId from session
 

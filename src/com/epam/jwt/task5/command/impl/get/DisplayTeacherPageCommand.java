@@ -62,12 +62,17 @@ public class DisplayTeacherPageCommand implements CourseCommand {
                 activeCourseDTOList.add(courseDTO);
             }
 
-            courseOfTeacherDTO = new CourseDTO();
-            courseOfTeacherDTO.setCourse(courseOfTeacher);
-            courseOfTeacherDTO.setSubjectName(
-                    commonService.findSubjectById(String.valueOf(courseOfTeacher.getSubjectId())).getName());
-            courseOfTeacherDTO.setTeacherName(commonService.findUserById(
-                    String.valueOf(courseOfTeacher.getTeacherId())).getName());
+            if (courseOfTeacher != null) {
+                courseOfTeacherDTO = new CourseDTO();
+                courseOfTeacherDTO.setCourse(courseOfTeacher);
+                courseOfTeacherDTO.setSubjectName(
+                        commonService.findSubjectById(String.valueOf(courseOfTeacher.getSubjectId())).getName());
+                courseOfTeacherDTO.setTeacherName(commonService.findUserById(
+                        String.valueOf(courseOfTeacher.getTeacherId())).getName());
+            } else {
+                courseOfTeacherDTO = new CourseDTO();
+                courseOfTeacherDTO.setCourse(new Course());
+            }
 
             request.setAttribute(JspAttribute.PLANNED_COURSES, plannedCourseDTOList);
             request.setAttribute(JspAttribute.ACTIVE_COURSES, activeCourseDTOList);

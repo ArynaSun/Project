@@ -15,6 +15,7 @@ import com.epam.jwt.task5.service.validator.ValidationMessageKey;
 import com.epam.jwt.task5.service.validator.ValidationResult;
 import com.epam.jwt.task5.service.validator.ValidatorHelper;
 import com.epam.jwt.task5.service.validator.impl.BaseServiceValidator;
+import com.epam.jwt.task5.util.PropertyHelper;
 
 public class StudentServiceImpl implements StudentService {
 
@@ -84,15 +85,20 @@ public class StudentServiceImpl implements StudentService {
         if (!result.isValid()){
             throw new ValidationException(result.getMessage());
         }
+        try {
 
         BaseDao<Request, ?> requestDao = DaoHelper.getRequestDao();
-        Request request = new Request();
-        request.setUserId(Integer.parseInt(userId));
-        request.setName(name);
-        request.setStatusId(SENT_STATUS_ID);
-        request.setCourseId(Integer.parseInt(courseId));
-
-        try {
+        Request request = requestDao.readBy(
+                SpecificationFactory.requestsBy(Integer.valueOf(userId), Integer.valueOf(courseId)));
+        if (request == null) {
+            request = new Request();
+            request.setUserId(Integer.parseInt(userId));
+            request.setName(name);
+            request.setStatusId(SENT_STATUS_ID);
+            request.setCourseId(Integer.parseInt(courseId));
+        } else {
+            throw new ValidationException(PropertyHelper.receiveMessage(ValidationMessageKey.REQUEST_EXISTS));
+        }
             requestDao.create(request);
         } catch (DaoException e) {
             throw new ServiceException(e);//todo mes

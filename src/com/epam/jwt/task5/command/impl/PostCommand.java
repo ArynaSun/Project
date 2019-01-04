@@ -19,7 +19,8 @@ public enum PostCommand {
     SEND_SOLUTION(new SendSolutionCommand()),
     STUDENT_REGISTRATION(new StudentRegistrationCommand()),
     TEACHER_REGISTRATION(new TeacherRegistrationCommand()),
-    CHANGE_LANGUAGE(new ChangeLanguageCommand());
+    CHANGE_LANGUAGE(new ChangeLanguageCommand()),
+    BACK(new BackCommand());
 
     private final CourseCommand command;
 

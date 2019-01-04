@@ -13,8 +13,8 @@
             </tr>
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="ADDING_STUDENT_TO_COURSE">
-                <input type="hidden" name="student_name" value="${RequestDTO.userName}">
-                <input type="hidden" name="course_name" value="${requestDTO.courseNamed}">
+                <input type="hidden" name="student_name" value="${requestDTO.userName}">
+                <input type="hidden" name="course_name" value="${requestDTO.courseName}">
                 <input type="submit" value="${SUBMIT}">
             </form>
         </c:forEach>

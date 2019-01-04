@@ -5,8 +5,6 @@ import com.epam.jwt.task5.command.SessionAttribute;
 import com.epam.jwt.task5.command.impl.GetCommand;
 import com.epam.jwt.task5.command.JspPage;
 import com.epam.jwt.task5.command.impl.PostCommand;
-import com.epam.jwt.task5.util.LocaleHelper;
-import com.epam.jwt.task5.util.PropertyHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,9 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Locale;
 
 import static com.epam.jwt.task5.command.RequestParameter.COMMAND;
 
@@ -39,7 +35,9 @@ public class Controller extends HttpServlet {
             response.sendRedirect(requestLine);
         }catch (IllegalArgumentException | NullPointerException e){
             logger.error(e);
-            response.sendRedirect(JspPage.ERROR_PAGE.getRequestLine());
+            if (!response.isCommitted()) {
+                response.sendRedirect(JspPage.ERROR_PAGE.getRequestLine());
+            }
         }
     }
 
@@ -59,7 +57,11 @@ public class Controller extends HttpServlet {
 
             JspPage jspPage = courseCommand.execute(request, response);
 
-            request.getSession().setAttribute(SessionAttribute.LAST_OPEN_PAGE, jspPage);
+            JspPage previousPage = (JspPage) request.getSession().getAttribute(SessionAttribute.CURRENT_PAGE);
+            if (!jspPage.equals(previousPage)) {
+                request.getSession().setAttribute(SessionAttribute.LAST_OPEN_PAGE, previousPage);
+            }
+            request.getSession().setAttribute(SessionAttribute.CURRENT_PAGE, jspPage);
 
             String jspPath = jspPage.getPath();
 

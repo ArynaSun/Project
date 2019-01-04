@@ -5,16 +5,12 @@
     <meta charset="UTF-8">
     <title>Courses</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/welcome_page.css">
 </head>
 <body>
-<div id="server_message">
-    <jsp:include page="module/views/server_message.jsp"/>
+<div id="header">
+    <jsp:include page="module/header.jsp"/>
 </div>
-<hr>
-<div id="change_language">
-    <jsp:include page="module/forms/change_language.jsp"/>
-</div>
-<hr>
 <div id="planned_courses">
     <jsp:include page="module/views/courses_planned.jsp"/>
 </div>

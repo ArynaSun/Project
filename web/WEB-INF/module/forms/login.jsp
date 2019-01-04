@@ -3,17 +3,17 @@
     <form action="controller" method="post">
         <input type="hidden" name="command" value="login">
         <div>
-            <label>E-mail</label>
+            <label>${E_MAIL}</label>
             <div>
-                <input type="text" name="email" placeholder="e-mail">
+                <input type="text" name="email" placeholder="${E_MAIL}">
             </div>
         </div>
         <div>
-            <label>Password</label>
+            <label>${PASSWORD}</label>
             <div>
-                <input type="password" name="password" placeholder="password"/>
+                <input type="password" name="password" placeholder="${PASSWORD}"/>
             </div>
         </div>
-        <input type="submit" value="sign in"/>
+        <input type="submit" value="${SIGN_IN}"/>
     </form>
 </div>

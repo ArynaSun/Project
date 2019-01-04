@@ -10,9 +10,11 @@ import com.epam.jwt.task5.service.CommonService;
 import com.epam.jwt.task5.service.exception.ServiceException;
 import com.epam.jwt.task5.service.exception.ValidationException;
 import com.epam.jwt.task5.service.validator.CommonServiceValidator;
+import com.epam.jwt.task5.service.validator.ValidationMessageKey;
 import com.epam.jwt.task5.service.validator.ValidationResult;
 import com.epam.jwt.task5.service.validator.ValidatorHelper;
 import com.epam.jwt.task5.service.validator.impl.BaseServiceValidator;
+import com.epam.jwt.task5.util.PropertyHelper;
 
 import java.util.List;
 
@@ -253,10 +255,10 @@ public class CommonServiceImpl implements CommonService {
         try {
             User user = userDao.readBy(SpecificationFactory.userByEmail(email));
             if (user == null){
-                throw new ValidationException("Неправильное мыло"); //todo hardcode to property helper
+                throw new ValidationException(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_EMAIL)); //todo hardcode to property helper
             }
             if (!user.getPassword().equals(password)){
-                throw new ValidationException("Неправильный пароль"); //todo hardcode to property helper
+                throw new ValidationException(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_PASSWORD)); //todo hardcode to property helper
             }
             return user;
         } catch (DaoException e) {

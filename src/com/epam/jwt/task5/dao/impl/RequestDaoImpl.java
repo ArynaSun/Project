@@ -68,7 +68,8 @@ public class RequestDaoImpl implements BaseDao<Request, ResultSet> {
             connection = ConnectionManager.getPool().takeConnection();
             preparedStatement = connection.prepareStatement(specification.receiveInstruction());
             resultSet = preparedStatement.executeQuery();
-            request = specification.handleResult(resultSet).get(FIRST_ELEMENT_OF_LIST_INDEX);
+            List<Request> requestList = specification.handleResult(resultSet);
+            request = !requestList.isEmpty() ? requestList.get(FIRST_ELEMENT_OF_LIST_INDEX) : null;
 
         } catch (SQLException | SpecificationException | ConnectionPoolException e) {
             throw new DaoException(e);//todo mes
@@ -142,7 +143,8 @@ public class RequestDaoImpl implements BaseDao<Request, ResultSet> {
             }
         }
 
-        return requestList;    }
+        return requestList;
+    }
 
     @Override
     public void update(Request entity) throws DaoException {
@@ -212,7 +214,7 @@ public class RequestDaoImpl implements BaseDao<Request, ResultSet> {
         }
     }
 
-    private static final class SqlQuery{
+    private static final class SqlQuery {
 
         public static final String INSERT_INTO_REQUEST_NAME_USER_ID_STATUS_ID_VALUES = "INSERT INTO request " +
                 "(name, user_id, status_id, course_id) VALUES (?, ?, ?, ?)";

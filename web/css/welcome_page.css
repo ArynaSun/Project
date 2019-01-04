@@ -1,0 +1,16 @@
+.link.course.planned{
+    visibility: hidden;
+    display: none;
+}
+#logout{
+    visibility: hidden;
+    display: none;
+}
+#back{
+    visibility: hidden;
+    display: none;
+}
+.form.send-request{
+    visibility: hidden;
+    display: none;
+}

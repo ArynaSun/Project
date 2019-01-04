@@ -28,15 +28,7 @@ public class DisplayWelcomePageCommand implements CourseCommand {
         CommonService commonService = ServiceHelper.getCommonService();
         try {
             courseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));//TODO ASK TEACHER
-            for (Course course : courseList) {
-                CourseDTO courseDTO = new CourseDTO();
-
-                courseDTO.setSubjectName(commonService.findSubjectById(String.valueOf(course.getSubjectId())).getName());
-                courseDTO.setCourse(course);
-                courseDTO.setTeacherName(commonService.findUserById(String.valueOf(course.getTeacherId())).getName());
-
-                plannedCourseListDTO.add(courseDTO);
-            }
+            initCourseDTO(courseList, plannedCourseListDTO, commonService);
             request.setAttribute(JspAttribute.PLANNED_COURSES, plannedCourseListDTO);
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
