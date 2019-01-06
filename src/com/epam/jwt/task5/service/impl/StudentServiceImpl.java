@@ -1,8 +1,6 @@
 package com.epam.jwt.task5.service.impl;
 
-import com.epam.jwt.task5.bean.Request;
-import com.epam.jwt.task5.bean.Solution;
-import com.epam.jwt.task5.bean.User;
+import com.epam.jwt.task5.bean.*;
 import com.epam.jwt.task5.dao.BaseDao;
 import com.epam.jwt.task5.dao.DaoHelper;
 import com.epam.jwt.task5.dao.exception.DaoException;
@@ -19,8 +17,6 @@ import com.epam.jwt.task5.util.PropertyHelper;
 
 public class StudentServiceImpl implements StudentService {
 
-    private static final int STUDENT_ROLE_ID = 3;
-    private static final int SENT_STATUS_ID = 3;
     private StudentServiceValidator studentServiceValidator = ValidatorHelper.getStudentServiceValidator();
     private BaseServiceValidator baseServiceValidator = ValidatorHelper.getBaseServiceValidator();
 
@@ -44,7 +40,7 @@ public class StudentServiceImpl implements StudentService {
             user.setName(name);
             user.setEmail(email);
             user.setPassword(password);
-            user.setRoleId(STUDENT_ROLE_ID);
+            user.setRoleId(Role.STUDENT.getId());
 
 
             userDao.create(user);
@@ -67,7 +63,6 @@ public class StudentServiceImpl implements StudentService {
         Solution solution = new Solution();
         solution.setStudentId(Integer.parseInt(studentId));
         solution.setTaskId(Integer.parseInt(taskId));
-        solution.setMark(Integer.parseInt(mark));
         solution.setAnswer(answer);
         solution.setAttachments(attachments);//todo should be null
 
@@ -94,7 +89,7 @@ public class StudentServiceImpl implements StudentService {
             request = new Request();
             request.setUserId(Integer.parseInt(userId));
             request.setName(name);
-            request.setStatusId(SENT_STATUS_ID);
+            request.setStatusId(RequestStatus.SENT.getId());
             request.setCourseId(Integer.parseInt(courseId));
         } else {
             throw new ValidationException(PropertyHelper.receiveMessage(ValidationMessageKey.REQUEST_EXISTS));

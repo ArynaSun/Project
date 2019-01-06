@@ -18,7 +18,7 @@ public class RequestsByRoleIdSpecification implements DaoSpecification<Request, 
 
     @Override
     public String receiveInstruction() {
-        return "SELECT * FROM request WHERE user_id IN (SELECT user_id FROM user WHERE role_id = " + roleId + ")";
+        return "SELECT * FROM request WHERE user_id IN (SELECT id FROM user WHERE role_id = " + roleId + ")";
     }
 
     @Override

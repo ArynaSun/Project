@@ -25,25 +25,41 @@ public class DisplayAdminPageCommand implements CourseCommand {
     public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
         List<Course> activeCourseList = new ArrayList<>();
         List<CourseDTO> activeCourseListDTO = new ArrayList<>();
+
         List<Course> plannedCourseList = new ArrayList<>();
         List<CourseDTO> plannedCourseListDTO = new ArrayList<>();
+
         List<Course> completedCourseList = new ArrayList<>();
         List<CourseDTO> completedCourseListDTO = new ArrayList<>();
+
         List<User> teacherList = null;
+
         List<Request> studentRequestList = null;
         List<RequestDTO> studentRequestListDTO = new ArrayList<>();
+
         List<Request> teacherRequestList = null;
         List<RequestDTO> teacherRequestListDTO = new ArrayList<>();
+
+        List<Subject> subjectList = new ArrayList<>();
 
         CommonService commonService = ServiceHelper.getCommonService();
 
         try {
-            activeCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.ACTIVE.getId()));//TODO ASK TEACHER
-            plannedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));//TODO ASK TEACHER
-            completedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.COMPLETED.getId()));//TODO ASK TEACHER
+            activeCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.ACTIVE.getId()));
+            //TODO ASK TEACHER
+            plannedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));
+            //TODO ASK TEACHER
+            completedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.COMPLETED.getId()));
+            //TODO ASK TEACHER
             teacherList = commonService.findUsersByRoleId(String.valueOf(Role.TEACHER.getId()));
-            studentRequestList = commonService.findRequests(String.valueOf(Role.STUDENT.getId()));
-            teacherRequestList = commonService.findRequests(String.valueOf(Role.TEACHER.getId()));
+
+            studentRequestList = commonService.findRequests(String.valueOf(Role.STUDENT.getId()),
+                    String.valueOf(RequestStatus.SENT.getId()));
+
+            teacherRequestList = commonService.findRequests(String.valueOf(Role.TEACHER.getId()),
+                    String.valueOf(RequestStatus.SENT.getId()));
+
+            subjectList = commonService.findAllSubjects();
 
             initCourseDTO(activeCourseList, activeCourseListDTO, commonService);
             initCourseDTO(plannedCourseList, plannedCourseListDTO, commonService);
@@ -56,6 +72,7 @@ public class DisplayAdminPageCommand implements CourseCommand {
             request.setAttribute(JspAttribute.PLANNED_COURSES, plannedCourseListDTO);
             request.setAttribute(JspAttribute.COMPLETED_COURSES, completedCourseListDTO);
             request.setAttribute(JspAttribute.TEACHERS, teacherList);
+            request.setAttribute(JspAttribute.SUBJECTS, subjectList);
             request.setAttribute(JspAttribute.STUDENT_REQUESTS, studentRequestListDTO);
             request.setAttribute(JspAttribute.TEACHER_REQUESTS, teacherRequestListDTO);
 

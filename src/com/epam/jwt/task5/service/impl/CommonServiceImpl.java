@@ -5,6 +5,7 @@ import com.epam.jwt.task5.dao.BaseDao;
 import com.epam.jwt.task5.dao.DaoHelper;
 import com.epam.jwt.task5.dao.exception.DaoException;
 import com.epam.jwt.task5.dao.exception.SpecificationException;
+import com.epam.jwt.task5.dao.specification.DaoSpecification;
 import com.epam.jwt.task5.dao.specification.SpecificationFactory;
 import com.epam.jwt.task5.service.CommonService;
 import com.epam.jwt.task5.service.exception.ServiceException;
@@ -231,6 +232,26 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
+    public List<Request> findRequests(String roleId, String requestStatusId) throws ServiceException, ValidationException {
+        List<Request> requestList = null;
+
+        ValidationResult result = commonServiceValidator.validateId(roleId);
+
+        if (!result.isValid()) {
+            throw new ValidationException(result.getMessage());
+        }
+
+        try {
+            requestList = requestDao.read(
+                    SpecificationFactory.requestsByRoleIdRequestStatusId(
+                            Integer.parseInt(roleId), Integer.parseInt(requestStatusId)));
+        } catch (DaoException e) {
+            throw new ServiceException(e);//todo mes
+        }
+        return requestList;
+    }
+
+    @Override
     public List<Review> findReview(String studentId) throws ServiceException, ValidationException {
         List<Review> reviewList = null;
 
@@ -283,5 +304,14 @@ public class CommonServiceImpl implements CommonService {
         }
 
         return subject;
+    }
+
+    @Override
+    public List<Subject> findAllSubjects() throws ServiceException {
+        try {
+            return subjectDao.read(SpecificationFactory.allSubjects());
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 }

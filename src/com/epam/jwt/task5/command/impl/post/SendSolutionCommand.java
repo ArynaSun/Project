@@ -27,9 +27,7 @@ public class SendSolutionCommand implements CourseCommand {
 
         String studentId = request.getParameter(RequestParameter.STUDENT_ID);
         String taskId = request.getParameter(RequestParameter.TASK_ID);
-        String mark = request.getParameter(RequestParameter.MARK);
         String answer = request.getParameter(RequestParameter.SOLUTION_ANSWER);
-        String attachments = request.getParameter(RequestParameter.SOLUTION_ATTACHMENTS);
         String courseId = request.getParameter(RequestParameter.COURSE_ID);
 
         JspPage jspPage;
@@ -38,7 +36,7 @@ public class SendSolutionCommand implements CourseCommand {
 
 
         try {
-            studentService.createSolution(studentId, taskId, mark, answer, attachments);
+            studentService.createSolution(studentId, taskId, "", answer, "");
 
             stringMap.put(RequestParameter.MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
 

@@ -1,10 +1,12 @@
 package com.epam.jwt.task5.command.impl.post;
 
+import com.epam.jwt.task5.bean.RequestStatus;
 import com.epam.jwt.task5.command.CourseCommand;
 import com.epam.jwt.task5.command.JspAttribute;
 import com.epam.jwt.task5.command.JspPage;
 import com.epam.jwt.task5.command.RequestParameter;
 import com.epam.jwt.task5.service.AdminService;
+import com.epam.jwt.task5.service.CommonService;
 import com.epam.jwt.task5.service.ServiceHelper;
 import com.epam.jwt.task5.service.exception.ServiceException;
 import com.epam.jwt.task5.service.exception.ValidationException;
@@ -24,12 +26,13 @@ public class AddingStudentToCourseCommand implements CourseCommand {
 
         String studentId = request.getParameter(RequestParameter.STUDENT_ID);
         String courseId = request.getParameter(RequestParameter.COURSE_ID);
+        String requestId = request.getParameter(RequestParameter.REQUEST_ID);
 
         JspPage jspPage;
 
         try {
             adminService.addStudentToCourse(studentId,courseId );
-
+            adminService.changeRequestStatus(requestId, String.valueOf(RequestStatus.IS_ACCEPTED.getId()));
             jspPage = new JspPage(JspPage.ADMIN_PAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
 
         } catch (ServiceException e) {

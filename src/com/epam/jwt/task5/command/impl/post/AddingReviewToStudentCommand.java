@@ -32,14 +32,14 @@ public class AddingReviewToStudentCommand implements CourseCommand {
         JspPage jspPage;
         Map<String, String> stringMap = new HashMap<>();
 
-        stringMap.put(RequestParameter.STUDENT_ID, studentId);
+        stringMap.put(RequestParameter.COURSE_ID, courseId);
 
         try {
             teacherService.createReview(studentId, courseId, mark, description);
 
             stringMap.put(RequestParameter.MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
 
-            jspPage = new JspPage(JspPage.STUDENT_INFO, stringMap);
+            jspPage = new JspPage(JspPage.COURSE_INFO, stringMap);
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
 
@@ -47,7 +47,7 @@ public class AddingReviewToStudentCommand implements CourseCommand {
         } catch (ValidationException e) {
             stringMap.put(RequestParameter.MESSAGE, e.getMessage());
 
-            jspPage = new JspPage(JspPage.STUDENT_INFO, stringMap);
+            jspPage = new JspPage(JspPage.COURSE_INFO, stringMap);
         }
 
         return jspPage;

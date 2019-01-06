@@ -6,27 +6,44 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-<div id="server_message">
-    <jsp:include page="module/views/server_message.jsp"/>
+<div id="header">
+    <jsp:include page="module/header.jsp"/>
+</div>
+<c:if test="${sessionScope.user.roleId == 1 && sessionScope.user.id == Course.course.teacherId}">
+    <div id="add_task">
+        <jsp:include page="module/forms/add_task.jsp"/>
+    </div>
+    <div id="add_review">
+        <jsp:include page="module/forms/add_review.jsp"/>
+    </div>
+    <div id="request_teacher">
+        <jsp:include page="module/forms/request_teacher.jsp"/>
+    </div>
+</c:if>
+<c:if test="${sessionScope.user.roleId == 0}">
+    <div id="change_course_status">
+        <jsp:include page="module/forms/change_course_status.jsp"/>
+    </div>
+</c:if>
+<div id="course_info">
+    <jsp:include page="module/views/card_course.jsp"/>
 </div>
 <hr>
-<div id="logout">
-    <jsp:include page="module/forms/logout.jsp"/>
-</div>
 <div id="students">
     <jsp:include page="module/views/users_students.jsp"/>
 </div>
 <hr>
 <div id="tasks">
-    <jsp:include page="module/views/tasks.jsp"/>
+    <c:if test="${sessionScope.user.roleId == 0}">
+        <jsp:include page="module/views/tasks.jsp"/>
+    </c:if>
+    <c:if test="${sessionScope.user.roleId == 1}">
+        <jsp:include page="module/views/tasks_solutions.jsp"/>
+    </c:if>
+    <c:if test="${sessionScope.user.roleId == 2}">
+        <jsp:include page="module/views/tasks_solution.jsp"/>
+    </c:if>
 </div>
 <hr>
-<div id="course_info">
-    <jsp:include page="module/views/card_course.jsp"/>
-</div>
-<hr>
-<div id="task_solutions">
-    <jsp:include page="module/views/task_solutions.jsp"/>
-</div>
 </body>
 </html>

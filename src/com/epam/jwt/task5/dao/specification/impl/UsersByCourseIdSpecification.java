@@ -18,8 +18,8 @@ public class UsersByCourseIdSpecification implements DaoSpecification<User, Resu
 
     @Override
     public String receiveInstruction() {
-        return "SELECT * FROM user WHERE id = " +
-                "(select distinct student_id from course_student_relation where course_id = "
+        return "SELECT * FROM user WHERE id IN " +
+                "(select student_id from course_student_relation where course_id = "
                 + courseId + ")";
     }
 

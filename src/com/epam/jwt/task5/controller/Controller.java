@@ -32,7 +32,9 @@ public class Controller extends HttpServlet {
 
             String requestLine = jspPage.getRequestLine();
 
-            response.sendRedirect(requestLine);
+            if (!response.isCommitted()) {
+                response.sendRedirect(requestLine);
+            }
         }catch (IllegalArgumentException | NullPointerException e){
             logger.error(e);
             if (!response.isCommitted()) {

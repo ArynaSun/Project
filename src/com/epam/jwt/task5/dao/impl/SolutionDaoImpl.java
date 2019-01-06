@@ -35,7 +35,7 @@ public class SolutionDaoImpl implements BaseDao<Solution, ResultSet> {
             preparedStatement.setInt(3, solution.getMark());
             preparedStatement.setString(4, solution.getAnswer());
             preparedStatement.setString(5, solution.getAttachments());
-            preparedStatement.setInt(6, solution.isAccepted() ? 1 : 0);
+            preparedStatement.setInt(6, solution.getAccepted() ? 1 : 0);
             preparedStatement.execute();
         } catch (ConnectionPoolException | SQLException e) {
             throw new DaoException("Ошибка уровня Dao", e);
@@ -140,7 +140,7 @@ public class SolutionDaoImpl implements BaseDao<Solution, ResultSet> {
             preparedStatement.setInt(3, solution.getMark());
             preparedStatement.setString(4, solution.getAnswer());
             preparedStatement.setString(5, solution.getAttachments());
-            preparedStatement.setInt(6, solution.isAccepted() ? 1 : 0);
+            preparedStatement.setInt(6, solution.getAccepted() ? 1 : 0);
             preparedStatement.setInt(7, solution.getId());
 
             preparedStatement.executeUpdate();

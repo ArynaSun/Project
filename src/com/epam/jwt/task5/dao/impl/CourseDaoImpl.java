@@ -247,11 +247,11 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     private static final class SqlQuery{
-        private static final String UPDATE_COURSE = "UPDATE course SET name = ?, desription = ?, " +
+        private static final String UPDATE_COURSE = "UPDATE course SET name = ?, description = ?, " +
                 "status_id = ?, teacher_id = ?, subject_id = ? WHERE id = ?";
         private static final String DELETE_FROM_COURSE_WHERE_ID = "DELETE FROM course WHERE id = ?";
         private static final String INSERT_INTO_COURSE_NAME_DESCRIPTION_TEACHER_ID_SUBJECT_ID_STATUS_ID_VALUES =
-                "INSERT INTO course(name, desription, teacher_id, subject_id, status_id) VALUES (?, ?, ?, ?, ?)";
+                "INSERT INTO course(name, description, teacher_id, subject_id, status_id) VALUES (?, ?, ?, ?, ?)";
         private static final String INSERT_INTO_COURSE_STUDENT_RELATION_VALUES =
                 "INSERT INTO course_student_relation(student_id, course_id) VALUES(?,?)";
     }

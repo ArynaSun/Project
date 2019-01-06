@@ -17,7 +17,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DisplayStudentInfoCommand implements CourseCommand {
 
@@ -31,6 +33,9 @@ public class DisplayStudentInfoCommand implements CourseCommand {
         List<Course> completedStudentCourseList = new ArrayList<>();
         List<CourseDTO> completedStudentCourseListDTO = new ArrayList<>();
 
+
+        Map<String, String> map = new HashMap<>();
+
         User user;
 
         CommonService commonService = ServiceHelper.getCommonService();
@@ -39,41 +44,29 @@ public class DisplayStudentInfoCommand implements CourseCommand {
             user = commonService.findUserById(request.getParameter(RequestParameter.STUDENT_ID));
             String studentId = String.valueOf(user.getId());
 
+            map.put(RequestParameter.STUDENT_ID, studentId);
+
             reviewList = commonService.findReview(studentId);//TODO ASK TEACHER
             completedStudentCourseList = commonService.findCoursesBy(user.getId(), CourseStatus.COMPLETED.getId());
 
-            for (Review review : reviewList) {
-                ReviewDTO reviewDTO = new ReviewDTO();
+            initReviewDTO(reviewList, reviewListDTO, commonService);
 
-                reviewDTO.setReview(review);
-                reviewDTO.setStudentName(commonService.findUserById(String.valueOf(review.getStudentId())).getName());
-                reviewDTO.setCourseName(commonService.findCourse(String.valueOf(review.getCourseId())).getName());
+            initCourseDTO(completedStudentCourseList, completedStudentCourseListDTO, commonService);
 
-
-                reviewListDTO.add(reviewDTO);
-            }
-
-
-            for (Course course : completedStudentCourseList) {
-                CourseDTO courseDTO = new CourseDTO();
-
-                courseDTO.setSubjectName(commonService.findSubjectById(String.valueOf(course.getSubjectId())).getName());
-                courseDTO.setTeacherName(commonService.findUserById(String.valueOf(course.getTeacherId())).getName());
-                courseDTO.setCourse(course);
-
-                completedStudentCourseListDTO.add(courseDTO);
-            }
-
-            request.setAttribute(JspAttribute.COMPLETED_STUDENT_COURSES, completedStudentCourseListDTO);
+            request.setAttribute(JspAttribute.COMPLETED_COURSES, completedStudentCourseListDTO);
             request.setAttribute(JspAttribute.STUDENT_REVIEW, reviewListDTO);
             request.setAttribute(JspAttribute.STUDENT, user);
+
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
+
             return JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
             request.setAttribute(JspAttribute.SERVER_MESSAGE, e.getMessage());
         }
 
-        return JspPage.STUDENT_INFO;
+        return new JspPage(JspPage.STUDENT_INFO, map);
     }
+
+
 }

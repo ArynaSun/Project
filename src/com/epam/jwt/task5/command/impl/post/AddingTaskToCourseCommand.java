@@ -8,6 +8,7 @@ import com.epam.jwt.task5.service.ServiceHelper;
 import com.epam.jwt.task5.service.TeacherService;
 import com.epam.jwt.task5.service.exception.ServiceException;
 import com.epam.jwt.task5.service.exception.ValidationException;
+import com.epam.jwt.task5.util.DateUtil;
 import com.epam.jwt.task5.util.PropertyHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,8 +27,7 @@ public class AddingTaskToCourseCommand implements CourseCommand {
 
         String courseId = request.getParameter(RequestParameter.COURSE_ID);
         String name = request.getParameter(RequestParameter.TASK_NAME);
-        String attachments = request.getParameter(RequestParameter.TASK_ATTACHMENTS);
-        String assignmentDate = request.getParameter(RequestParameter.TASK_ASSIGNMENT_DATE);
+        String assignmentDate = DateUtil.dateTime();
         String deadline = request.getParameter(RequestParameter.TASK_DEADLINE);
 
         JspPage jspPage;
@@ -35,7 +35,7 @@ public class AddingTaskToCourseCommand implements CourseCommand {
         stringMap.put(RequestParameter.COURSE_ID, courseId);
 
         try {
-            teacherService.createTask(courseId, name, attachments, assignmentDate, deadline);
+            teacherService.createTask(courseId, name, "", assignmentDate, deadline);
 
             stringMap.put(RequestParameter.MESSAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
 

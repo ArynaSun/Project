@@ -14,12 +14,13 @@ public enum PostCommand {
     CHANGE_COURSE_TEACHER(new ChangeCourseTeacherCommand()),
     CHECK_SOLUTION(new CheckSolutionCommand()),
     COMPLETE_COURSE_REQUEST(new CompleteCourseRequestCommand()),
-    HANDLE_REQUEST(new HandleRequestCommand()),
     REQUEST_TO_REGISTRATION(new RequestToRegistrationCommand()),
     SEND_SOLUTION(new SendSolutionCommand()),
+    //REQUEST_TO_END_COURSE(new RequestToEndCourseCommand()),todo
     STUDENT_REGISTRATION(new StudentRegistrationCommand()),
     TEACHER_REGISTRATION(new TeacherRegistrationCommand()),
     CHANGE_LANGUAGE(new ChangeLanguageCommand()),
+    REJECT_REQUEST(new RejectRequestCommand()),
     BACK(new BackCommand());
 
     private final CourseCommand command;

@@ -54,4 +54,17 @@ public interface CourseCommand {
             requestListDTO.add(requestDTO);
         }
     }
+
+    default void initReviewDTO(List<Review> reviewList, List<ReviewDTO> reviewListDTO, CommonService commonService) throws ServiceException, ValidationException {
+        for (Review review : reviewList) {
+            ReviewDTO reviewDTO = new ReviewDTO();
+
+            reviewDTO.setReview(review);
+            reviewDTO.setStudentName(commonService.findUserById(String.valueOf(review.getStudentId())).getName());
+            reviewDTO.setCourseName(commonService.findCourse(String.valueOf(review.getCourseId())).getName());
+
+
+            reviewListDTO.add(reviewDTO);
+        }
+    }
 }

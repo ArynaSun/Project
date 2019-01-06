@@ -84,6 +84,7 @@ public class TeacherServiceImpl implements TeacherService {
         try {
             Solution solution = solutionDao.readBy(SpecificationFactory.solutionById(Integer.parseInt(solutionId)));
             solution.setMark(Integer.parseInt(mark));
+            solution.setAccepted(true);
             solutionDao.update(solution);
         } catch (DaoException e) {
             throw new ServiceException(e);//todo mes

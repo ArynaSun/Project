@@ -26,7 +26,7 @@ public class CompleteCourseRequestCommand implements CourseCommand {
 
         String name = request.getParameter(RequestParameter.REQUEST_NAME);
         String userId = request.getParameter(RequestParameter.USER_ID);
-        String courseId = request.getParameter(RequestParameter.USER_ID);
+        String courseId = request.getParameter(RequestParameter.COURSE_ID);
 
         JspPage jspPage;
         Map<String, String> stringMap = new HashMap<>();

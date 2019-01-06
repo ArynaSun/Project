@@ -7,7 +7,7 @@ import com.epam.jwt.task5.util.PropertyHelper;
 
 public class StudentServiceValidatorImpl extends BaseServiceValidator implements StudentServiceValidator {
 
-    private static final int MIN_LENGTH_ANSWER = 0;
+    private static final int MIN_LENGTH_ANSWER = 2;
     private static final int MAX_LENGTH_ANSWER = 1000;
 
     @Override
@@ -25,11 +25,6 @@ public class StudentServiceValidatorImpl extends BaseServiceValidator implements
             result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.HACKER_HELLO_MESSAGE));
         }
 
-        if (!validateMark(mark)) {
-            result.setValid(false);
-            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_MARK_MESSAGE));
-        }
-
         if (!validateAnswer(answer)) {
             result.setValid(false);
             result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_ANSWER_MESSAGE));
@@ -39,7 +34,7 @@ public class StudentServiceValidatorImpl extends BaseServiceValidator implements
     }
 
     private boolean validateAnswer(String answer) {
-        return answer != null && answer.isEmpty() && answer.length() >= MIN_LENGTH_ANSWER &&
+        return answer != null && !answer.isEmpty() && answer.length() >= MIN_LENGTH_ANSWER &&
                 answer.length() <= MAX_LENGTH_ANSWER;
     }
 

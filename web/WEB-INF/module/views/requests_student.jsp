@@ -10,13 +10,21 @@
                 <td><c:out value="${requestDTO.userName}"/></td>
                 <td><c:out value="${requestDTO.courseName}"/></td>
                 <td><c:out value="${requestDTO.statusName}"/></td>
+                <td>
+                    <form action="controller" method="post">
+                        <input type="hidden" name="command" value="ADDING_STUDENT_TO_COURSE">
+                        <input type="hidden" name="student_id" value="${requestDTO.request.userId}">
+                        <input type="hidden" name="course_id" value="${requestDTO.request.courseId}">
+                        <input type="hidden" name="request_id" value="${requestDTO.request.id}">
+                        <input type="submit" value="${SUBMIT}">
+                    </form>
+                    <form action="controller" method="post">
+                        <input type="hidden" name="command" value="REJECT_REQUEST">
+                        <input type="hidden" name="request_id" value="${requestDTO.request.id}">
+                        <input type="submit" value="${REJECT}">
+                    </form>
+                </td>
             </tr>
-            <form action="controller" method="post">
-                <input type="hidden" name="command" value="ADDING_STUDENT_TO_COURSE">
-                <input type="hidden" name="student_name" value="${requestDTO.userName}">
-                <input type="hidden" name="course_name" value="${requestDTO.courseName}">
-                <input type="submit" value="${SUBMIT}">
-            </form>
         </c:forEach>
     </table>
 </div>

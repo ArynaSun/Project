@@ -1,6 +1,7 @@
 package com.epam.jwt.task5.dao.specification;
 
 import com.epam.jwt.task5.bean.Request;
+import com.epam.jwt.task5.bean.Subject;
 import com.epam.jwt.task5.dao.specification.impl.*;
 
 public class SpecificationFactory {
@@ -70,6 +71,14 @@ public class SpecificationFactory {
 
     public static DaoSpecification requestsBy(int userId, int courseId) {
         return new  RequestByUserIdAndCourseIdSpecification(userId, courseId);
+    }
+
+    public static DaoSpecification allSubjects() {
+        return new AllSubjectsSpecification();
+    }
+
+    public static DaoSpecification requestsByRoleIdRequestStatusId(int roleId, int requestStatusId) {
+        return new RequestByIdRequestStatusIdSpecification(roleId, requestStatusId);
     }
 }
 

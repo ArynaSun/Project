@@ -19,7 +19,7 @@ public class TeacherRegistrationCommand implements CourseCommand {
 
     @Override
     public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter(RequestParameter.COURSE_NAME);
+        String name = request.getParameter(RequestParameter.USER_NAME);
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
 
@@ -28,13 +28,13 @@ public class TeacherRegistrationCommand implements CourseCommand {
         try {
             ServiceHelper.getAdminService().registerTeacher(name,email,password);
 
-            jspPage = new JspPage(JspPage.WELCOME_PAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
+            jspPage = new JspPage(JspPage.ADMIN_PAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
 
             jspPage = JspPage.ERROR_PAGE;
         } catch (ValidationException e) {
-           jspPage = new JspPage(JspPage.WELCOME_PAGE, e.getMessage());
+           jspPage = new JspPage(JspPage.ADMIN_PAGE, e.getMessage());
         }
 
         return jspPage;

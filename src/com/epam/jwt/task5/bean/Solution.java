@@ -9,19 +9,19 @@ public class Solution implements Serializable {
     private int mark;
     private String answer;
     private String attachments;
-    private boolean isAccepted;
+    private boolean accepted;
 
     public Solution() {
     }
 
-    public Solution(int id, int studentId, int taskId, int mark, String answer, String attachments, boolean isAccepted) {
+    public Solution(int id, int studentId, int taskId, int mark, String answer, String attachments, boolean accepted) {
         this.id = id;
         this.studentId = studentId;
         this.taskId = taskId;
         this.mark = mark;
         this.answer = answer;
         this.attachments = attachments;
-        this.isAccepted = isAccepted;
+        this.accepted = accepted;
     }
 
     public int getId() {
@@ -72,12 +72,12 @@ public class Solution implements Serializable {
         this.attachments = attachments;
     }
 
-    public boolean isAccepted() {
-        return isAccepted;
+    public boolean getAccepted() {
+        return accepted;
     }
 
     public void setAccepted(boolean accepted) {
-        isAccepted = accepted;
+        this.accepted = accepted;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Solution implements Serializable {
         if (mark != solution.mark) {
             return false;
         }
-        if (isAccepted != solution.isAccepted) {
+        if (accepted != solution.accepted) {
             return false;
         }
         if (null == answer) {
@@ -121,7 +121,7 @@ public class Solution implements Serializable {
 
     @Override
     public int hashCode() {
-        return ((id * 11) + (studentId * 31) + (taskId * 17) + (isAccepted ? 1* 19 : 0 ) + (mark * 13) +
+        return ((id * 11) + (studentId * 31) + (taskId * 17) + (accepted ? 1* 19 : 0 ) + (mark * 13) +
                 ((null == answer) ? 0 : (answer.hashCode() * 11) +
                         ((null == attachments) ? 0 : (attachments.hashCode() * 31))));
     }
@@ -130,6 +130,6 @@ public class Solution implements Serializable {
     public String toString() {
         return getClass().getName() + "id: " + id + ", studentId: " + studentId + ", taskId: " + taskId +
                 ", mark: " + mark + ", statusId: " + ", answer: " + answer + ", attachments: " + attachments +
-                ", isAccepted: " + isAccepted;
+                ", getAccepted: " + accepted;
     }
 }

@@ -1,8 +1,6 @@
 package com.epam.jwt.task5.service.impl;
 
-import com.epam.jwt.task5.bean.Course;
-import com.epam.jwt.task5.bean.Request;
-import com.epam.jwt.task5.bean.User;
+import com.epam.jwt.task5.bean.*;
 import com.epam.jwt.task5.dao.BaseDao;
 import com.epam.jwt.task5.dao.CourseDao;
 import com.epam.jwt.task5.dao.DaoHelper;
@@ -18,7 +16,6 @@ import com.epam.jwt.task5.service.validator.ValidatorHelper;
 
 public class AdminServiceImpl implements AdminService {
 
-    private static final int TEACHER_ROLE_ID = 2;
     private AdminServiceValidator adminServiceValidator = ValidatorHelper.getAdminServiceValidator();
     private BaseDao<User, ?> userDao = DaoHelper.getUserDao();
     private CourseDao courseDao = DaoHelper.getCourseDao();
@@ -43,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
             user.setName(name);
             user.setPassword(password);
             user.setEmail(email);
-            user.setRoleId(TEACHER_ROLE_ID);
+            user.setRoleId(Role.TEACHER.getId());
 
             userDao.create(user);
         } catch (DaoException e) {
@@ -64,6 +61,7 @@ public class AdminServiceImpl implements AdminService {
         course.setDescription(description);
         course.setTeacherId(Integer.parseInt(teacherId));
         course.setSubjectId(Integer.parseInt(subjectId));
+        course.setStatusId(CourseStatus.PLANNED.getId());
 
         try {
             courseDao.create(course);

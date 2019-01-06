@@ -29,9 +29,13 @@ public interface CommonService {
 
     List<Request> findRequests(String roleId) throws ServiceException, ValidationException;
 
+    List<Request> findRequests(String roleId, String requestStatusId) throws ServiceException, ValidationException;
+
     List<Review> findReview(String studentId) throws ServiceException, ValidationException;//todo
 
     User findUserBy(String email, String password) throws ServiceException, ValidationException;
 
     Subject findSubjectById(String id) throws ServiceException, ValidationException;
+
+    List<Subject> findAllSubjects() throws ServiceException;
 }

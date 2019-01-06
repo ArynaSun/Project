@@ -1,5 +1,6 @@
 package com.epam.jwt.task5.command.impl.post;
 
+import com.epam.jwt.task5.bean.RequestStatus;
 import com.epam.jwt.task5.command.CourseCommand;
 import com.epam.jwt.task5.command.JspAttribute;
 import com.epam.jwt.task5.command.JspPage;
@@ -23,11 +24,16 @@ public class ChangeCourseStatusCommand implements CourseCommand {
 
         String courseId = request.getParameter(RequestParameter.COURSE_ID);
         String statusId = request.getParameter(RequestParameter.COURSE_STATUS_ID);
+        String requestId = request.getParameter(RequestParameter.REQUEST_ID);
+
 
         JspPage jspPage;
 
-        try {
+        try {//todo add transaction
             adminService.changeCourseStatus(courseId,statusId);
+            if (requestId != null && !requestId.isEmpty()) {
+                adminService.changeRequestStatus(requestId, String.valueOf(RequestStatus.IS_ACCEPTED.getId()));
+            }
 
             jspPage = new JspPage(JspPage.ADMIN_PAGE, PropertyHelper.receiveMessage(SUCCESS_MESSAGE_KEY));
 

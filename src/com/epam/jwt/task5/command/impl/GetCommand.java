@@ -6,7 +6,7 @@ import com.epam.jwt.task5.command.impl.get.*;
 public enum GetCommand {
     DISPLAY_ADMIN_PAGE(new DisplayAdminPageCommand()),
     DISPLAY_COURSE_INFO_PAGE(new DisplayCourseInfoCommand()),
-    DISPLAY_STUDENT_INFO(new DisplayStudentInfoCommand()),
+    DISPLAY_STUDENT_INFO_PAGE(new DisplayStudentInfoCommand()),
     DISPLAY_TEACHER_PAGE(new DisplayTeacherPageCommand()),
     DISPLAY_STUDENT_PAGE(new DisplayStudentPageCommand()),
     DISPLAY_WELCOME_PAGE(new DisplayWelcomePageCommand()),

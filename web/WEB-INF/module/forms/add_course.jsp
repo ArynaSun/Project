@@ -1,21 +1,20 @@
 <div id="_add_course">
+    <h3>${ADD_COURSE}</h3>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="ADDING_COURSE">
-        <div>
+        <div id="course_name">
             <label>${COURSE_NAME}</label><br>
             <input type="text" name="course_name"><br>
         </div>
-        <div>
+        <div id="course_description">
             <label>${COURSE_DESCRIPTION}</label><br>
             <input type="text" name="course_description"><br>
         </div>
-        <div>
-            <label>${TEACHER}</label><br>
-            <input type="number" name="teacher_id"><br>
+        <div id="select_subjects">
+            <jsp:include page="../views/select_subjects.jsp"/>
         </div>
-        <div>
-            <label>${SUBJECT}</label><br>
-            <input type="number" name="subject_id"><br>
+        <div id="select_teachers">
+            <jsp:include page="../views/select_teachers.jsp"/>
         </div>
         <input type="submit" value="${SUBMIT}"><br>
     </form>

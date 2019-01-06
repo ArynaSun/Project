@@ -11,7 +11,7 @@ public class LogoutCommand implements CourseCommand {
     @Override
     public JspPage execute(HttpServletRequest request, HttpServletResponse response) {
 
-        request.getSession().setAttribute(SessionAttribute.USER, null);
+        request.getSession().invalidate();
 
         return JspPage.WELCOME_PAGE;
     }
