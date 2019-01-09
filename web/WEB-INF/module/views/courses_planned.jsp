@@ -1,15 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="_planned_courses">
-    <h3>${PLANNED_COURSES_LABEL}</h3>
-    <table>
+<h3>${PLANNED_COURSES_LABEL}</h3>
+<div id="_planned_courses" class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
         <tr>
-            <td>${COURSE_NAME}</td>
-            <td>${COURSE_DESCRIPTION}</td>
-            <td>${SUBJECT}</td>
-            <td>${TEACHER}</td>
+            <th>${COURSE_NAME}</th>
+            <th>${COURSE_DESCRIPTION}</th>
+            <th>${SUBJECT}</th>
+            <th>${TEACHER}</th>
         </tr>
-        <%--@elvariable id="PlannedCourses" type="java.util.List"--%>
+        </thead>
+        <tbody>
         <c:forEach var="courseDTO" items="${PlannedCourses}" varStatus="i">
             <tr>
                 <td><c:out value="${courseDTO.course.name}"/></td>
@@ -31,5 +33,6 @@
                 </c:if>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
 </div>

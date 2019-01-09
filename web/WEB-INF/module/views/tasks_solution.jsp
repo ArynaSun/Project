@@ -4,11 +4,16 @@
 <div id="_tasks">
     <h3>${TASKS}</h3>
     <table>
-        <td><c:out value="${TASK_NAME}"/></td>
-        <td><c:out value="${ASSIGNMENT_DATE}"/></td>
-        <td><c:out value="${DEADLINE}"/></td>
-        <td><c:out value="${SOLUTION}"/></td>
-        <td><c:out value="${MARK}"/></td>
+        <thead>
+        <tr>
+            <td><c:out value="${TASK_NAME}"/></td>
+            <td><c:out value="${ASSIGNMENT_DATE}"/></td>
+            <td><c:out value="${DEADLINE}"/></td>
+            <td><c:out value="${SOLUTION}"/></td>
+            <td><c:out value="${MARK}"/></td>
+        </tr>
+        </thead>
+        <tbody>
         <c:forEach var="taskDTO" items="${TaskSolutions}" varStatus="i">
             <tr>
                 <td><c:out value="${taskDTO.task.name}"/></td>
@@ -41,5 +46,6 @@
                 </c:if>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
 </div>

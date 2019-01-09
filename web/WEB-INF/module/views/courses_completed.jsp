@@ -3,12 +3,15 @@
 <div id="_completed_courses">
     <h3>${COMPLETED_COURSES_LABEL}</h3>
     <table>
+        <thead>
         <tr>
             <td>${COURSE_NAME}</td>
             <td>${COURSE_DESCRIPTION}</td>
             <td>${SUBJECT}</td>
             <td>${TEACHER}</td>
         </tr>
+        </thead>
+        <tbody>
         <%--@elvariable id="CompletedStudentCourses" type="java.util.List"--%>
         <c:forEach var="courseDTO" items="${CompletedCourses}" varStatus="i">
             <tr>
@@ -23,5 +26,6 @@
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
 </div>

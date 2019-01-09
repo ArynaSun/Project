@@ -56,6 +56,7 @@ public enum ServiceWordsKey {
     ADD_TASK,
     ADD_TEACHER,
     COURSE_DATA,
-    SOLUTION
+    SOLUTION,
+    MAIN
 
 }

@@ -1,4 +1,4 @@
-<div id="_header">
+<nav class="col-md-2 d-none d-md-block bg-light sidebar" id="_header">
     <div id="server_message">
         <jsp:include page="views/server_message.jsp"/>
         <hr>
@@ -15,4 +15,4 @@
         <jsp:include page="forms/back.jsp"/>
         <hr>
     </div>
-</div>
+</nav>

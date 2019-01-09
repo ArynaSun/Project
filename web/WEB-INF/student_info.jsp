@@ -9,6 +9,20 @@
 <div id="header">
     <jsp:include page="module/header.jsp"/>
 </div>
+
+<div id="main">
+    <c:if test="${sessionScope.user.roleId == 0}">
+        <jsp:include page="module/links/show_admin.jsp"/>
+    </c:if>
+
+    <c:if test="${sessionScope.user.roleId == 2}">
+        <jsp:include page="module/links/show_student.jsp"/>
+    </c:if>
+
+    <c:if test="${sessionScope.user.roleId == 1}">
+        <jsp:include page="module/links/show_teacher.jsp"/>
+    </c:if>
+</div>
 <div id="student_info">
     <jsp:include page="module/views/card_student.jsp"/>
     <hr>

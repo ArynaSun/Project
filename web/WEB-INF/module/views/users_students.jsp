@@ -3,8 +3,13 @@
 <div id="_students">
     <h3>${STUDENTS}</h3>
     <table>
+        <thead>
+        <tr>
         <td><c:out value="${STUDENT_NAME}"/></td>
         <td><c:out value="${STUDENT_EMAIL}"/></td>
+        </tr>
+        </thead>
+        <tbody>
         <%--@elvariable id="Students" type="java.util.List"--%>
         <c:forEach var="student" items="${Students}" varStatus="i">
             <tr>
@@ -17,5 +22,6 @@
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
 </div>

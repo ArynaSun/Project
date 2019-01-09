@@ -3,12 +3,15 @@
 <div id="_student_courses">
     <h3>${STUDENT_COURSES}</h3>
     <table>
+        <thead>
         <tr>
             <td>${COURSE_NAME}</td>
             <td>${COURSE_DESCRIPTION}</td>
-            <td>${TEACHER}</td>
             <td>${SUBJECT}</td>
+            <td>${TEACHER}</td>
         </tr>
+        </thead>
+        <tbody>
         <c:forEach var="courseDTO" items="${StudentCourses}" varStatus="i">
             <tr>
                 <td><c:out value="${courseDTO.course.name}"/></td>
@@ -22,5 +25,6 @@
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
 </div>

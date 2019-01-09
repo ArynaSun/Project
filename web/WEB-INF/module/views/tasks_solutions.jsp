@@ -3,9 +3,14 @@
 <div id="_tasks">
     <h3>${TASKS}</h3>
     <table>
-        <td><c:out value="${TASK_NAME}"/></td>
-        <td><c:out value="${ASIGNMENT_DATE}"/></td>
-        <td><c:out value="${DEADLINE}"/></td>
+        <thead>
+        <tr>
+            <td><c:out value="${TASK_NAME}"/></td>
+            <td><c:out value="${ASSIGNMENT_DATE}"/></td>
+            <td><c:out value="${DEADLINE}"/></td>
+        </tr>
+        </thead>
+        <tbody>
         <%--@elvariable id="Tasks" type="java.util.List"--%>
         <c:forEach var="taskDTO" items="${TaskSolutions}" varStatus="i">
             <tr>
@@ -43,5 +48,6 @@
                 </tr>
             </c:forEach>
         </c:forEach>
+        </tbody>
     </table>
 </div>

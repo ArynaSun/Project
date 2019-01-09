@@ -3,13 +3,21 @@
 <div id="_teacher_requests">
     <h3>${REQUESTS_TO_COMPLETE_COURSE}</h3>
     <table>
+
+        <thead>
+
+        <tr>
+            <td><c:out value="${STUDENT_NAME}"/></td>
+            <td><c:out value="${COURSE_NAME}"/></td>
+        </tr>
+
+        </thead>
+        <tbody>
         <%--@elvariable id="TeacherRequests" type="java.util.List"--%>
         <c:forEach var="requestDTO" items="${TeacherRequests}" varStatus="i">
             <tr>
-                <td><c:out value="${requestDTO.request.name}"/></td>
                 <td><c:out value="${requestDTO.userName}"/></td>
                 <td><c:out value="${requestDTO.courseName}"/></td>
-                <td><c:out value="${requestDTO.statusName}"/></td>
                 <td>
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="CHANGE_COURSE_STATUS">
@@ -25,5 +33,6 @@
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
 </div>

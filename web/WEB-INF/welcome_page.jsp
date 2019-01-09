@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Courses</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="css/welcome_page.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
 <div id="header">
