@@ -8,25 +8,21 @@
             <td><c:out value="${TASK_NAME}"/></td>
             <td><c:out value="${ASSIGNMENT_DATE}"/></td>
             <td><c:out value="${DEADLINE}"/></td>
+            <td>${STUDENT_NAME}</td>
+            <td>${ANSWER}</td>
+            <td>${MARK}</td>
         </tr>
         </thead>
         <tbody>
         <%--@elvariable id="Tasks" type="java.util.List"--%>
         <c:forEach var="taskDTO" items="${TaskSolutions}" varStatus="i">
-            <tr>
-                <td><c:out value="${taskDTO.task.name}"/></td>
-                <td><c:out value="${taskDTO.task.assignmentDate}"/></td>
-                <td><c:out value="${taskDTO.task.deadline}"/></td>
-            </tr>
-            <tr>
-                <td>${STUDENT_NAME}</td>
-                <td>${ANSWER}</td>
-                <td>${MARK}</td>
-            </tr>
-            <c:forEach var="solution" items="${taskDTO.solutions}" varStatus="i">
+            <c:forEach var="solutionDTO" items="${taskDTO.solutions}">
                 <tr>
-                    <td>${solution.studentId}</td>
-                    <td>${solution.answer}</td>
+                    <td><c:out value="${taskDTO.task.name}"/></td>
+                    <td><c:out value="${taskDTO.task.assignmentDate}"/></td>
+                    <td><c:out value="${taskDTO.task.deadline}"/></td>
+                    <td>${solutionDTO.studentName}</td>
+                    <td>${solutionDTO.solution.answer}</td>
                     <c:if test="${!solution.accepted}">
                         <td>
                             <form action="controller" method="post">
@@ -37,12 +33,6 @@
                                 <input type="number" name="mark"><br>
                                 <input type="submit" value="${SUBMIT}">
                             </form>
-                        </td>
-                    </c:if>
-
-                    <c:if test="${solution.accepted}">
-                        <td>
-                            ${solution.mark}
                         </td>
                     </c:if>
                 </tr>

@@ -36,7 +36,10 @@ public class DisplayStudentPageCommand implements CourseCommand {
 
 
             plannedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));//TODO ASK TEACHER
-            studentCourseList = commonService.findCoursesBy(student.getId(), CourseStatus.ACTIVE.getId());//todo get userId from session
+
+            studentCourseList.addAll(commonService.findCoursesBy(student.getId(), CourseStatus.ACTIVE.getId()));
+            studentCourseList.addAll(commonService.findCoursesBy(student.getId(), CourseStatus.PLANNED.getId()));
+            studentCourseList.addAll(commonService.findCoursesBy(student.getId(), CourseStatus.COMPLETED.getId()));
 
             for (Course course : plannedCourseList) {
                 CourseDTO courseDTO = new CourseDTO();

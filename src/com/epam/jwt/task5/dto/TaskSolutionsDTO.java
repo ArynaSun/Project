@@ -8,14 +8,9 @@ import java.util.List;
 
 public class TaskSolutionsDTO implements Serializable{
     private Task task;
-    private List<Solution> solutions;
+    private List<SolutionDTO> solutions;
 
     public TaskSolutionsDTO() {
-    }
-
-    public TaskSolutionsDTO(Task task, List<Solution> solutions) {
-        this.task = task;
-        this.solutions = solutions;
     }
 
     public Task getTask() {
@@ -26,11 +21,11 @@ public class TaskSolutionsDTO implements Serializable{
         this.task = task;
     }
 
-    public List<Solution> getSolutions() {
+    public List<SolutionDTO> getSolutions() {
         return solutions;
     }
 
-    public void setSolutions(List<Solution> solutions) {
+    public void setSolutions(List<SolutionDTO> solutions) {
         this.solutions = solutions;
     }
 }

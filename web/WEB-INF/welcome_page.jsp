@@ -4,23 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Courses</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/bootstrap.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 </head>
-<body>
+<body >
 <div id="header">
     <jsp:include page="module/header.jsp"/>
 </div>
-<div id="planned_courses">
-    <jsp:include page="module/views/courses_planned.jsp"/>
-</div>
-<hr>
-<div id="login">
-    <jsp:include page="module/forms/login.jsp"/>
-</div>
-<hr/>
-<div id="registration">
-    <jsp:include page="module/forms/registration.jsp"/>
-</div>
+<main role="main" class="container">
+    <div class="jumbotron">
+
+        <div id="planned_courses">
+            <jsp:include page="module/views/courses_planned.jsp"/>
+        </div>
+        <hr>
+        <div  class="text-center" id="login">
+            <jsp:include page="module/forms/login.jsp"/>
+        </div>
+        <hr/>
+        <div id="registration">
+            <jsp:include page="module/forms/registration.jsp"/>
+        </div>
+    </div>
+</main>
 </body>
 </html>

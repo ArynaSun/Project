@@ -5,8 +5,8 @@
     <table>
         <thead>
         <tr>
-        <td><c:out value="${STUDENT_NAME}"/></td>
-        <td><c:out value="${STUDENT_EMAIL}"/></td>
+            <td><c:out value="${STUDENT_NAME}"/></td>
+            <td><c:out value="${STUDENT_EMAIL}"/></td>
         </tr>
         </thead>
         <tbody>
@@ -15,11 +15,13 @@
             <tr>
                 <td><c:out value="${student.name}"/></td>
                 <td><c:out value="${student.email}"/></td>
-                <td>
-                    <a href="http://localhost:8080/controller?command=DISPLAY_STUDENT_INFO_PAGE&student_id=${student.id}">
-                            ${DISPLAY}
-                    </a>
-                </td>
+                <c:if test="${sessionScope.user.roleId != 2}">
+                    <td>
+                        <a href="http://localhost:8080/controller?command=DISPLAY_STUDENT_INFO_PAGE&student_id=${student.id}">
+                                ${DISPLAY}
+                        </a>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
         </tbody>

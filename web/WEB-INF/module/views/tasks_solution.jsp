@@ -35,7 +35,7 @@
                     <td>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="SEND_SOLUTION">
-                            <input type="hidden" name="course_id" value="${Course.id}">
+                            <input type="hidden" name="course_id" value="${Course.course.id}">
                             <input type="hidden" name="task_id" value="${taskDTO.task.id}">
                             <input type="hidden" name="student_id" value="${sessionScope.user.id}">
                             <label>${ANSWER}</label><br>

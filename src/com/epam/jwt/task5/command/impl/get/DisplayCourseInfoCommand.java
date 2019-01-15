@@ -6,6 +6,7 @@ import com.epam.jwt.task5.command.JspAttribute;
 import com.epam.jwt.task5.command.JspPage;
 import com.epam.jwt.task5.command.RequestParameter;
 import com.epam.jwt.task5.dto.CourseDTO;
+import com.epam.jwt.task5.dto.SolutionDTO;
 import com.epam.jwt.task5.dto.TaskSolutionsDTO;
 import com.epam.jwt.task5.service.CommonService;
 import com.epam.jwt.task5.service.ServiceHelper;
@@ -47,7 +48,14 @@ public class DisplayCourseInfoCommand implements CourseCommand {
                     TaskSolutionsDTO dto = new TaskSolutionsDTO();
                     dto.setTask(task);
                     List<Solution> solutionList = commonService.findSolutions(String.valueOf(task.getId()));
-                    dto.setSolutions(solutionList != null ? solutionList : new ArrayList<>());
+                    List<SolutionDTO> solutionDTOList = new ArrayList<>();
+                    for (Solution solution : solutionList) {
+                        SolutionDTO solutionDTO = new SolutionDTO();
+                        solutionDTO.setSolution(solution);
+                        solutionDTO.setStudentName(commonService.findUserById(solution.getStudentId() + "").getName());
+                        solutionDTOList.add(solutionDTO);
+                    }
+                    dto.setSolutions(!solutionDTOList.isEmpty() ? solutionDTOList : new ArrayList<>());
                     taskSolutionsDTOS.add(dto);
                 }
             }
