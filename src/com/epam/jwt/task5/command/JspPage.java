@@ -10,13 +10,13 @@ public class JspPage {
     STUDENT_PAGE = new JspPage(
             "/WEB-INF/student_page.jsp","http://localhost:8080/controller?command=DISPLAY_STUDENT_PAGE"),
     TEACHER_PAGE = new JspPage(
-            "/WEB-INF/teacher_page.jsp","http://localhost:8080/controller?command=DISPLAY_TEACHER_PAGE"),//todo???
+            "/WEB-INF/teacher_page.jsp","http://localhost:8080/controller?command=DISPLAY_TEACHER_PAGE"),
     ADMIN_PAGE = new JspPage(
             "/WEB-INF/admin_page.jsp", "http://localhost:8080/controller?command=DISPLAY_ADMIN_PAGE"),
     ERROR_PAGE = new JspPage(
             "/WEB-INF/error_page.jsp","http://localhost:8080/controller?command=DISPLAY_ERROR_PAGE"),
     COURSE_INFO = new JspPage(
-            "/WEB-INF/course_info.jsp","http://localhost:8080/controller?command=DISPLAY_COURSE_INFO_PAGE"),//todo
+            "/WEB-INF/course_info.jsp","http://localhost:8080/controller?command=DISPLAY_COURSE_INFO_PAGE"),
     STUDENT_INFO = new JspPage(
             "/WEB-INF/student_info.jsp","http://localhost:8080/controller?command=DISPLAY_STUDENT_INFO_PAGE");
     public static final String AND_SYMBOL = "&";

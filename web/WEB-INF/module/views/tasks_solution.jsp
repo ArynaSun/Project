@@ -1,16 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<div id="_tasks">
+<div id="_tasks" class="table-responsive">
     <h3>${TASKS}</h3>
-    <table>
+    <table class="table table-striped table-sm">
         <thead>
         <tr>
-            <td><c:out value="${TASK_NAME}"/></td>
-            <td><c:out value="${ASSIGNMENT_DATE}"/></td>
-            <td><c:out value="${DEADLINE}"/></td>
-            <td><c:out value="${SOLUTION}"/></td>
-            <td><c:out value="${MARK}"/></td>
+            <th><c:out value="${TASK_NAME}"/></th>
+            <th><c:out value="${ASSIGNMENT_DATE}"/></th>
+            <th><c:out value="${DEADLINE}"/></th>
+            <th><c:out value="${SOLUTION}"/></th>
+            <th><c:out value="${MARK}"/></th>
         </tr>
         </thead>
         <tbody>
@@ -19,14 +19,14 @@
                 <td><c:out value="${taskDTO.task.name}"/></td>
                 <td><c:out value="${taskDTO.task.assignmentDate}"/></td>
                 <td><c:out value="${taskDTO.task.deadline}"/></td>
-                <c:forEach var="solution" items="${taskDTO.solutions}" varStatus="i">
-                    <c:if test="${solution.studentId == sessionScope.user.id}">
+                <c:forEach var="solutionDTO" items="${taskDTO.solutions}" varStatus="i">
+                    <c:if test="${solutionDTO.solution.studentId == sessionScope.user.id}">
                         <td>
-                                ${solution.answer}
+                                ${solutionDTO.solution.answer}
                         </td>
                         <td>
-                            <c:if test="${solution.accepted}">
-                                ${solution.mark}
+                            <c:if test="${solutionDTO.solution.accepted}">
+                                ${solutionDTO.solution.mark}
                             </c:if>
                         </td>
                     </c:if>

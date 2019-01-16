@@ -9,7 +9,7 @@ public interface AdminService {
     void addCourse(String name, String description, String teacherId, String subjectId)
             throws ServiceException, ValidationException;
 
-   // void addSubject(String name) throws ServiceException, ValidationException;//todo нет в блокноте
+   // void addSubject(String name) throws ServiceException, ValidationException;
 
     void changeCourseTeacher(String courseId, String teacherId) throws ServiceException, ValidationException;
 

@@ -33,7 +33,7 @@
         </div>
     </c:if>
 
-    <c:if test="${sessionScope.user != null}">
+    <c:if test="${false}">
         <div id="back">
             <jsp:include page="forms/back.jsp"/>
             <hr>

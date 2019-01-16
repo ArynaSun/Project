@@ -1,13 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="_student_reviews">
+<div id="_student_reviews" class="table-responsive">
     <h3>${STUDENT_REVIEW}</h3>
-    <table>
+    <table class="table table-striped table-sm">
         <thead>
-        <td><c:out value="${REVIEW_DESCRIPTION}"/></td>
-        <td><c:out value="${MARK}"/></td>
-        <td><c:out value="${STUDENT_NAME}"/></td>
-        <td><c:out value="${COURSE_NAME}"/></td>
+        <tr>
+            <th><c:out value="${REVIEW_DESCRIPTION}"/></th>
+            <th><c:out value="${MARK}"/></th>
+            <th><c:out value="${STUDENT_NAME}"/></th>
+            <th><c:out value="${COURSE_NAME}"/></th>
+        </tr>
         </thead>
         <tbody>
         <%--@elvariable id="CompletedCourses" type="java.util.List"--%>

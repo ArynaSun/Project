@@ -1,14 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="_teacher_requests">
+<div id="_teacher_requests" class="table-responsive">
     <h3>${REQUESTS_TO_COMPLETE_COURSE}</h3>
-    <table>
+    <table class="table table-striped table-sm">
 
         <thead>
 
         <tr>
-            <td><c:out value="${STUDENT_NAME}"/></td>
-            <td><c:out value="${COURSE_NAME}"/></td>
+            <th><c:out value="${STUDENT_NAME}"/></th>
+            <th><c:out value="${COURSE_NAME}"/></th>
         </tr>
 
         </thead>

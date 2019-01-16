@@ -1,28 +1,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="_teacher_course">
-    <h3>${COURSE_OF_TEACHER}</h3>
-    <table>
-
+<div id="_teacher_course" class="table-responsive">
+    <h3>${COURSES_OF_TEACHER}</h3>
+    <table class="table table-striped table-sm">
         <thead>
         <tr>
-            <td>${COURSE_NAME}</td>
-            <td>${COURSE_DESCRIPTION}</td>
-            <td>${SUBJECT}</td>
+            <th>${COURSE_NAME}</th>
+            <th>${COURSE_DESCRIPTION}</th>
+            <th>${SUBJECT}</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><c:out value="${CourseOfTeacher.course.name}"/></td>
-            <td><c:out value="${CourseOfTeacher.course.description}"/></td>
-            <td><c:out value="${CourseOfTeacher.subjectName}"/></td>
-            <td>
-                <a class="link-course"
-                   href="http://localhost:8080/controller?command=DISPLAY_COURSE_INFO_PAGE&course_id=${CourseOfTeacher.course.id}">
-                    ${DISPLAY}
-                </a>
-            </td>
-        </tr>
+        <c:forEach var="courseDTO" items="${CoursesOfTeacher}">
+            <tr>
+                <td><c:out value="`${courseDTO.course.name}"/></td>
+                <td><c:out value="${courseDTO.course.description}"/></td>
+                <td><c:out value="${courseDTO.subjectName}"/></td>
+                <td>
+                    <a class="link-course"
+                       href="http://localhost:8080/controller?command=DISPLAY_COURSE_INFO_PAGE&course_id=${courseDTO.course.id}">
+                            ${DISPLAY}
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </div>

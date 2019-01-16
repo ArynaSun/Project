@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="_student_info">
+<div id="_student_info" class="table-responsive">
     <h3>${STUDENT}</h3>
-    <table>
+    <table class="table table-striped table-sm">
         <thead>
         <tr>
-            <td><c:out value="${STUDENT_NAME}"/></td>
-            <td><c:out value="${STUDENT_EMAIL}"/></td>
+            <th><c:out value="${STUDENT_NAME}"/></th>
+            <th><c:out value="${STUDENT_EMAIL}"/></th>
         </tr>
         </thead>
         <tbody>

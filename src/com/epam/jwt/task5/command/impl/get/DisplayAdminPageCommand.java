@@ -46,11 +46,8 @@ public class DisplayAdminPageCommand implements CourseCommand {
 
         try {
             activeCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.ACTIVE.getId()));
-            //TODO ASK TEACHER
             plannedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));
-            //TODO ASK TEACHER
             completedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.COMPLETED.getId()));
-            //TODO ASK TEACHER
             teacherList = commonService.findUsersByRoleId(String.valueOf(Role.TEACHER.getId()));
 
             studentRequestList = commonService.findRequests(String.valueOf(Role.STUDENT.getId()),

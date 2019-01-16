@@ -15,9 +15,9 @@ public interface CommonService {
 
     List<Course> findCoursesByStatusId(String statusId) throws ServiceException, ValidationException;
 
-    List<Course> findCoursesBy(int studentId, int statusId) throws ServiceException, ValidationException;//todo rewrite
+    List<Course> findCoursesBy(int studentId, int statusId) throws ServiceException, ValidationException;
 
-    Course findCourseByTeacherId(int teacherId) throws ServiceException, ValidationException;//todo rewrite
+    List<Course> findCoursesByTeacherId(int teacherId) throws ServiceException, ValidationException;
 
     Course findCourse(String courseId) throws ServiceException, ValidationException;
 
@@ -31,7 +31,7 @@ public interface CommonService {
 
     List<Request> findRequests(String roleId, String requestStatusId) throws ServiceException, ValidationException;
 
-    List<Review> findReview(String studentId) throws ServiceException, ValidationException;//todo
+    List<Review> findReview(String studentId) throws ServiceException, ValidationException;
 
     User findUserBy(String email, String password) throws ServiceException, ValidationException;
 

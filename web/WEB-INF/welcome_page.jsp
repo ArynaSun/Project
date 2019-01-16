@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib uri="/WEB-INF/tag/courses.tld" prefix="courses" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -29,5 +30,6 @@
         </div>
     </div>
 </main>
+<courses:footer/>
 </body>
 </html>

@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
             BaseDao<User, ?> userDao = DaoHelper.getUserDao();
             User user = userDao.readBy(SpecificationFactory.userByEmail(email));
             if (user != null) {
-                throw new ValidationException(ValidationMessageKey.USER_EXISTS_MESSAGE);
+                throw new ValidationException(PropertyHelper.receiveMessage(ValidationMessageKey.USER_EXISTS_MESSAGE));
             }
             user = new User();
 
@@ -64,12 +64,12 @@ public class StudentServiceImpl implements StudentService {
         solution.setStudentId(Integer.parseInt(studentId));
         solution.setTaskId(Integer.parseInt(taskId));
         solution.setAnswer(answer);
-        solution.setAttachments(attachments);//todo should be null
+        solution.setAttachments(attachments);
 
         try {
             solutionDao.create(solution);
         } catch (DaoException e) {
-            throw new ServiceException(e);//todo mes
+            throw new ServiceException(e);
         }
     }
 

@@ -17,7 +17,7 @@ public interface JspAttribute {
     String TASK_SOLUTIONS = "TaskSolutions";
     String COURSE = "Course";
     String TASKS = "Tasks";
-    String COURSE_OF_TEACHER = "CourseOfTeacher";
+    String COURSES_OF_TEACHER = "CoursesOfTeacher";
     String SUBJECTS = "Subjects";
     String COURSE_STATUSES = "CourseStatuses";
 }

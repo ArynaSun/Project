@@ -23,7 +23,10 @@ public interface CourseCommand {
     JspPage execute(HttpServletRequest request, HttpServletResponse response);
 
     default void initCourseDTO(List<Course> activeCourseList, List<CourseDTO> plannedCourseListDTO,
-                               CommonService commonService) throws ServiceException, ValidationException {//todo com serv
+                               CommonService commonService) throws ServiceException, ValidationException {
+        if (activeCourseList == null || plannedCourseListDTO == null){
+            return;
+        }
         for (Course course : activeCourseList) {
             CourseDTO courseDTO = new CourseDTO();
 
@@ -41,8 +44,8 @@ public interface CourseCommand {
             RequestDTO requestDTO = new RequestDTO();
 
             requestDTO.setRequest(request);
-            requestDTO.setCourseName(commonService.findCourse(request.getCourseId()+"").getName());
-            requestDTO.setUserName(commonService.findUserById(request.getUserId()+"").getName());//todo value of
+            requestDTO.setCourseName(commonService.findCourse(String.valueOf(request.getCourseId())).getName());
+            requestDTO.setUserName(commonService.findUserById(String.valueOf(request.getUserId())).getName());
 
 
             for (RequestStatus requestStatus : RequestStatus.values()) {

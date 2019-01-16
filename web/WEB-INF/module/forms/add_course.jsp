@@ -11,9 +11,11 @@
             <input type="text" name="course_description"><br>
         </div>
         <div id="select_subjects">
+            <label>${SUBJECT}</label>
             <jsp:include page="../views/select_subjects.jsp"/>
         </div>
         <div id="select_teachers">
+            <label>${TEACHER}</label>
             <jsp:include page="../views/select_teachers.jsp"/>
         </div>
         <input type="submit" value="${SUBMIT}"><br>

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="courses" uri="/WEB-INF/tag/courses.tld" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -22,10 +24,13 @@
         <div id="active_courses">
             <jsp:include page="module/views/courses_active.jsp"/>
         </div>
-        <div id="teacher_course">
-            <jsp:include page="module/views/card_teacher_course.jsp"/>
-        </div>
+        <c:if test="${fn:length(CoursesOfTeacher) != 0}">
+            <div id="teacher_course">
+                <jsp:include page="module/views/card_teacher_course.jsp"/>
+            </div>
+        </c:if>
     </div>
 </main>
+<courses:footer/>
 </body>
 </html>

@@ -59,7 +59,7 @@ public class ConnectionPool {
         }
     }
 
-    private void clearConnectionQueue() throws ConnectionException {//TODO private/public
+    private void clearConnectionQueue() throws ConnectionException {
         Connection connection = null;
         while ( (connection = freeConnections.poll()) !=null){
             try {

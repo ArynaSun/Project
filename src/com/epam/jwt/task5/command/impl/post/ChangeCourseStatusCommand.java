@@ -29,7 +29,7 @@ public class ChangeCourseStatusCommand implements CourseCommand {
 
         JspPage jspPage;
 
-        try {//todo add transaction
+        try {
             adminService.changeCourseStatus(courseId,statusId);
             if (requestId != null && !requestId.isEmpty()) {
                 adminService.changeRequestStatus(requestId, String.valueOf(RequestStatus.IS_ACCEPTED.getId()));

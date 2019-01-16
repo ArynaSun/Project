@@ -1,14 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="_course_info">
+<div id="_course_info" class="table-responsive">
     <h3>${COURSE_DATA}</h3>
-    <table>
+    <table class="table table-striped table-sm">
         <thead>
         <tr>
-            <td>${COURSE_NAME}</td>
-            <td>${COURSE_DESCRIPTION}</td>
-            <td>${TEACHER}</td>
-            <td>${SUBJECT}</td>
+            <th>${COURSE_NAME}</th>
+            <th>${COURSE_DESCRIPTION}</th>
+            <th>${TEACHER}</th>
+            <th>${SUBJECT}</th>
         </tr>
         </thead>
         <%--@elvariable id="CompletedCourses" type="java.util.List"--%>

@@ -46,7 +46,7 @@ public class DisplayStudentInfoCommand implements CourseCommand {
 
             map.put(RequestParameter.STUDENT_ID, studentId);
 
-            reviewList = commonService.findReview(studentId);//TODO ASK TEACHER
+            reviewList = commonService.findReview(studentId);
             completedStudentCourseList = commonService.findCoursesBy(user.getId(), CourseStatus.COMPLETED.getId());
 
             initReviewDTO(reviewList, reviewListDTO, commonService);

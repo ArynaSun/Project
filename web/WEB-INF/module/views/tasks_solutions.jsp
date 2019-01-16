@@ -1,16 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="_tasks">
+<div id="_tasks" class="table-responsive">
     <h3>${TASKS}</h3>
-    <table>
+    <table class="table table-striped table-sm">
         <thead>
         <tr>
-            <td><c:out value="${TASK_NAME}"/></td>
-            <td><c:out value="${ASSIGNMENT_DATE}"/></td>
-            <td><c:out value="${DEADLINE}"/></td>
-            <td>${STUDENT_NAME}</td>
-            <td>${ANSWER}</td>
-            <td>${MARK}</td>
+            <th><c:out value="${TASK_NAME}"/></th>
+            <th><c:out value="${ASSIGNMENT_DATE}"/></th>
+            <th><c:out value="${DEADLINE}"/></th>
+            <th>${STUDENT_NAME}</th>
+            <th>${ANSWER}</th>
+            <th>${MARK}</th>
         </tr>
         </thead>
         <tbody>
@@ -23,17 +23,19 @@
                     <td><c:out value="${taskDTO.task.deadline}"/></td>
                     <td>${solutionDTO.studentName}</td>
                     <td>${solutionDTO.solution.answer}</td>
-                    <c:if test="${!solution.accepted}">
+                    <c:if test="${!solutionDTO.solution.accepted && sessionScope.user.id == Course.course.teacherId}">
                         <td>
                             <form action="controller" method="post">
                                 <input type="hidden" name="command" value="CHECK_SOLUTION">
                                 <input type="hidden" name="course_id" value="${Course.course.id}">
-                                <input type="hidden" name="solution_id" value="${solution.id}">
-                                <label>${MARK}</label><br>
+                                <input type="hidden" name="solution_id" value="${solutionDTO.solution.id}">
                                 <input type="number" name="mark"><br>
                                 <input type="submit" value="${SUBMIT}">
                             </form>
                         </td>
+                    </c:if>
+                    <c:if test="${solutionDTO.solution.accepted}">
+                        <td>${solutionDTO.solution.mark}</td>
                     </c:if>
                 </tr>
             </c:forEach>

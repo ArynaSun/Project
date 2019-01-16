@@ -1,5 +1,11 @@
 package com.epam.jwt.task5.controller;
 
+/**
+ * Is used to keep keys for
+ * service words
+ * By that keys you can find a word
+ * in different languages in property files
+ */
 public enum ServiceWordsKey {
     SUBMIT,
     DISPLAY,
@@ -19,7 +25,7 @@ public enum ServiceWordsKey {
     PLANNED_COURSES_LABEL,
     ACTIVE_COURSES_LABEL,
     COMPLETED_COURSES_LABEL,
-    COURSE_OF_TEACHER,
+    COURSES_OF_TEACHER,
     STUDENT_COURSES,
 
     TEACHERS,

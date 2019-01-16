@@ -118,7 +118,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public Course findCourseByTeacherId(int teacherId) throws ServiceException, ValidationException {
+    public List<Course> findCoursesByTeacherId(int teacherId) throws ServiceException, ValidationException {
         List<Course> courseList = null;
 
 //        ValidationResult result = commonServiceValidator.validateId(teacherId);
@@ -133,7 +133,7 @@ public class CommonServiceImpl implements CommonService {
             throw new ServiceException(e);//todo mes
         }
 
-        return !courseList.isEmpty() ? courseList.get(0) : null;
+        return !courseList.isEmpty() ? courseList : null;
     }
 
     @Override
@@ -214,7 +214,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<Request> findRequests(String roleId) throws ServiceException, ValidationException {//todo validator?
+    public List<Request> findRequests(String roleId) throws ServiceException, ValidationException {
         List<Request> requestList = null;
 
         ValidationResult result = commonServiceValidator.validateId(roleId);
@@ -276,10 +276,10 @@ public class CommonServiceImpl implements CommonService {
         try {
             User user = userDao.readBy(SpecificationFactory.userByEmail(email));
             if (user == null){
-                throw new ValidationException(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_EMAIL)); //todo hardcode to property helper
+                throw new ValidationException(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_EMAIL));
             }
             if (!user.getPassword().equals(password)){
-                throw new ValidationException(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_PASSWORD)); //todo hardcode to property helper
+                throw new ValidationException(PropertyHelper.receiveMessage(ValidationMessageKey.INVALID_PASSWORD));
             }
             return user;
         } catch (DaoException e) {

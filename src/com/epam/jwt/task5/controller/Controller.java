@@ -16,10 +16,21 @@ import java.io.IOException;
 
 import static com.epam.jwt.task5.command.RequestParameter.COMMAND;
 
+/**
+ * @version 1
+ * A Controller instance handle http requests
+ * Now GET and POST methods are implemented
+ */
 public class Controller extends HttpServlet {
 
     private static Logger logger = LogManager.getLogger(Controller.class);
 
+    /**
+     That method is used to
+     handle POST requests
+     @param request - HttpRequest
+     @param response - HttpResponse
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String command = request.getParameter(COMMAND);
@@ -43,6 +54,12 @@ public class Controller extends HttpServlet {
         }
     }
 
+    /**
+     That method is used to
+     handle GET requests
+     @param request - HttpRequest
+     @param response - HttpResponse
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String command = request.getParameter(COMMAND);

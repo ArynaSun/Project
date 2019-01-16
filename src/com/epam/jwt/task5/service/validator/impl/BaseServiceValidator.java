@@ -56,7 +56,7 @@ public class BaseServiceValidator implements UserValidator {
         return result;
     }
 
-    public ValidationResult validateRequestData(String name, String userId, String courseId) {//todo не должно быть у админа
+    public ValidationResult validateRequestData(String name, String userId, String courseId) {
         ValidationResult result = new ValidationResult();
         if (!validateName(name)){
             result.setValid(false);

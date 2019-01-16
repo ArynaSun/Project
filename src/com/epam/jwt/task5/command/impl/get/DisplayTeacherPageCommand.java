@@ -32,51 +32,25 @@ public class DisplayTeacherPageCommand implements CourseCommand {
         List<Course> activeCourseList = new ArrayList<>();
         List<CourseDTO> activeCourseDTOList = new ArrayList<>();
 
-        Course courseOfTeacher;
-        CourseDTO courseOfTeacherDTO;
+        List<CourseDTO> coursesOfTeacherDTO = new ArrayList<>();
+        List<Course> coursesOfTeacher;
 
         CommonService commonService = ServiceHelper.getCommonService();
         try {
             User user = (User) request.getSession().getAttribute(SessionAttribute.USER);
-            plannedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));//TODO ASK TEACHER
-            activeCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.ACTIVE.getId()));//TODO ASK TEACHER
-            courseOfTeacher = commonService.findCourseByTeacherId(user.getId());
+            plannedCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.PLANNED.getId()));
+            activeCourseList = commonService.findCoursesByStatusId(String.valueOf(CourseStatus.ACTIVE.getId()));
+            coursesOfTeacher = commonService.findCoursesByTeacherId(user.getId());
 
-            for (Course course : plannedCourseList) {
-                CourseDTO courseDTO = new CourseDTO();
+            initCourseDTO(plannedCourseList, plannedCourseDTOList, commonService);
 
-                courseDTO.setCourse(course);
-                courseDTO.setTeacherName(commonService.findUserById(String.valueOf(course.getTeacherId())).getName());
-                courseDTO.setSubjectName(commonService.findSubjectById(String.valueOf(course.getSubjectId())).getName());
+            initCourseDTO(activeCourseList, activeCourseDTOList, commonService);
 
-                plannedCourseDTOList.add(courseDTO);
-            }
-
-            for (Course course : activeCourseList) {
-                CourseDTO courseDTO = new CourseDTO();
-
-                courseDTO.setCourse(course);
-                courseDTO.setSubjectName(commonService.findSubjectById(String.valueOf(course.getSubjectId())).getName());
-                courseDTO.setTeacherName(commonService.findUserById(String.valueOf(course.getTeacherId())).getName());
-
-                activeCourseDTOList.add(courseDTO);
-            }
-
-            if (courseOfTeacher != null) {
-                courseOfTeacherDTO = new CourseDTO();
-                courseOfTeacherDTO.setCourse(courseOfTeacher);
-                courseOfTeacherDTO.setSubjectName(
-                        commonService.findSubjectById(String.valueOf(courseOfTeacher.getSubjectId())).getName());
-                courseOfTeacherDTO.setTeacherName(commonService.findUserById(
-                        String.valueOf(courseOfTeacher.getTeacherId())).getName());
-            } else {
-                courseOfTeacherDTO = new CourseDTO();
-                courseOfTeacherDTO.setCourse(new Course());
-            }
+            initCourseDTO(coursesOfTeacher, coursesOfTeacherDTO, commonService);
 
             request.setAttribute(JspAttribute.PLANNED_COURSES, plannedCourseDTOList);
             request.setAttribute(JspAttribute.ACTIVE_COURSES, activeCourseDTOList);
-            request.setAttribute(JspAttribute.COURSE_OF_TEACHER, courseOfTeacherDTO);
+            request.setAttribute(JspAttribute.COURSES_OF_TEACHER, coursesOfTeacherDTO);
         } catch (ServiceException e) {
             logger.error(LOG_ERROR_MESSAGE, e);
             return JspPage.ERROR_PAGE;

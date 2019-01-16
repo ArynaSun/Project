@@ -45,7 +45,7 @@ public class TeacherServiceValidatorImpl extends BaseServiceValidator implements
 
         if (!validateDescription(description)){
             result.setValid(false);
-            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.NOT_VALID_DESCRIPTION_MESSAGE));//TODO
+            result.addMessage(PropertyHelper.receiveMessage(ValidationMessageKey.NOT_VALID_DESCRIPTION_MESSAGE));
         }
 
         return result;

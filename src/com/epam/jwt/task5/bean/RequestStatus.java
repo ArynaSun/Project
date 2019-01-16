@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public enum RequestStatus implements Serializable{
 
-    IS_ACCEPTED(1, "Одобрена"), IS_REJECTED(2, "Отклонена"), SENT(3, "Отправлена") ;//todo is reg?
+    IS_ACCEPTED(1, "Одобрена"), IS_REJECTED(2, "Отклонена"), SENT(3, "Отправлена") ;
 
     private final int id;
     private final String name;
